@@ -1,0 +1,80 @@
+{
+  "name": "medapp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+  },
+  "dependencies": {
+    "@react-aria/utils": "^3.8.2",
+    "@react-native-async-storage/async-storage": "^1.15.6",
+    "@react-native-clipboard/clipboard": "^1.8.4",
+    "@react-native-firebase/app": "^12.7.1",
+    "@react-native-firebase/auth": "^12.7.1",
+    "@react-navigation/drawer": "^6.1.0",
+    "@react-navigation/material-top-tabs": "^6.0.2",
+    "@react-navigation/native": "^6.0.2",
+    "@react-navigation/stack": "^6.0.2",
+    "@twotalltotems/react-native-otp-input": "^1.3.11",
+    "axios": "^0.21.1",
+    "firebase": "8.2.3",
+    "lottie-react-native": "^4.0.3",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-native": "0.64.1",
+    "react-native-animatable": "^1.3.3",
+    "react-native-button-toggle-group": "^1.1.1",
+    "react-native-elements": "^3.4.2",
+    "react-native-gesture-handler": "~1.10.2",
+    "react-native-otp-input-view": "^1.0.2",
+    "react-native-otp-inputs": "^7.0.3",
+    "react-native-pager-view": "5.0.12",
+    "react-native-razorpay": "^2.2.7",
+    "react-native-reanimated": "~2.2.0",
+    "react-native-safe-area-context": "^3.3.0",
+    "react-native-screens": "~3.4.0",
+    "react-native-snap-carousel": "^3.9.1",
+    "react-native-svg": "^12.1.1",
+    "react-native-tab-view": "^3.1.1",
+    "react-native-unimodules": "~0.14.5",
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-web": "^0.17.1",
+    "react-native-webview": "11.6.2",
+    "styled-components": "^5.3.0",
+    "styled-system": "^5.1.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@types/jest": "^26.0.23",
+    "@types/react-native": "^0.64.5",
+    "@types/react-test-renderer": "^16.9.2",
+    "@types/react-native-vector-icons": "^6.4.8",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.14.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.66.0",
+    "react-native-codegen": "^0.0.7",
+    "react-test-renderer": "17.0.2",
+    "typescript": "^3.8.3"
+  },
+  "resolutions": {
+    "@types/react": "^17"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
