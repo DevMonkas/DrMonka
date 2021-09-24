@@ -1,4 +1,4 @@
-package com.medapp;
+package com.MedApp;
 
 import com.facebook.react.ReactActivity;
 

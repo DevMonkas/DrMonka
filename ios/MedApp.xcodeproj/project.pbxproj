@@ -11,10 +11,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		7754C9567EB84F18AC68FF8E /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D6E84492F8F493CABA307D1 /* Poppins-Regular.ttf */; };
 		79A02D94DE2C4ACCA11A1F6C /* libPods-MedApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEFBBA3942D1C9FF3BBB8A58 /* libPods-MedApp.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A190893C6110A41CDAEBCD4C /* libPods-MedApp-MedAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDB5AE060F0F37B3657D6FC8 /* libPods-MedApp-MedAppTests.a */; };
-		7754C9567EB84F18AC68FF8E /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D6E84492F8F493CABA307D1 /* Poppins-Regular.ttf */; };
 		BB05831D3BA5449D860965F6 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E25038996EF14674A9C690FA /* Roboto-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +44,7 @@
 		21689FF8B9BB4BDC8DCD7363 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		337DD3677C70443180D0C5E5 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		3BBEAB8B3E604E74BA4F117B /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		5D6E84492F8F493CABA307D1 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		7494167B556B4F4E8D4E60CA /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		7D34CBF14B1D119F28FBC779 /* Pods-MedApp-MedAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MedApp-MedAppTests.debug.xcconfig"; path = "Target Support Files/Pods-MedApp-MedAppTests/Pods-MedApp-MedAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7E85DB6E538D4B63A410CD12 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -59,11 +60,10 @@
 		D19B46B922A54BADA800C8B7 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		D79D90C9634B4433A0F48DE3 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		DDB5AE060F0F37B3657D6FC8 /* libPods-MedApp-MedAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MedApp-MedAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E25038996EF14674A9C690FA /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F1A999F2D8D1C7BC50598BDC /* Pods-MedApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MedApp.release.xcconfig"; path = "Target Support Files/Pods-MedApp/Pods-MedApp.release.xcconfig"; sourceTree = "<group>"; };
 		F4E4E10614779949D8E2C30C /* Pods-MedApp-MedAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MedApp-MedAppTests.release.xcconfig"; path = "Target Support Files/Pods-MedApp-MedAppTests/Pods-MedApp-MedAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		5D6E84492F8F493CABA307D1 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E25038996EF14674A9C690FA /* Roboto-Regular.ttf */ = {isa = PBXFileReference; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
