@@ -7291,10 +7291,10 @@
   dependencies:
     "lodash" "^4.17.15"
 
-"react-native-razorpay@^2.2.7":
-  "integrity" "sha512-5TxqYCsWN93NmxZtba4WX+W5mk44ErST1UfsTxtNp2Mp0stTkg6azQX1J6Y+zCDhzRcxwW3j0TN1v2CdNy4Jrw=="
-  "resolved" "https://registry.npmjs.org/react-native-razorpay/-/react-native-razorpay-2.2.7.tgz"
-  "version" "2.2.7"
+"react-native-razorpay@^2.2.8":
+  "integrity" "sha512-rq75oN5ENvRvlpq3rtVA52JEXAD68lj4tlZH1CHtnhZUxSd6mljwEZl3y41QVNY8f4+XbpQhx8XHFTF4Azq8fg=="
+  "resolved" "https://registry.npmjs.org/react-native-razorpay/-/react-native-razorpay-2.2.8.tgz"
+  "version" "2.2.8"
 
 "react-native-reanimated@>= 1.0.0", "react-native-reanimated@~2.2.0":
   "integrity" "sha512-lOJDd+5w1gY6DHGXG2jD1dsjzQmXQ2699HUc3IztvI2WP4zUT+UAA+zSG+5JiBS5DUnTL8YhhkmUQmr1KNGO5w=="

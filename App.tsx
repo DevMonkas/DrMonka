@@ -43,16 +43,17 @@ export default function App() {
   const onPressLearnMore = () => {};
   return (
     <SafeAreaProvider>
-      {/* <LoadingProvider>
+      <LoadingProvider>
         <AuthProvider>
           <StatusBar hidden={false} animated />
           <NavigationContainer>
-            <ScreenNavigation viewedOnboarding={viewedOnboarding} />
+            {/* <ScreenNavigation viewedOnboarding={viewedOnboarding} /> */}
             <LoadingDialog />
+            <VideoCall />
           </NavigationContainer>
         </AuthProvider>
-      </LoadingProvider> */}
-      <VideoCall />
+      </LoadingProvider>
+
       {/* <SignUp></SignUp> */}
     </SafeAreaProvider>
   );
