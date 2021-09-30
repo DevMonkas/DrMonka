@@ -33,7 +33,7 @@
     "react-native-otp-input-view": "^1.0.2",
     "react-native-otp-inputs": "^7.0.3",
     "react-native-pager-view": "5.0.12",
-    "react-native-razorpay": "^2.2.7",
+    "react-native-razorpay": "^2.2.8",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "^3.3.0",
     "react-native-screens": "~3.4.0",

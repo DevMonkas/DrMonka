@@ -10,11 +10,13 @@ import {
   mediaDevices,
   registerGlobals,
 } from 'react-native-webrtc';
+import PrimaryButton from '../../components/atoms/PrimaryButton/PrimaryButton';
+import PrimaryInput from '../../components/atoms/PrimaryInput/PrimaryInput';
 import appTheme from '../../constants/theme';
 let peerConnection: RTCPeerConnection;
 const io = require('socket.io-client');
 const socket = io(
-  'https://fbfd-2405-201-19-30c5-b092-e4de-a678-fe11.ngrok.io',
+  'https://ea63-2405-201-19-30c5-b092-e4de-a678-fe11.ngrok.io',
   {jsonp: false},
 );
 export default function VideoCall() {
@@ -56,7 +58,7 @@ export default function VideoCall() {
       });
     // });
   };
-  async function handleVideoAnswer(data: any) {
+  const handleVideoAnswer = async (data: any) => {
     console.log(data);
     console.log(peerConnection);
     // var desc = new RTCSessionDescription(data.sdp);
@@ -65,7 +67,7 @@ export default function VideoCall() {
     //   .catch((err) => console.warn(err));
     var desc = new RTCSessionDescription(data.sdp);
     await peerConnection.setRemoteDescription(desc);
-  }
+  };
 
   const handleVideoOffer = async (data: any) => {
     console.log(data);
@@ -159,9 +161,9 @@ export default function VideoCall() {
     };
     // peerConnection.onnegotiationneeded = handleNegotiationNeededEvent;
   };
-  const makeCall = async (event: any) => {
-    event.preventDefault();
+  const makeCall = async () => {
     var callToUsername = remoteId;
+    console.log(remoteId);
     if (callToUsername.length > 0) {
       // if (peerConnection) {
       //   console.warn("Already in call");
@@ -203,23 +205,60 @@ export default function VideoCall() {
     }
   };
   return (
-    <View>
-      <Text>{socketID}</Text>
-      <RTCView
-        key={2}
-        mirror={true}
-        style={{...styles.rtcViewRemote}}
-        objectFit="contain"
-        streamURL={localStream.toURL()}
-      />
-      <RTCView streamURL={remoteStream && remoteStream.toURL()} />
+    <View style={{...styles.container}}>
+      <Text style={{}}>{socketID}</Text>
+      <View>
+        <RTCView
+          key={2}
+          mirror={true}
+          style={{...styles.rtcViewLocal}}
+          objectFit="contain"
+          streamURL={localStream.toURL()}
+        />
+      </View>
+      <View>
+        <RTCView
+          key={2}
+          mirror={true}
+          style={{...styles.rtcViewRemote}}
+          objectFit="contain"
+          streamURL={remoteStream && remoteStream.toURL()}
+        />
+      </View>
+      <View style={{width: '100%'}}>
+        <PrimaryInput
+          handleText={setRemoteId}
+          text={remoteId}
+          marginTop="5"
+          keyboardType="ascii-capable"
+          width="100%"
+          placeHoldText="Remote ID"></PrimaryInput>
+      </View>
+      <View>
+        <PrimaryButton
+          onPress={() => {
+            makeCall();
+          }}
+          text={'Call'}></PrimaryButton>
+      </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
+  rtcViewLocal: {
+    width: appTheme.SIZES.width - 30,
+    height: 200, //dimensions.height / 2,
+    backgroundColor: 'red',
+  },
   rtcViewRemote: {
     width: appTheme.SIZES.width - 30,
     height: 200, //dimensions.height / 2,
-    backgroundColor: 'black',
+    backgroundColor: 'green',
+  },
+  container: {
+    flex: 1,
+    height: appTheme.SIZES.height,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
