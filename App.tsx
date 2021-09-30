@@ -16,6 +16,7 @@ import {LoadingDialog} from './src/components/Molecules/LoadingDialog/LoadingDia
 import {LoadingProvider} from './src/shared/LoadingProvider';
 import {LoadingContext} from './src/shared/LoadingProvider';
 import {AuthProvider} from './src/shared/AuthProvider';
+import VideoCall from './src/pages/VideoCall/VideoCall';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -42,7 +43,7 @@ export default function App() {
   const onPressLearnMore = () => {};
   return (
     <SafeAreaProvider>
-      <LoadingProvider>
+      {/* <LoadingProvider>
         <AuthProvider>
           <StatusBar hidden={false} animated />
           <NavigationContainer>
@@ -50,8 +51,8 @@ export default function App() {
             <LoadingDialog />
           </NavigationContainer>
         </AuthProvider>
-      </LoadingProvider>
-
+      </LoadingProvider> */}
+      <VideoCall />
       {/* <SignUp></SignUp> */}
     </SafeAreaProvider>
   );
