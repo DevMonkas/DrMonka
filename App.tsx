@@ -17,6 +17,7 @@ import {LoadingProvider} from './src/shared/LoadingProvider';
 import {LoadingContext} from './src/shared/LoadingProvider';
 import {AuthProvider} from './src/shared/AuthProvider';
 import VideoCall from './src/pages/VideoCall/VideoCall';
+import Chat from './src/pages/Chat/Chat';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -47,9 +48,8 @@ export default function App() {
         <AuthProvider>
           <StatusBar hidden={false} animated />
           <NavigationContainer>
-            {/* <ScreenNavigation viewedOnboarding={viewedOnboarding} /> */}
+            <ScreenNavigation viewedOnboarding={viewedOnboarding} />
             <LoadingDialog />
-            <VideoCall />
           </NavigationContainer>
         </AuthProvider>
       </LoadingProvider>
