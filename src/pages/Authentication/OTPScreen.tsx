@@ -3,7 +3,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PrimaryInput from '../../components/atoms/PrimaryInput/PrimaryInput';
 import PrimaryButton from '../../components/atoms/PrimaryButton/PrimaryButton';
-import {Image, Linking, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  Linking,
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {OTPIcon} from '../../../assets/index.js';
 import {useEffect} from 'react';
 import OtpInputs from 'react-native-otp-inputs';
@@ -32,7 +40,17 @@ export default function OTPScreen({navigation, route}: any) {
       const credential = await confirmation.confirm(otp);
       let token = await credential?.user.getIdToken();
 
-      const res = await checkAuth(token!);
+      // const res = await checkAuth(token!);
+      const res = {
+        data: {
+          userExists: true,
+          _id: 'something',
+          phone: '',
+          name: '',
+          dob: '',
+          gender: '',
+        },
+      };
       console.log('xoxox', res.data);
       console.log('---->', res.data.userExists);
       if (res.data.userExists == false) {
@@ -44,7 +62,7 @@ export default function OTPScreen({navigation, route}: any) {
         setLoading(false);
         navigation.navigate('DrawerScreen');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setLoading(false);
       setError(err?.message);
@@ -52,65 +70,69 @@ export default function OTPScreen({navigation, route}: any) {
   };
   return (
     <View style={styles.container}>
-      <Image
-        source={OTPIcon}
-        style={[styles.logo, {width: SIZES.width, resizeMode: 'contain'}]}
-      />
-
-      <View style={styles.center}>
-        <Text style={[styles.heading, FONTS.secondaryFam]}>
-          Enter the 4 digit OTP sent to
-        </Text>
-        <Text style={styles.subHeading}>{route.params?.phone}</Text>
-        <View>
-          <View style={{height: 100}}>
-            <OtpInputs
-              textAlign="center"
-              inputStyles={styles.otp}
-              inputContainerStyles={styles.otpContainer}
-              autofillFromClipboard={false}
-              handleChange={code => setOTP(code)}
-              numberOfInputs={6}
-            />
-          </View>
-        </View>
-        <Text
-          style={
-            err
-              ? {
-                  display: 'flex',
-                  color: 'red',
-                  fontSize: 12,
-                  marginBottom: 10,
-                  textAlign: 'left',
-                }
-              : {display: 'none'}
-          }>
-          An error Occurred
-        </Text>
-      </View>
-
-      <View style={styles.center}>
-        <PrimaryButton
-          disable={otp.length != 6}
-          text="VERIFY"
-          onPress={async () => {
-            verifyOTP()
-              .then(data => {
-                console.log(data);
-              })
-              .catch(err => {
-                console.error(err);
-              });
-          }}
-          customCls={{width: '50%'}}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
+        <Image
+          source={OTPIcon}
+          style={[styles.logo, {width: SIZES.width, resizeMode: 'contain'}]}
         />
-      </View>
-      {/* <FirebaseRecaptchaVerifierModal
+
+        <View style={styles.center}>
+          <Text style={[styles.heading, FONTS.secondaryFam]}>
+            Enter the 4 digit OTP sent to
+          </Text>
+          <Text style={styles.subHeading}>{route.params?.phone}</Text>
+          <View>
+            <View style={{height: 100}}>
+              <OtpInputs
+                textAlign="center"
+                inputStyles={styles.otp}
+                inputContainerStyles={styles.otpContainer}
+                autofillFromClipboard={false}
+                handleChange={code => setOTP(code)}
+                numberOfInputs={6}
+              />
+            </View>
+          </View>
+          <Text
+            style={
+              err
+                ? {
+                    display: 'flex',
+                    color: 'red',
+                    fontSize: 12,
+                    marginBottom: 10,
+                    textAlign: 'left',
+                  }
+                : {display: 'none'}
+            }>
+            An error Occurred
+          </Text>
+        </View>
+
+        <View style={styles.center}>
+          <PrimaryButton
+            disable={otp.length != 6}
+            text="VERIFY"
+            onPress={async () => {
+              verifyOTP()
+                .then(data => {
+                  console.log(data);
+                })
+                .catch(err => {
+                  console.error(err);
+                });
+            }}
+            customCls={{width: '50%'}}
+          />
+        </View>
+        {/* <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifier}
         firebaseConfig={firebaseConfig}
         attemptInvisibleVerification={attemptInvisibleVerification}
       /> */}
+      </KeyboardAvoidingView>
     </View>
   );
 }

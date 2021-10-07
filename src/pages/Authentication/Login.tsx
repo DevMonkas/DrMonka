@@ -3,7 +3,15 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import PrimaryInput from '../../components/atoms/PrimaryInput/PrimaryInput';
 import PrimaryButton from '../../components/atoms/PrimaryButton/PrimaryButton';
-import {Alert, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {LoginIcon} from '../../../assets/index.js';
 import {useState} from 'react';
 import {FONTS, SIZES} from '../../constants/theme';
@@ -25,84 +33,89 @@ export default function Login({navigation}: any) {
         verificationId: confirmation,
         phone: '+91' + phone,
       });
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setError(err);
     }
   };
   return (
     <View style={styles.container}>
-      <Image
-        source={LoginIcon}
-        style={[styles.logo, {width: SIZES.width, resizeMode: 'contain'}]}
-      />
-
-      <View style={styles.center}>
-        <Text style={[styles.heading, FONTS.secondaryFam]}>
-          Enter your mobile number
-        </Text>
-        <Text style={styles.subHeading}>
-          You will get an OTP on this number
-        </Text>
-        <PrimaryInput
-          handleText={setPhone}
-          leftElement={<></>}
-          marginTop="5"
-          keyboardType="phone-pad"
-          width="100%"
-          placeHoldText="Without Country Code eg. +91"></PrimaryInput>
-        <Text
-          style={
-            err
-              ? {
-                  display: 'flex',
-                  color: 'red',
-                  fontSize: 12,
-                  marginBottom: 10,
-                  textAlign: 'left',
-                }
-              : {display: 'none'}
-          }>
-          An Error Occurred Please try Again
-        </Text>
-        <View>
-          <View>
-            <View style={[styles.center]}>
-              <Text style={[styles.aggreementText, FONTS.secondaryFam]}>
-                By proceeding,I agree to
-                <Text
-                  style={styles.clickableText}
-                  onPress={() => openBrowserUrl('https://google.com')}>
-                  {' '}
-                  Terms and Conditions
-                </Text>{' '}
-                &
-                <Text
-                  style={styles.clickableText}
-                  onPress={() => openBrowserUrl('https://google.com')}>
-                  {' '}
-                  Privacy Policy
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          <View style={{justifyContent: 'center', alignItems: 'center'}}></View>
-        </View>
-      </View>
-      <View style={styles.center}>
-        <PrimaryButton
-          disable={phone.length != 10}
-          onPress={getOtp}
-          text="GET OTP"
-          customCls={{width: '50%'}}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
+        <Image
+          source={LoginIcon}
+          style={[styles.logo, {width: SIZES.width, resizeMode: 'contain'}]}
         />
-      </View>
-      {/* <FirebaseRecaptchaVerifierModal
+
+        <View style={styles.center}>
+          <Text style={[styles.heading, FONTS.secondaryFam]}>
+            Enter your mobile number
+          </Text>
+          <Text style={styles.subHeading}>
+            You will get an OTP on this number
+          </Text>
+          <PrimaryInput
+            handleText={setPhone}
+            leftElement={<></>}
+            marginTop="5"
+            keyboardType="phone-pad"
+            width="100%"
+            placeHoldText="Without Country Code eg. +91"></PrimaryInput>
+          <Text
+            style={
+              err
+                ? {
+                    display: 'flex',
+                    color: 'red',
+                    fontSize: 12,
+                    marginBottom: 10,
+                    textAlign: 'left',
+                  }
+                : {display: 'none'}
+            }>
+            An Error Occurred Please try Again
+          </Text>
+          <View>
+            <View>
+              <View style={[styles.center]}>
+                <Text style={[styles.aggreementText, FONTS.secondaryFam]}>
+                  By proceeding,I agree to
+                  <Text
+                    style={styles.clickableText}
+                    onPress={() => openBrowserUrl('https://google.com')}>
+                    {' '}
+                    Terms and Conditions
+                  </Text>{' '}
+                  &
+                  <Text
+                    style={styles.clickableText}
+                    onPress={() => openBrowserUrl('https://google.com')}>
+                    {' '}
+                    Privacy Policy
+                  </Text>
+                </Text>
+              </View>
+            </View>
+
+            <View
+              style={{justifyContent: 'center', alignItems: 'center'}}></View>
+          </View>
+        </View>
+        <View style={styles.center}>
+          <PrimaryButton
+            disable={phone.length != 10}
+            onPress={getOtp}
+            text="GET OTP"
+            customCls={{width: '50%'}}
+          />
+        </View>
+        {/* <FirebaseRecaptchaVerifierModal
         ref={recaptchaVerifier}
         firebaseConfig={firebaseConfig}
         attemptInvisibleVerification={attemptInvisibleVerification}
       /> */}
+      </KeyboardAvoidingView>
     </View>
   );
 }

@@ -5,7 +5,7 @@ import {User} from '../types/ExternalModel.model';
 
 export const AuthContext = createContext<[User, any]>([
   {
-    id: '',
+    _id: '',
     phone: '',
     name: '',
     dob: '',
@@ -16,7 +16,7 @@ export const AuthContext = createContext<[User, any]>([
 
 export const AuthProvider = (props: any) => {
   const [user, setUser] = useState<User>({
-    id: '',
+    _id: '',
     phone: '',
     name: '',
     dob: '',
