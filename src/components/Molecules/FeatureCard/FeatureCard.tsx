@@ -1,5 +1,6 @@
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View, Image} from 'react-native';
+import {COLORS} from '../../../constants/theme';
 
 export interface PrimaryButtonProps {
   content: string;
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     width: screenWidth / 2 - 10,
     height: 200,
-    backgroundColor: '#FFF8F2',
+    backgroundColor: COLORS.primary[200],
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',

@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {COLORS} from '../../constants/theme';
 import PulseLoader from './PulseLoader';
 
 export default function CallingScreen() {
@@ -12,7 +13,7 @@ export default function CallingScreen() {
         </Text>
       </View>
       <PulseLoader
-        backgroundColor="#FF740F"
+        backgroundColor={COLORS.primary[400]}
         avatar="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"
       />
     </View>

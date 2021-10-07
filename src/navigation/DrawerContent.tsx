@@ -9,6 +9,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {StyleSheet} from 'react-native';
 import {checkAuth} from '../services/User.service';
+import {COLORS} from '../constants/theme';
 export function DrawerContent(props: any) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [activeDrawer, setActiveDrawer] = useState('Home');
@@ -33,10 +34,12 @@ export function DrawerContent(props: any) {
   };
   return (
     <>
-      <DrawerContentScrollView {...props} style={{backgroundColor: '#FFF8F2'}}>
+      <DrawerContentScrollView
+        {...props}
+        style={{backgroundColor: COLORS.primary[100]}}>
         <DrawerItem
           icon={() => <Feather name="home" size={24} style={styles.icons} />}
-          activeBackgroundColor="#FF70071A"
+          activeBackgroundColor={COLORS.primary[200]}
           activeTintColor="black"
           inactiveTintColor="black"
           focused={activeDrawer == 'Home'}
@@ -47,7 +50,7 @@ export function DrawerContent(props: any) {
           icon={() => (
             <Feather name="phone-call" size={24} style={styles.icons} />
           )}
-          activeBackgroundColor="#FF70071A"
+          activeBackgroundColor={COLORS.primary[200]}
           activeTintColor="black"
           inactiveTintColor="black"
           focused={activeDrawer == 'Call An Astrologer'}
@@ -58,7 +61,7 @@ export function DrawerContent(props: any) {
           icon={() => (
             <AntDesign name="wallet" size={24} style={styles.icons} />
           )}
-          activeBackgroundColor="#FF70071A"
+          activeBackgroundColor={COLORS.primary[200]}
           activeTintColor="black"
           inactiveTintColor="black"
           focused={activeDrawer == 'Wallet'}
@@ -69,7 +72,7 @@ export function DrawerContent(props: any) {
           icon={() => (
             <Feather name="settings" size={24} style={styles.icons} />
           )}
-          activeBackgroundColor="#FF70071A"
+          activeBackgroundColor={COLORS.primary[200]}
           activeTintColor="black"
           inactiveTintColor="black"
           focused={activeDrawer == 'Settings'}
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#FF70071A",
     borderRadius: 5,
     padding: 3,
-    color: '#FF7007',
+    color: COLORS.primary[400],
   },
   drawerItemLabel: {
     color: 'white',

@@ -42,7 +42,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
       name="arrow-back"
       size={26}
       onPress={() => navigation.goBack()}
-      color={color}
+      color={COLORS.primary[500]}
     />
   );
   return (
@@ -122,7 +122,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerShown: true,
           headerStyle: styles.headerStyle,
           headerTitleStyle: styles.secondaryHeaderTitle,
-          headerBackImage: () => backButton(navigation, COLORS.primary[300]),
+          headerBackImage: () => backButton(navigation, COLORS.primary[400]),
           headerRight: () => headerRight(navigation),
           headerLeft: () => backButton(navigation, COLORS.primary[400]),
           title: '',
@@ -144,10 +144,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary[100],
   },
   secondaryHeader: {
-    backgroundColor: '#FF740F',
+    backgroundColor: COLORS.primary[100],
   },
   secondaryHeaderTitle: {
-    color: 'white',
+    color: COLORS.primary[500],
   },
   leftHeader: {
     paddingLeft: '8%',

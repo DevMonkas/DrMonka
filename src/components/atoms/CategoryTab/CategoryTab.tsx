@@ -5,6 +5,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {COLORS} from '../../../constants/theme';
 export interface PrimaryButtonProps {
   text?: string;
   width?: string;
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FF7707',
+    backgroundColor: COLORS.primary[400],
   },
   imageWrapper: {
     borderRadius: 100,

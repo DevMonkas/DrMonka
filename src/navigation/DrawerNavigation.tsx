@@ -10,6 +10,7 @@ import {DrawerContent} from './DrawerContent';
 import {AstroCall} from '../components/Molecules/AstroCall/AstroCall';
 import {useContext} from 'react';
 import {AuthContext} from '../shared/AuthProvider';
+import {COLORS} from '../constants/theme';
 
 const Drawer = createDrawerNavigator();
 
@@ -38,7 +39,7 @@ export default function DrawerNavigation() {
                   name="bell"
                   size={26}
                   style={{marginHorizontal: 15}}
-                  color="#FF7007"
+                  color={COLORS.primary[400]}
                   onPress={() => navigate(navigation, 'Notifications')}
                 />
               </View>
@@ -49,7 +50,7 @@ export default function DrawerNavigation() {
           <EvilIcons
             name="navicon"
             size={30}
-            color="#FF7007"
+            color={COLORS.primary[400]}
             style={{
               marginLeft: 20,
             }}
@@ -67,15 +68,15 @@ export default function DrawerNavigation() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.primary[100],
     alignItems: 'center',
     justifyContent: 'center',
   },
   header: {
-    backgroundColor: '#FFF8F2',
+    backgroundColor: COLORS.primary[100],
   },
   headerTitle: {
-    color: '#FF7007',
+    color: COLORS.primary[400],
   },
   headerRightArea: {
     flexDirection: 'row',

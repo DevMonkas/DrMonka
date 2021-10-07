@@ -113,7 +113,7 @@ export default function Wallet({navigation}: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF8F2',
+    backgroundColor: COLORS.primary[100],
     alignItems: 'center',
   },
   LeftWrapper: {
