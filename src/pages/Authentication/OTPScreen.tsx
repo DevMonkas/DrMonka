@@ -45,8 +45,9 @@ export default function OTPScreen({navigation, route}: any) {
         navigation.navigate('DrawerScreen');
       }
     } catch (err) {
+      console.error(err);
       setLoading(false);
-      setError(err.message);
+      setError(err?.message);
     }
   };
   return (

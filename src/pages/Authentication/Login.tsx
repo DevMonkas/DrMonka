@@ -26,6 +26,7 @@ export default function Login({navigation}: any) {
         phone: '+91' + phone,
       });
     } catch (err) {
+      console.error(err);
       setError(err);
     }
   };
