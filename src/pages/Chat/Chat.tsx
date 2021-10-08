@@ -3,9 +3,9 @@ import {View} from 'react-native';
 import {Bubble, GiftedChat, Send} from 'react-native-gifted-chat';
 import ChatHead from './ChatHead';
 
-const Chat = () => {
+const Chat = ({navigation, route}: any) => {
   const [messages, setMessages] = useState<any>([]);
-
+  console.log('in chat', route?.params.userName, route?.params);
   useEffect(() => {
     setMessages([
       {
@@ -14,9 +14,8 @@ const Chat = () => {
         createdAt: new Date(),
         user: {
           _id: 2,
-          name: 'Shankar Hegde',
-          avatar:
-            'https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png',
+          name: route?.params.userName,
+          avatar: route?.params.img,
         },
       },
       {
@@ -58,7 +57,7 @@ const Chat = () => {
 
   return (
     <>
-      <ChatHead />
+      {/* <ChatHead userName={route.params?.userName} img={route.params?.img} /> */}
       <GiftedChat
         messages={messages}
         onSend={messages => onSend(messages)}
