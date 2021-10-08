@@ -2,11 +2,13 @@ import React, {useState, useCallback, useEffect} from 'react';
 import {View} from 'react-native';
 import {Bubble, GiftedChat, Send} from 'react-native-gifted-chat';
 import ChatHead from './ChatHead';
-
+import {socket} from '../../shared/SocketConnection';
 const Chat = ({navigation, route}: any) => {
   const [messages, setMessages] = useState<any>([]);
-  console.log('in chat', route?.params.userName, route?.params);
   useEffect(() => {
+    socket.on('connection-success', (success: any) => {
+      console.log('success', socket.id);
+    });
     setMessages([
       {
         _id: 1,
