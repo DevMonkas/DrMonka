@@ -18,6 +18,7 @@ import {LoadingContext} from './src/shared/LoadingProvider';
 import {AuthProvider} from './src/shared/AuthProvider';
 import VideoCall from './src/pages/VideoCall/VideoCall';
 import Chat from './src/pages/Chat/Chat';
+import ChatList from './src/pages/Chat/ChatList';
 const Drawer = createDrawerNavigator();
 
 export default function App() {

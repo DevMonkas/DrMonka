@@ -12,6 +12,7 @@ import {useContext} from 'react';
 import {AuthContext} from '../shared/AuthProvider';
 import {COLORS} from '../constants/theme';
 import Chat from '../pages/Chat/Chat';
+import ChatList from '../pages/Chat/ChatList';
 
 const Drawer = createDrawerNavigator();
 
@@ -50,7 +51,7 @@ export default function DrawerNavigation() {
                   size={28}
                   style={{marginHorizontal: 15}}
                   color={COLORS.primary[400]}
-                  onPress={() => navigate(navigation, 'Chat')}
+                  onPress={() => navigate(navigation, 'ChatList')}
                 />
               </View>
             </View>
@@ -71,7 +72,6 @@ export default function DrawerNavigation() {
       drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Call An Astrologer" component={AstroCall} />
-      <Drawer.Screen name="Chat" component={Chat} />
     </Drawer.Navigator>
   );
 }
