@@ -11,6 +11,7 @@ import {AstroCall} from '../components/Molecules/AstroCall/AstroCall';
 import {useContext} from 'react';
 import {AuthContext} from '../shared/AuthProvider';
 import {COLORS} from '../constants/theme';
+import Chat from '../pages/Chat/Chat';
 
 const Drawer = createDrawerNavigator();
 
@@ -43,6 +44,15 @@ export default function DrawerNavigation() {
                   onPress={() => navigate(navigation, 'Notifications')}
                 />
               </View>
+              <View style={{}}>
+                <MaterialCommunityIcons
+                  name="chat"
+                  size={28}
+                  style={{marginHorizontal: 15}}
+                  color={COLORS.primary[400]}
+                  onPress={() => navigate(navigation, 'Chat')}
+                />
+              </View>
             </View>
           </>
         ),
@@ -61,6 +71,7 @@ export default function DrawerNavigation() {
       drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Call An Astrologer" component={AstroCall} />
+      <Drawer.Screen name="Chat" component={Chat} />
     </Drawer.Navigator>
   );
 }

@@ -4,7 +4,7 @@ import {Bubble, GiftedChat, Send} from 'react-native-gifted-chat';
 import ChatHead from './ChatHead';
 
 const Chat = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<any>([]);
 
   useEffect(() => {
     setMessages([
@@ -33,7 +33,7 @@ const Chat = () => {
   }, []);
 
   const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages =>
+    setMessages((previousMessages: any) =>
       GiftedChat.append(previousMessages, messages),
     );
   }, []);
