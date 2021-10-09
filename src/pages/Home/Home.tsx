@@ -41,21 +41,21 @@ export default function Home({navigation}: any) {
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <View style={styles.featureCardWrapper}>
             <FeatureCard
-              content="CHAT WITH ASTROLOGERS"
+              content="FIND DOCTORS NEAR YOU"
               imgUrl={chattingImg}></FeatureCard>
             <FeatureCard
-              content="CALL WITH ASTROLOGERS"
+              content="INSTANT VIDEO CONSULTATION"
               imgUrl={callingImg}></FeatureCard>
-            <FeatureCard content="VIDEO CALL" imgUrl={videoImg}></FeatureCard>
             <FeatureCard
-              content="TOP ASTROMALL"
-              imgUrl={shoppingImg}></FeatureCard>
+              content="ORDER MEDICINES"
+              imgUrl={videoImg}></FeatureCard>
+            <FeatureCard content="LAB TESTS" imgUrl={shoppingImg}></FeatureCard>
           </View>
         </View>
-        <View style={{flexDirection: 'row'}}>
+        {/* <View style={{flexDirection: 'row'}}>
           <Text style={styles.heading}>Trending Astrologers</Text>
-        </View>
-        <View>
+        </View> */}
+        {/* <View>
           <View style={styles.trendingCardWrapper}>
             <TrendingCard
               name="Shankar Hedge"
@@ -82,7 +82,7 @@ export default function Home({navigation}: any) {
               experience="4"
               imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
           </View>
-        </View>
+        </View> */}
 
         {/* </Center> */}
       </ScrollView>

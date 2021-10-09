@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {SIZES} from '../../../constants/theme';
 
 import SecondaryButton from '../../atoms/SecondaryButton/SecondaryButton';
 import Footer from '../Footer/Footer';
@@ -43,7 +44,12 @@ export const AstroCall = ({navigation}: any) => {
   };
   const scrollY = React.useRef(new Animated.Value(0)).current;
   return (
-    <View style={{flex: 1, backgroundColor: '#fff'}}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: 0.08 * SIZES.height,
+      }}>
       <Animated.FlatList
         data={DATA}
         onScroll={Animated.event(
@@ -180,7 +186,7 @@ export const AstroCall = ({navigation}: any) => {
           );
         }}
       />
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
     </View>
   );
 };

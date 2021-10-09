@@ -5,7 +5,7 @@ import Home from '../pages/Home/Home';
 import WalletBadge from '../components/atoms/WalletBadge/WalletBadge';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import CallPage from '../pages/CallPage/CallPage';
+// import CallPage from '../pages/CallPage/CallPage';
 import {DrawerContent} from './DrawerContent';
 import {AstroCall} from '../components/Molecules/AstroCall/AstroCall';
 import {useContext} from 'react';
@@ -13,6 +13,7 @@ import {AuthContext} from '../shared/AuthProvider';
 import {COLORS, SIZES} from '../constants/theme';
 import Chat from '../pages/Chat/Chat';
 import ChatList from '../pages/Chat/ChatList';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Drawer = createDrawerNavigator();
 
@@ -48,6 +49,14 @@ export default function DrawerNavigation() {
                 />
               </View>
               <View style={styles.headerRightArea}>
+                {/* <View style={{}}>
+                  <FontAwesome
+                    name="search"
+                    size={26}
+                    color={COLORS.primary[500]}
+                    style={{marginHorizontal: 15}}
+                  />
+                </View> */}
                 <WalletBadge onTouch={() => navigate(navigation, 'Wallet')} />
                 <View>
                   <MaterialCommunityIcons
@@ -140,7 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
-    marginTop: '12%',
+    marginTop: '14%',
     justifyContent: 'flex-end',
   },
   headerLeftArea: {
