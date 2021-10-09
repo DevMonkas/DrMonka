@@ -102,7 +102,7 @@ export default function TransactionHistory() {
       <FlatList
         extraData={setTransactions}
         data={transaction}
-        keyExtractor={item => {
+        keyExtractor={(item): any => {
           return item.id;
         }}
         renderItem={renderItem}
