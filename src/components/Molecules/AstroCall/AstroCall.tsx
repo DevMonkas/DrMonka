@@ -10,6 +10,7 @@ import {
   GestureResponderEvent,
   TouchableOpacity,
 } from 'react-native';
+import {SearchBar} from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {SIZES} from '../../../constants/theme';
@@ -22,8 +23,7 @@ const {width, height} = Dimensions.get('screen');
 const DATA = [...Array(10).keys()].map((_, i) => {
   return {
     key: i,
-    image:
-      'https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png',
+    image: 'https://deadline.com/wp-content/uploads/2020/08/dr.-ian-smith.jpg',
     name: 'Shankar Hegde',
     languages: 'English,Hindi',
     categories: 'Vedic,Numerology,Vastu',
@@ -36,7 +36,7 @@ const DATA = [...Array(10).keys()].map((_, i) => {
 const SPACING = 20;
 const AVATAR_SIZE = 100;
 const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
-
+const searchFilterFunction = (text: string) => {};
 export const AstroCall = ({navigation}: any) => {
   const callHandler = (event: GestureResponderEvent) => {
     event.stopPropagation();
@@ -48,7 +48,7 @@ export const AstroCall = ({navigation}: any) => {
       style={{
         flex: 1,
         backgroundColor: '#fff',
-        paddingTop: 0.08 * SIZES.height,
+        paddingTop: 0.12 * SIZES.height,
       }}>
       <Animated.FlatList
         data={DATA}
@@ -140,7 +140,11 @@ export const AstroCall = ({navigation}: any) => {
                     </Text>
                   </View>
                 </View>
-                <View style={styles.astroDetailWrapper}>
+                <View
+                  style={[
+                    styles.astroDetailWrapper,
+                    {marginLeft: SIZES.width / 16},
+                  ]}>
                   <View style={styles.nameWrapper}>
                     <Text style={{fontSize: 22, fontWeight: '700'}}>
                       {item.name}
@@ -170,15 +174,8 @@ export const AstroCall = ({navigation}: any) => {
                       {item.cpm}/min
                     </Text>
                   </View>
-                </View>
-                <View
-                  style={{
-                    position: 'absolute',
-                    bottom: '25%',
-                    right: 10,
-                  }}>
-                  <View onTouchEnd={callHandler}>
-                    <SecondaryButton text="CALL" />
+                  <View onTouchEnd={callHandler} style={{marginTop: 5}}>
+                    <SecondaryButton text="START CONSULTATION" />
                   </View>
                 </View>
               </Animated.View>

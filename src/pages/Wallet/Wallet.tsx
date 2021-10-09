@@ -15,6 +15,7 @@ import RazorpayCheckout from 'react-native-razorpay';
 import {createPaymentOrder, fetchWallet} from '../../services/Wallet.service';
 import {useState, useEffect} from 'react';
 import {COLORS} from '../../constants/theme';
+import TransactionHistory from './TransactionHistory';
 export default function Wallet({navigation}: any) {
   const [text, setText] = useState<number>(0);
   const [money, setMoney] = useState<number>(0);
@@ -64,7 +65,7 @@ export default function Wallet({navigation}: any) {
       {/* <CustomHeader heading="Add Money" /> */}
       <View style={styles.balanceWrapper}>
         <View style={styles.balanceInfo}>
-          <Text style={styles.balanceInfoText}>Your Top Astro Balance</Text>
+          <Text style={styles.balanceInfoText}>Your QiviHealth Balance</Text>
         </View>
         <View style={styles.balance}>
           <Text style={styles.balanceValue}>
@@ -82,7 +83,7 @@ export default function Wallet({navigation}: any) {
           rightElement={
             <View style={styles.proceedButtonWrapper}>
               <PrimaryButton
-                text="Proceed"
+                text="ADD MONEY"
                 onPress={() => {
                   console.log('clicked');
                   _onPressButton(text);
@@ -92,22 +93,12 @@ export default function Wallet({navigation}: any) {
           }
         />
       </View>
-
-      <View style={styles.optionListWrapper}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          persistentScrollbar={false}>
-          {[1, 2, 3, 4, 5].map(data => (
-            <TouchableOpacity onPress={() => _onPressButton(500)} key={data}>
-              <GenericOptionCard
-                showIcon={false}
-                customCls={styles.OptionCard}
-                content="Pay ₹500, Get ₹ 100"
-              />
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+      <View style={{marginVertical: 10, width: '95%'}}>
+        <Text style={{fontSize: 20, textAlign: 'left'}}>
+          Transaction History
+        </Text>
       </View>
+      <TransactionHistory />
     </View>
   );
 }
@@ -137,7 +128,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   balanceWrapper: {
-    paddingTop: 10,
+    paddingTop: 15,
     paddingHorizontal: 20,
     flex: 0.05,
     width: '100%',
@@ -148,17 +139,28 @@ const styles = StyleSheet.create({
   balanceInfoText: {
     color: '#000',
     fontWeight: 'bold',
+    fontSize: 18,
   },
-  balance: {},
+  balance: {
+    position: 'relative',
+    right: 10,
+  },
   RightArrowWrapper: {},
   balanceValue: {
     color: '#000',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   inputWrapper: {
-    width: '90%',
+    backgroundColor: 'white',
+    alignContent: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    paddingTop: 20,
+    width: '98%',
     position: 'relative',
-    marginBottom: 20,
+    marginBottom: 10,
+    borderRadius: 20,
   },
   customInput: {
     paddingHorizontal: 0,
@@ -167,13 +169,13 @@ const styles = StyleSheet.create({
   proceedButtonWrapper: {
     position: 'absolute',
     top: '50%',
-    right: 6,
+    right: 3,
     transform: [{translateY: -20}],
   },
-  optionListWrapper: {
-    flex: 1,
-    width: '90%',
-  },
+  // optionListWrapper: {
+  //   flex: 1,
+  //   width: '90%',
+  // },
   OptionCard: {
     marginBottom: 20,
     borderRadius: 10,

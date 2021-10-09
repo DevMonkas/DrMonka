@@ -103,7 +103,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerStyle: styles.secondaryHeader,
           headerTitleStyle: styles.secondaryHeaderTitle,
           headerLeft: () => backButton(navigation, 'white'),
-          title: 'Add Money',
+          title: 'My Wallet',
         })}
         component={Wallet}
       />
