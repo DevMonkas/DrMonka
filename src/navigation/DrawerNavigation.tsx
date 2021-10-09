@@ -10,7 +10,7 @@ import {DrawerContent} from './DrawerContent';
 import {AstroCall} from '../components/Molecules/AstroCall/AstroCall';
 import {useContext} from 'react';
 import {AuthContext} from '../shared/AuthProvider';
-import {COLORS} from '../constants/theme';
+import {COLORS, SIZES} from '../constants/theme';
 
 const Drawer = createDrawerNavigator();
 
@@ -29,7 +29,37 @@ export default function DrawerNavigation() {
         drawerIcon: ({color}) => (
           <EvilIcons name="navicon" size={24} color={color} />
         ),
+        headerTransparent: true,
         headerTitleStyle: styles.headerTitle,
+        header: () => (
+          <View style={{backgroundColor: 'transparent'}}>
+            <View style={styles.header}>
+              <View style={styles.headerLeftArea}>
+                <EvilIcons
+                  name="navicon"
+                  size={34}
+                  color={COLORS.primary[500]}
+                  style={{
+                    marginLeft: 20,
+                  }}
+                  onPress={() => navigation.toggleDrawer()}
+                />
+              </View>
+              <View style={styles.headerRightArea}>
+                <WalletBadge onTouch={() => navigate(navigation, 'Wallet')} />
+                <View>
+                  <MaterialCommunityIcons
+                    name="bell"
+                    size={26}
+                    style={{marginHorizontal: 15}}
+                    color={COLORS.primary[500]}
+                    onPress={() => navigate(navigation, 'Notifications')}
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+        ),
         headerRight: () => (
           <>
             <View style={styles.headerRightArea}>
@@ -39,7 +69,7 @@ export default function DrawerNavigation() {
                   name="bell"
                   size={26}
                   style={{marginHorizontal: 15}}
-                  color={COLORS.primary[400]}
+                  color={COLORS.primary[500]}
                   onPress={() => navigate(navigation, 'Notifications')}
                 />
               </View>
@@ -47,15 +77,17 @@ export default function DrawerNavigation() {
           </>
         ),
         headerLeft: () => (
-          <EvilIcons
-            name="navicon"
-            size={30}
-            color={COLORS.primary[400]}
-            style={{
-              marginLeft: 20,
-            }}
-            onPress={() => navigation.toggleDrawer()}
-          />
+          <View style={styles.headerLeftArea}>
+            <EvilIcons
+              name="navicon"
+              size={34}
+              color={COLORS.primary[500]}
+              style={{
+                marginLeft: 20,
+              }}
+              onPress={() => navigation.toggleDrawer()}
+            />
+          </View>
         ),
       })}
       drawerContent={props => <DrawerContent {...props} />}>
@@ -74,14 +106,29 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: COLORS.primary[100],
+    paddingBottom: 0.12 * SIZES.height,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
   },
   headerTitle: {
-    color: COLORS.primary[400],
+    color: COLORS.primary[500],
+    height: '100%',
   },
   headerRightArea: {
+    position: 'absolute',
+    top: 0,
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
+    marginTop: '12%',
     justifyContent: 'flex-end',
+  },
+  headerLeftArea: {
+    top: '10%',
+    position: 'absolute',
+    // height: 100,
+    marginTop: '10%',
+    zIndex: 1,
+    justifyContent: 'center',
   },
 });

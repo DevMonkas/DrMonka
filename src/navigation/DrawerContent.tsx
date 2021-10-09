@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#FF70071A",
     borderRadius: 5,
     padding: 3,
-    color: COLORS.primary[400],
+    color: COLORS.primary[500],
   },
   drawerItemLabel: {
     color: 'white',

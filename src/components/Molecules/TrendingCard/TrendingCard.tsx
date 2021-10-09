@@ -3,6 +3,7 @@ import {Dimensions, StyleSheet, Text, Image, View} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {COLORS} from '../../../constants/theme';
 import PrimaryButton from '../../atoms/PrimaryButton/PrimaryButton';
 const {width: screenWidth} = Dimensions.get('window');
 export interface TrendingCardpProps {
@@ -82,7 +83,7 @@ const TrendingCard = ({
 
 const styles = StyleSheet.create({
   trendingCardWrapper: {
-    backgroundColor: '#FFF8F2',
+    backgroundColor: COLORS.primary[100],
     borderRadius: 15,
     width: screenWidth / 2 - 8,
     height: 350,

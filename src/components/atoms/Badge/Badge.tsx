@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {COLORS} from '../../../constants/theme';
 export default function Badge({content, icon}: any) {
   return (
     <View style={styles.Badgecontainer}>
@@ -23,7 +24,7 @@ export default function Badge({content, icon}: any) {
 
 const styles = StyleSheet.create({
   Badgecontainer: {
-    backgroundColor: '#FFF8F2',
+    backgroundColor: COLORS.primary[100],
     flexDirection: 'row',
     paddingVertical: 5,
     paddingHorizontal: 10,

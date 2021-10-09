@@ -16,6 +16,7 @@ import TrendingCard from '../../components/Molecules/TrendingCard/TrendingCard';
 import CategoryTab from '../../components/atoms/CategoryTab/CategoryTab';
 import CategoryTabList from '../../components/Molecules/CategoryTabList/CategoryTabList';
 import FeatureCard from '../../components/Molecules/FeatureCard/FeatureCard';
+import {COLORS} from '../../constants/theme';
 const callingImg = require('../../../assets/calling.png');
 const chattingImg = require('../../../assets/chat.png');
 const videoImg = require('../../../assets/video-calling.png');
@@ -31,7 +32,7 @@ export default function Home({navigation}: any) {
         w="100%"
         mx="auto"
       > */}
-      <ScrollView>
+      <ScrollView style={{backgroundColor: 'white'}}>
         <CategoryTabList />
         <CustomCarousel data={carouselDummy} loop={true} autoplay={true} />
 

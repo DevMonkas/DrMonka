@@ -12,7 +12,7 @@ export default function WalletBadge({onTouch = () => {}}: WalletBadgeProps) {
       type="outline"
       containerStyle={{
         borderStyle: 'solid',
-        borderColor: COLORS.primary[400],
+        borderColor: COLORS.primary[500],
       }}
       onPress={onTouch}
       title="₹ 0.00"
@@ -22,7 +22,7 @@ export default function WalletBadge({onTouch = () => {}}: WalletBadgeProps) {
         name: 'wallet-outline',
         type: 'ionicon',
         size: 20,
-        color: COLORS.primary[400],
+        color: COLORS.primary[500],
       }}
     />
   );
@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
   walletChip: {
     backgroundColor: 'transparent',
     borderStyle: 'solid',
-    borderColor: COLORS.primary[400],
+    borderColor: COLORS.primary[500],
     borderWidth: 1,
     borderRadius: 10,
   },
   titleChip: {
-    color: COLORS.primary[400],
+    color: COLORS.primary[500],
     fontWeight: 'bold',
   },
 });
