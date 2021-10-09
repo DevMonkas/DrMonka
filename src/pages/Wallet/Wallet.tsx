@@ -26,6 +26,7 @@ export default function Wallet({navigation}: any) {
         setMoney(walletMoney.data.money);
       })
       .catch(err => {
+        console.log('ERROR BLOCK');
         console.log(err);
       });
   }, []);
@@ -54,6 +55,7 @@ export default function Wallet({navigation}: any) {
       })
       .catch((error: any) => {
         // handle failure
+        console.log('CATCH BLOCK');
         Alert.alert(`Error: ${error.code} | ${error.description}`);
       });
   }
@@ -95,8 +97,8 @@ export default function Wallet({navigation}: any) {
         <ScrollView
           showsVerticalScrollIndicator={false}
           persistentScrollbar={false}>
-          {[1, 2, 3, 4, 5].map(() => (
-            <TouchableOpacity onPress={() => _onPressButton(500)}>
+          {[1, 2, 3, 4, 5].map(data => (
+            <TouchableOpacity onPress={() => _onPressButton(500)} key={data}>
               <GenericOptionCard
                 showIcon={false}
                 customCls={styles.OptionCard}

@@ -6,7 +6,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const ChatHead = () => {
+const ChatHead = ({userName, img}: any) => {
+  console.log('in chathead', userName);
   return (
     <SafeAreaView>
       <View
@@ -30,7 +31,7 @@ const ChatHead = () => {
               padding: 15,
               color: '#fff',
             }}>
-            Shankar Hegde
+            {userName}
           </Text>
         </View>
         <View

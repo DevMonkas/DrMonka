@@ -19,6 +19,8 @@ import {
 } from '../services/HttpInterceptor';
 import {LoadingContext} from '../shared/LoadingProvider';
 import Notifications from '../pages/Notifications/Notifications';
+import Chat from '../pages/Chat/Chat';
+import ChatList from '../pages/Chat/ChatList';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
@@ -115,6 +117,29 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           title: 'Notifications',
         })}
         component={Notifications}
+      />
+
+      <Stack.Screen
+        name="Chat"
+        options={({navigation}) => ({
+          headerShown: true,
+          headerStyle: styles.secondaryHeader,
+          headerTitleStyle: styles.secondaryHeaderTitle,
+          headerLeft: () => backButton(navigation, 'white'),
+          title: 'Chat',
+        })}
+        component={Chat}
+      />
+      <Stack.Screen
+        name="ChatList"
+        options={({navigation}) => ({
+          headerShown: true,
+          headerStyle: styles.secondaryHeader,
+          headerTitleStyle: styles.secondaryHeaderTitle,
+          headerLeft: () => backButton(navigation, 'white'),
+          title: 'Recent Chats',
+        })}
+        component={ChatList}
       />
       <Stack.Screen
         name="AstrologerProfile"
