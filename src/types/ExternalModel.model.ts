@@ -1,14 +1,12 @@
-export interface Astrologer {
-  id: string;
+export interface Doctor {
   name: string;
-  email: string;
   phone: string;
-  fields: string[];
-  languages_known: string[];
-  experience: number;
-  rate: number;
-  address: string;
-  image: string;
+  gender: string;
+  expertise?: string[];
+  pincode?: string;
+  languages_known?: string[];
+  experience?: string;
+  image?: string;
 }
 export interface User {
   __v?: number;
