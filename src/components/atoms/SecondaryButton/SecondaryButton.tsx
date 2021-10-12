@@ -1,7 +1,7 @@
 import React from 'react';
 import {ReactChild} from 'react';
 import {StyleSheet, ViewStyle, Pressable, Text} from 'react-native';
-import {FONTS} from '../../../constants/theme';
+import {COLORS, FONTS} from '../../../constants/theme';
 export interface PrimaryButtonProps {
   text?: string;
   width?: string;
@@ -23,11 +23,11 @@ export default function SecondaryButton({
 }: PrimaryButtonProps) {
   return (
     <Pressable
-      style={[styles.secondaryButton, customCls]}
+      style={[customCls, styles.secondaryButton]}
       onPress={onPress}
       android_ripple={{color: 'green', borderless: true}}
       disabled={disable}>
-      {text && <Text style={[styles.text, FONTS.primaryFam]}>{text}</Text>}
+      {text && <Text style={[styles.text, FONTS.secondaryFam]}>{text}</Text>}
       {children}
     </Pressable>
   );
@@ -37,17 +37,18 @@ const styles = StyleSheet.create({
   secondaryButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 25,
+    paddingVertical: 6,
+    paddingHorizontal: 15,
     elevation: 0,
     borderRadius: 12,
-    borderColor: 'green',
+    borderColor: COLORS.primary[500],
     borderWidth: 1.5,
     backgroundColor: 'white',
   },
 
   text: {
-    color: 'green',
+    color: COLORS.primary[500],
     fontWeight: 'bold',
+    fontSize: 13,
   },
 });

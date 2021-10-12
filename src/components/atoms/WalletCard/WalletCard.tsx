@@ -34,6 +34,8 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     marginTop: '-10%',
     position: 'relative',
+    borderColor: '#E7E7E9',
+    borderWidth: 2,
   },
   walletDetailWrapper: {},
   walletMoneyWrapper: {},

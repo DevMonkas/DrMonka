@@ -14,7 +14,7 @@ import GenericOptionCard from '../../components/atoms/GenericOptionCard/GenericO
 import RazorpayCheckout from 'react-native-razorpay';
 import {createPaymentOrder, fetchWallet} from '../../services/Wallet.service';
 import {useState, useEffect} from 'react';
-import {COLORS} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
 import TransactionHistory from './TransactionHistory';
 export default function Wallet({navigation}: any) {
   const [text, setText] = useState<number>(0);
@@ -65,7 +65,9 @@ export default function Wallet({navigation}: any) {
       {/* <CustomHeader heading="Add Money" /> */}
       <View style={styles.balanceWrapper}>
         <View style={styles.balanceInfo}>
-          <Text style={styles.balanceInfoText}>Your QiviHealth Balance</Text>
+          <Text style={[styles.balanceInfoText, FONTS.secondaryFam]}>
+            Your QiviHealth Balance
+          </Text>
         </View>
         <View style={styles.balance}>
           <Text style={styles.balanceValue}>
@@ -106,7 +108,7 @@ export default function Wallet({navigation}: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.primary[100],
+    backgroundColor: 'white',
     alignItems: 'center',
   },
   LeftWrapper: {

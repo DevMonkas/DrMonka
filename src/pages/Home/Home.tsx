@@ -33,7 +33,7 @@ export default function Home({navigation}: any) {
         mx="auto"
       > */}
       <ScrollView
-        style={{paddingTop: 0.12 * SIZES.height, backgroundColor: 'white'}}>
+        style={{paddingTop: 0.13 * SIZES.height, backgroundColor: 'white'}}>
         <CategoryTabList />
         <CustomCarousel data={carouselDummy} loop={true} autoplay={true} />
 

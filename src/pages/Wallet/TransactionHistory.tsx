@@ -12,7 +12,7 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {SIZES} from '../../constants/theme';
+import {COLORS, FONTS, SIZES} from '../../constants/theme';
 import {calls} from '../../shared/Data';
 
 export default function TransactionHistory() {
@@ -28,7 +28,7 @@ export default function TransactionHistory() {
             style={{marginRight: 5}}
           />
           <FontAwesome name="rupee" size={20} color="green" />
-          <Text style={{color: 'green'}}>{amount}</Text>
+          <Text style={{color: 'green'}}> {amount}</Text>
         </>
       );
     } else if (addMoney === 'failed') {
@@ -41,7 +41,7 @@ export default function TransactionHistory() {
             style={{marginRight: 5}}
           />
           <FontAwesome name="rupee" size={20} color="#ff0000" />
-          <Text style={{color: '#ff0000'}}>{amount}</Text>
+          <Text style={{color: '#ff0000'}}> {amount}</Text>
         </>
       );
     } else {
@@ -49,7 +49,7 @@ export default function TransactionHistory() {
         <>
           <AntDesign name="exclamation" size={20} color="#FF7707" />
           <FontAwesome name="rupee" size={20} color="#ff7707" />
-          <Text style={{color: '#ff7707'}}>{amount}</Text>
+          <Text style={{color: '#ff7707'}}> {amount}</Text>
         </>
       );
     }
@@ -76,10 +76,12 @@ export default function TransactionHistory() {
           {renderStatusIcon(item.status)}
           <View>
             <View style={styles.nameContainer}>
-              <Text style={styles.nameTxt}>{item.status}</Text>
+              <Text style={[styles.nameTxt, FONTS.secondaryFam]}>
+                {item.status}
+              </Text>
             </View>
             <View style={styles.end}>
-              <Text style={[styles.time, {marginLeft: 15}]}>
+              <Text style={[styles.time, {marginLeft: 15}, FONTS.secondaryFam]}>
                 {item.date} {item.time}
               </Text>
             </View>
@@ -98,7 +100,7 @@ export default function TransactionHistory() {
   };
 
   return (
-    <View style={{flex: 1, width: '98%'}}>
+    <View style={{flex: 1, width: '95%'}}>
       <FlatList
         extraData={setTransactions}
         data={transaction}
@@ -115,8 +117,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor: '#dcdcdc',
-    backgroundColor: '#fff',
+    borderColor: 'white',
+    backgroundColor: COLORS.primary[100],
     borderBottomWidth: 1,
     padding: 10,
     justifyContent: 'space-between',

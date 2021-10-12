@@ -16,7 +16,7 @@ import {SearchBar} from 'react-native-elements';
 import {ScreenStackHeaderBackButtonImage} from 'react-native-screens';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {SIZES} from '../../../constants/theme';
+import {COLORS, FONTS, SIZES} from '../../../constants/theme';
 import {getAllDoctors} from '../../../services/Doctor.service';
 import {Doctor} from '../../../types/ExternalModel.model';
 
@@ -66,7 +66,7 @@ export const AstroCall = ({navigation}: any) => {
       style={{
         flex: 1,
         backgroundColor: '#fff',
-        paddingTop: 0.12 * SIZES.height,
+        paddingTop: 0.09 * SIZES.height,
       }}>
       <Animated.FlatList
         data={DATA}
@@ -164,7 +164,7 @@ export const AstroCall = ({navigation}: any) => {
                     {marginLeft: SIZES.width / 16},
                   ]}>
                   <View style={styles.nameWrapper}>
-                    <Text style={{fontSize: 22, fontWeight: '700'}}>
+                    <Text style={[styles.doctorName, FONTS.secondaryFam]}>
                       {item.name}
                     </Text>
                   </View>
@@ -226,5 +226,10 @@ const styles = StyleSheet.create({
   languageWrapper: {
     flexDirection: 'row',
     marginBottom: 6,
+  },
+  doctorName: {
+    fontSize: 22,
+    color: COLORS.primary[500],
+    fontWeight: 'bold',
   },
 });

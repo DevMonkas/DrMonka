@@ -101,6 +101,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
         options={({navigation}) => ({
           headerShown: true,
           headerStyle: styles.secondaryHeader,
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerTitleStyle: styles.secondaryHeaderTitle,
           headerLeft: () => backButton(navigation, 'white'),
           title: 'My Wallet',
@@ -113,6 +114,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerShown: true,
           headerStyle: styles.secondaryHeader,
           headerTitleStyle: styles.secondaryHeaderTitle,
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerLeft: () => backButton(navigation, 'white'),
           title: 'Notifications',
         })}
@@ -125,6 +127,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerShown: true,
           headerStyle: styles.secondaryHeader,
           headerTitleStyle: styles.secondaryHeaderTitle,
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerLeft: () => backButton(navigation, 'white'),
           title: 'Chat',
         })}
@@ -136,6 +139,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerShown: true,
           headerStyle: styles.secondaryHeader,
           headerTitleStyle: styles.secondaryHeaderTitle,
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerLeft: () => backButton(navigation, 'white'),
           title: 'Recent Chats',
         })}
@@ -147,6 +151,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerShown: true,
           headerStyle: styles.headerStyle,
           headerTitleStyle: styles.secondaryHeaderTitle,
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerBackImage: () => backButton(navigation, COLORS.primary[400]),
           headerRight: () => headerRight(navigation),
           headerLeft: () => backButton(navigation, COLORS.primary[400]),
@@ -170,6 +175,8 @@ const styles = StyleSheet.create({
   },
   secondaryHeader: {
     backgroundColor: COLORS.primary[100],
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   secondaryHeaderTitle: {
     color: COLORS.primary[500],

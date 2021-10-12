@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: COLORS.primary[100],
-    paddingBottom: 0.12 * SIZES.height,
+    paddingBottom: 0.13 * SIZES.height,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
   },
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     top: '10%',
     position: 'absolute',
     // height: 100,
-    marginTop: '10%',
+    marginTop: '11%',
     zIndex: 1,
     justifyContent: 'center',
   },

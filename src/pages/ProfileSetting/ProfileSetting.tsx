@@ -29,6 +29,6 @@ export default function ProfileSettings({navigation}: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E5E5E5',
+    backgroundColor: 'white',
   },
 });
