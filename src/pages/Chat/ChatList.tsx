@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, Button, StyleSheet, FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
@@ -53,7 +53,19 @@ const Messages = [
   },
 ];
 
-const MessagesScreen = ({navigation}: any) => {
+const MessagesScreen = ({navigation, route}: any) => {
+  useEffect(() => {
+    const docInfo = route.params.item;
+    if (docInfo) {
+      Messages.unshift({
+        id: '101',
+        userImg: {uri: docInfo.image},
+        userName: docInfo.name,
+        messageTime: '1 day ago',
+        messageText: 'Dormamu! I have come to bargain ',
+      });
+    }
+  }, []);
   return (
     <Container>
       <FlatList

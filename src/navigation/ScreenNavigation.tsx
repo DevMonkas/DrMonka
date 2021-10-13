@@ -10,6 +10,7 @@ import OTPScreen from '../pages/Authentication/OTPScreen';
 import Login from '../pages/Authentication/Login';
 import AstroProfile from '../pages/AstroProfile/AstroProfile';
 import CallingScreen from '../pages/CallingScreen/CallingScreen';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../constants/theme';
 import SignUp from '../pages/Authentication/SignUp';

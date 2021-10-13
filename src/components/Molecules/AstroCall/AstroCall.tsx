@@ -65,6 +65,15 @@ export const AstroCall = ({navigation}: any) => {
     event.stopPropagation();
     navigation.navigate('CallingScreen');
   };
+  const checkandcreateConversation = (item: any) => {
+    //if conversation exists in active conversations list then display prompt
+
+    //else deduct balance and add a conversation on both doctor and user
+    //navigate to chatList
+
+    console.log(item);
+    navigation.navigate('ChatList', {item});
+  };
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const [refreshing, setRefreshing] = React.useState(false);
   const wait = (timeout: any) => {
@@ -220,7 +229,11 @@ export const AstroCall = ({navigation}: any) => {
                       5/min
                     </Text>
                   </View> */}
-                  <View onTouchEnd={callHandler} style={{marginTop: 5}}>
+                  <View
+                    onTouchEnd={() => {
+                      checkandcreateConversation(item);
+                    }}
+                    style={{marginTop: 5}}>
                     <SecondaryButton text="START CONSULTATION" />
                   </View>
                 </View>
