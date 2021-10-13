@@ -11,6 +11,8 @@ import {
   StyleSheet,
   GestureResponderEvent,
   TouchableOpacity,
+  ScrollView,
+  RefreshControl,
 } from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import {ScreenStackHeaderBackButtonImage} from 'react-native-screens';
@@ -44,7 +46,7 @@ const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 const searchFilterFunction = (text: string) => {};
 export const AstroCall = ({navigation}: any) => {
   const [DATA, setDATA] = useState<Doctor[]>([]);
-  useEffect(() => {
+  const fetchDoctorList = () => {
     getAllDoctors()
       .then(doctors => {
         console.log(doctors.data[0]);
@@ -55,12 +57,35 @@ export const AstroCall = ({navigation}: any) => {
         //Show Something
         console.error(err);
       });
+  };
+  useEffect(() => {
+    fetchDoctorList();
   }, []);
   const callHandler = (event: GestureResponderEvent) => {
     event.stopPropagation();
     navigation.navigate('CallingScreen');
   };
   const scrollY = React.useRef(new Animated.Value(0)).current;
+  const [refreshing, setRefreshing] = React.useState(false);
+  const wait = (timeout: any) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    getAllDoctors()
+      .then(doctors => {
+        console.log(doctors.data[0]);
+        setDATA(doctors.data);
+        setRefreshing(false);
+        // setDATA(astrologers.data);
+      })
+      .catch(err => {
+        //Show Something
+        console.error(err);
+        setRefreshing(false);
+      });
+  }, []);
+
   return (
     <View
       style={{
@@ -69,6 +94,9 @@ export const AstroCall = ({navigation}: any) => {
         paddingTop: 0.09 * SIZES.height,
       }}>
       <Animated.FlatList
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         data={DATA}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
@@ -104,7 +132,7 @@ export const AstroCall = ({navigation}: any) => {
             <TouchableOpacity
               onPress={(event: any) => {
                 event.stopPropagation();
-                navigation.navigate('AstrologerProfile');
+                navigation.navigate('AstrologerProfile', {doctorInfo: item});
               }}>
               <Animated.View
                 style={{

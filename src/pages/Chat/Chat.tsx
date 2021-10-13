@@ -1,8 +1,11 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {Bubble, GiftedChat, Send} from 'react-native-gifted-chat';
 import ChatHead from './ChatHead';
 import {socket} from '../../shared/SocketConnection';
+import PrimaryButton from '../../components/atoms/PrimaryButton/PrimaryButton';
+import {COLORS} from '../../constants/theme';
+import Feather from 'react-native-vector-icons/Feather';
 const Chat = ({navigation, route}: any) => {
   const [messages, setMessages] = useState<any>([]);
   useEffect(() => {
@@ -45,7 +48,7 @@ const Chat = ({navigation, route}: any) => {
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: '#2e64e5',
+            backgroundColor: COLORS.primary[400],
           },
         }}
         textStyle={{
@@ -54,6 +57,28 @@ const Chat = ({navigation, route}: any) => {
           },
         }}
       />
+    );
+  };
+
+  const renderSend = (sendProps: any) => {
+    const {text, messageIdGenerator, user, onSend} = sendProps;
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          if (text && onSend) {
+            onSend(
+              {text: text.trim(), user: user, _id: messageIdGenerator()},
+              true,
+            );
+          }
+        }}
+        style={{
+          height: '100%',
+          width: '10%',
+          justifyContent: 'center',
+        }}>
+        <Feather name="send" size={28} color={COLORS.primary[500]} />
+      </TouchableOpacity>
     );
   };
 
@@ -69,6 +94,8 @@ const Chat = ({navigation, route}: any) => {
         renderBubble={renderBubble}
         alwaysShowSend
         scrollToBottom
+        messagesContainerStyle={{backgroundColor: 'white'}}
+        renderSend={renderSend}
       />
     </>
   );
