@@ -73,6 +73,7 @@ export const AstroCall = ({navigation}: any) => {
 
     console.log(item);
     navigation.navigate('ChatList', {item});
+    //send prompt to the respective doctor
   };
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const [refreshing, setRefreshing] = React.useState(false);
