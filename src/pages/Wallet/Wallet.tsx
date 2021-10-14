@@ -32,6 +32,7 @@ export default function Wallet({navigation}: any) {
       });
   }, []);
   async function _onPressButton(amount: number) {
+    if (!amount || amount < 0) return;
     const BODY: any = await createPaymentOrder(amount);
     console.log('BODY ', BODY);
     var options = {
@@ -85,6 +86,7 @@ export default function Wallet({navigation}: any) {
           rightElement={
             <View style={styles.proceedButtonWrapper}>
               <PrimaryButton
+                disable={text ? false : true}
                 text="ADD MONEY"
                 onPress={() => {
                   console.log('clicked');

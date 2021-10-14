@@ -1,5 +1,5 @@
 package com.MedApp;
-
+import com.razorpay.rn.RazorpayPackage;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -34,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           packages.add(new LottiePackage());
+          // packages.add(new RazorpayPackage());
           return packages;
         }
 
