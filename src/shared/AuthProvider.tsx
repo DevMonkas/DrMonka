@@ -1,6 +1,7 @@
-import React, {createContext} from 'react';
+import React, {createContext, useEffect} from 'react';
 import {useState} from 'react';
 import {boolean} from 'yargs';
+import {fetchWallet} from '../services/Wallet.service';
 import {User} from '../types/ExternalModel.model';
 
 export const AuthContext = createContext<[User, any]>([
@@ -10,6 +11,7 @@ export const AuthContext = createContext<[User, any]>([
     name: '',
     dob: '',
     gender: '',
+    balance: -1,
   },
   () => {},
 ]);
@@ -21,6 +23,7 @@ export const AuthProvider = (props: any) => {
     name: '',
     dob: '',
     gender: '',
+    balance: -1,
   });
   return (
     <AuthContext.Provider value={[user, setUser]}>

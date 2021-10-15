@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,23 +17,16 @@ import {useState, useEffect} from 'react';
 import {COLORS, FONTS} from '../../constants/theme';
 import TransactionHistory from './TransactionHistory';
 import CustomAlert from '../../components/atoms/CustomAlert/CustomAlert';
+import {AuthContext} from '../../shared/AuthProvider';
 export default function Wallet({navigation}: any) {
   const [text, setText] = useState<number>(0);
   const [money, setMoney] = useState<number>(0);
   const [modalVisibilty, setmodalVisibilty] = useState(false);
   const [alertObj, setalertObj] = useState({mode: '', message: ''});
-
+  const [user, setuser] = useContext(AuthContext);
   useEffect(() => {
     //setMoney(500);
-    fetchWallet()
-      .then(walletMoney => {
-        console.log('WALLET MONEY ', walletMoney);
-        setMoney(walletMoney.data.money);
-      })
-      .catch(err => {
-        console.log('ERROR BLOCK');
-        console.log(err);
-      });
+    setMoney(user.balance);
   }, []);
   async function _onPressButton(amount: number) {
     if (!amount || amount < 0) return;
@@ -58,6 +51,7 @@ export default function Wallet({navigation}: any) {
       .then((data: any) => {
         // handle success
         // Alert.alert(`Success: ${data.razorpay_payment_id}`);
+        setuser({...user, balance: money + amount});
         setMoney(money + amount);
         setmodalVisibilty(true);
         setalertObj({mode: 'success', message: 'Amount added successfully'});

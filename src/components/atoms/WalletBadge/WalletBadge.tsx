@@ -1,12 +1,26 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Badge, Chip} from 'react-native-elements';
 import {COLORS} from '../../../constants/theme';
+import {fetchWallet} from '../../../services/Wallet.service';
+import {AuthContext} from '../../../shared/AuthProvider';
 export interface WalletBadgeProps {
   onTouch: () => void;
 }
 
 export default function WalletBadge({onTouch = () => {}}: WalletBadgeProps) {
+  const [user, setUser] = useContext(AuthContext);
+  useEffect(() => {
+    fetchWallet()
+      .then(walletMoney => {
+        console.log('WALLET MONEY ', walletMoney);
+        setUser({...user, balance: walletMoney.data.money});
+      })
+      .catch(err => {
+        console.log('ERROR BLOCK');
+        console.log(err);
+      });
+  }, []);
   return (
     <Chip
       type="outline"
@@ -15,7 +29,7 @@ export default function WalletBadge({onTouch = () => {}}: WalletBadgeProps) {
         borderColor: COLORS.primary[500],
       }}
       onPress={onTouch}
-      title="₹ 0.00"
+      title={`₹${user.balance}`}
       titleStyle={styles.titleChip}
       buttonStyle={styles.walletChip}
       icon={{

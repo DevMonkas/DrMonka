@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Home from '../pages/Home/Home';
@@ -14,6 +14,7 @@ import {COLORS, SIZES} from '../constants/theme';
 import Chat from '../pages/Chat/Chat';
 import ChatList from '../pages/Chat/ChatList';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {fetchWallet} from '../services/Wallet.service';
 
 const Drawer = createDrawerNavigator();
 
@@ -22,6 +23,7 @@ export default function DrawerNavigation() {
     navigation.navigate(location);
   };
   const [user, setUser] = useContext(AuthContext);
+
   console.log(user);
   return (
     <Drawer.Navigator
