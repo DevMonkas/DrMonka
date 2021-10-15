@@ -16,9 +16,13 @@ import {createPaymentOrder, fetchWallet} from '../../services/Wallet.service';
 import {useState, useEffect} from 'react';
 import {COLORS, FONTS} from '../../constants/theme';
 import TransactionHistory from './TransactionHistory';
+import CustomAlert from '../../components/atoms/CustomAlert/CustomAlert';
 export default function Wallet({navigation}: any) {
   const [text, setText] = useState<number>(0);
   const [money, setMoney] = useState<number>(0);
+  const [modalVisibilty, setmodalVisibilty] = useState(false);
+  const [alertObj, setalertObj] = useState({mode: '', message: ''});
+
   useEffect(() => {
     //setMoney(500);
     fetchWallet()
@@ -53,18 +57,29 @@ export default function Wallet({navigation}: any) {
     RazorpayCheckout.open(options)
       .then((data: any) => {
         // handle success
-        Alert.alert(`Success: ${data.razorpay_payment_id}`);
+        // Alert.alert(`Success: ${data.razorpay_payment_id}`);
         setMoney(money + amount);
+        setmodalVisibilty(true);
+        setalertObj({mode: 'success', message: 'Amount added successfully'});
       })
       .catch((error: any) => {
         // handle failure
         console.log('CATCH BLOCK');
-        Alert.alert(`Error: ${error.code} | ${error.description}`);
+        // Alert.alert(`Error: ${error.code} | ${error.description}`);
+        setmodalVisibilty(true);
+        setalertObj({mode: 'failed', message: 'Transaction Failed'});
       });
   }
+
   return (
     <View style={styles.container}>
       {/* <CustomHeader heading="Add Money" /> */}
+      <CustomAlert
+        displayMode={alertObj.mode}
+        displayMsg={alertObj.message}
+        visibility={modalVisibilty}
+        dismissAlert={setmodalVisibilty}
+      />
       <View style={styles.balanceWrapper}>
         <View style={styles.balanceInfo}>
           <Text style={[styles.balanceInfoText, FONTS.secondaryFam]}>
