@@ -140,6 +140,7 @@ export const AstroCall = ({navigation}: any) => {
           });
           return (
             <TouchableOpacity
+              key={index}
               onPress={(event: any) => {
                 event.stopPropagation();
                 navigation.navigate('AstrologerProfile', {doctorInfo: item});
