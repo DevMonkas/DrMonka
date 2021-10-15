@@ -17,3 +17,10 @@ export interface User {
   phone?: string;
   dob?: string;
 }
+export interface Conversations {
+  _id?: string;
+  userId?: string;
+  doctorId?: string;
+  status?: boolean;
+  __v?: number;
+}
