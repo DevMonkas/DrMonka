@@ -55,7 +55,7 @@ const Messages = [
 
 const MessagesScreen = ({navigation, route}: any) => {
   useEffect(() => {
-    const docInfo = route.params.item;
+    const docInfo = route?.params?.item;
     if (docInfo) {
       Messages.unshift({
         id: '101',

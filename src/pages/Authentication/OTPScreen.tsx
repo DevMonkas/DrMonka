@@ -39,18 +39,18 @@ export default function OTPScreen({navigation, route}: any) {
         route.params?.verificationId;
       const credential = await confirmation.confirm(otp);
       let token = await credential?.user.getIdToken();
-
-      // const res = await checkAuth(token!);
-      const res = {
-        data: {
-          userExists: true,
-          _id: 'something',
-          phone: '',
-          name: '',
-          dob: '',
-          gender: '',
-        },
-      };
+      console.log(token);
+      const res = await checkAuth(token!);
+      // const res = {
+      //   data: {
+      //     userExists: true,
+      //     _id: 'something',
+      //     phone: '',
+      //     name: '',
+      //     dob: '',
+      //     gender: '',
+      //   },
+      // };
       console.log('xoxox', res.data);
       console.log('---->', res.data.userExists);
       if (res.data.userExists == false) {
