@@ -12,34 +12,45 @@ const Chat = ({navigation, route}: any) => {
     socket.on('connection-success', (success: any) => {
       console.log('success', socket.id);
     });
+    const otherUser = {
+      _id: 2,
+      name: route?.params.userName,
+      avatar: route?.params.img,
+    };
+    const currentUser = {
+      _id: 1,
+      name: 'React Native',
+      avatar: 'https://placeimg.com/140/140/any',
+    };
+
     setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: route?.params.userName,
-          avatar: route?.params.img,
-        },
-      },
-      {
-        _id: 2,
-        text: 'Hello World',
-        createdAt: new Date(),
-        user: {
-          _id: 1,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
+      // {
+      //   _id: 1,
+      //   text: 'Hello developer',
+      //   createdAt: new Date(),
+      //   user: currentUser,
+      // },
+      // {
+      //   _id: 2,
+      //   text: 'Hello World',
+      //   createdAt: new Date(),
+      //   user: otherUser,
+      // },
+      // {
+      //   _id: 3,
+      //   text: 'Hello World',
+      //   createdAt: new Date(),
+      //   user: otherUser,
+      // },
     ]);
   }, []);
 
   const onSend = useCallback((messages = []) => {
+    console.log('chal ja bhai');
     setMessages((previousMessages: any) =>
       GiftedChat.append(previousMessages, messages),
     );
+    console.log('MASSAGES', messages);
   }, []);
 
   const renderBubble = (props: any) => {

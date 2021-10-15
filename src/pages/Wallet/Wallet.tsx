@@ -54,6 +54,7 @@ export default function Wallet({navigation}: any) {
       .then((data: any) => {
         // handle success
         Alert.alert(`Success: ${data.razorpay_payment_id}`);
+        setMoney(money + amount);
       })
       .catch((error: any) => {
         // handle failure
