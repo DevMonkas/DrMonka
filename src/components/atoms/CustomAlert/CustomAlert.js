@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {Modal, Text, View, TouchableOpacity} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {COLORS} from '../../../constants/theme';
 
 export default function CustomAlert({
   displayMode,
@@ -61,8 +62,8 @@ export default function CustomAlert({
                 alignItems: 'center',
                 justifyContent: 'center',
                 position: 'absolute',
-                backgroundColor: 'blue',
-                borderColor: '#ddd',
+                backgroundColor: COLORS.primary[400],
+                borderColor: COLORS.primary[400],
                 borderBottomWidth: 0,
                 borderRadius: 5,
                 bottom: 0,
