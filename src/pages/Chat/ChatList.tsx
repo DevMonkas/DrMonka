@@ -1,6 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Button, StyleSheet, FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {getAllConversations} from '../../services/Chat.service';
+import {Conversations} from '../../types/ExternalModel.model';
 import {
   Container,
   Card,
@@ -54,6 +56,7 @@ const Messages = [
 ];
 
 const MessagesScreen = ({navigation, route}: any) => {
+  const [conversations, setConversations] = useState<Conversations[]>([]);
   useEffect(() => {
     const docInfo = route?.params?.item;
     if (docInfo) {
@@ -65,30 +68,37 @@ const MessagesScreen = ({navigation, route}: any) => {
         messageText: 'Dormamu! I have come to bargain ',
       });
     }
+    getAllConversations()
+      .then(data => {
+        setConversations(data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, []);
   return (
     <Container>
       <FlatList
-        data={Messages}
-        keyExtractor={item => item.id}
+        data={conversations}
+        keyExtractor={item => item._id!}
         renderItem={({item}) => (
           <Card
             onPress={() =>
               navigation.navigate('Chat', {
-                userName: item.userName,
-                img: item.userImg.uri,
+                userName: item.name,
+                img: item.image,
               })
             }>
             <UserInfo>
               <UserImgWrapper>
-                <UserImg source={item.userImg} />
+                <UserImg source={{uri: item.image}} />
               </UserImgWrapper>
               <TextSection>
                 <UserInfoText>
-                  <UserName>{item.userName}</UserName>
-                  <PostTime>{item.messageTime}</PostTime>
+                  <UserName>{item.name}</UserName>
+                  <PostTime>{'12:00 PM'}</PostTime>
                 </UserInfoText>
-                <MessageText>{item.messageText}</MessageText>
+                <MessageText>{'On Going'}</MessageText>
               </TextSection>
             </UserInfo>
           </Card>

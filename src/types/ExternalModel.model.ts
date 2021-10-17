@@ -23,4 +23,6 @@ export interface Conversations {
   doctorId?: string;
   status?: boolean;
   __v?: number;
+  name?: string;
+  image?: string;
 }

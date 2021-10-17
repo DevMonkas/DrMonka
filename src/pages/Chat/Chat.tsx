@@ -2,16 +2,13 @@ import React, {useState, useCallback, useEffect} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {Bubble, GiftedChat, Send} from 'react-native-gifted-chat';
 import ChatHead from './ChatHead';
-import {socket} from '../../shared/SocketConnection';
 import PrimaryButton from '../../components/atoms/PrimaryButton/PrimaryButton';
 import {COLORS} from '../../constants/theme';
 import Feather from 'react-native-vector-icons/Feather';
+import {sendMessage} from '../../services/Chat.service';
 const Chat = ({navigation, route}: any) => {
   const [messages, setMessages] = useState<any>([]);
   useEffect(() => {
-    socket.on('connection-success', (success: any) => {
-      console.log('success', socket.id);
-    });
     setMessages([
       {
         _id: 1,
@@ -65,6 +62,7 @@ const Chat = ({navigation, route}: any) => {
     return (
       <TouchableOpacity
         onPress={() => {
+          sendMessage('8939336693', '8939336694', 'hi');
           if (text && onSend) {
             onSend(
               {text: text.trim(), user: user, _id: messageIdGenerator()},
