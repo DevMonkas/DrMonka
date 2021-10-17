@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,22 +16,20 @@ import {createPaymentOrder, fetchWallet} from '../../services/Wallet.service';
 import {useState, useEffect} from 'react';
 import {COLORS, FONTS} from '../../constants/theme';
 import TransactionHistory from './TransactionHistory';
+import CustomAlert from '../../components/atoms/CustomAlert/CustomAlert';
+import {AuthContext} from '../../shared/AuthProvider';
 export default function Wallet({navigation}: any) {
   const [text, setText] = useState<number>(0);
   const [money, setMoney] = useState<number>(0);
+  const [modalVisibilty, setmodalVisibilty] = useState(false);
+  const [alertObj, setalertObj] = useState({mode: '', message: ''});
+  const [user, setuser] = useContext(AuthContext);
   useEffect(() => {
     //setMoney(500);
-    fetchWallet()
-      .then(walletMoney => {
-        console.log('WALLET MONEY ', walletMoney);
-        setMoney(walletMoney.data.money);
-      })
-      .catch(err => {
-        console.log('ERROR BLOCK');
-        console.log(err);
-      });
+    setMoney(user.balance);
   }, []);
   async function _onPressButton(amount: number) {
+    if (!amount || amount < 0) return;
     const BODY: any = await createPaymentOrder(amount);
     console.log('BODY ', BODY);
     var options = {
@@ -52,17 +50,30 @@ export default function Wallet({navigation}: any) {
     RazorpayCheckout.open(options)
       .then((data: any) => {
         // handle success
-        Alert.alert(`Success: ${data.razorpay_payment_id}`);
+        // Alert.alert(`Success: ${data.razorpay_payment_id}`);
+        setuser({...user, balance: money + amount});
+        setMoney(money + amount);
+        setmodalVisibilty(true);
+        setalertObj({mode: 'success', message: 'Amount added successfully'});
       })
       .catch((error: any) => {
         // handle failure
         console.log('CATCH BLOCK');
-        Alert.alert(`Error: ${error.code} | ${error.description}`);
+        // Alert.alert(`Error: ${error.code} | ${error.description}`);
+        setmodalVisibilty(true);
+        setalertObj({mode: 'failed', message: 'Transaction Failed'});
       });
   }
+
   return (
     <View style={styles.container}>
       {/* <CustomHeader heading="Add Money" /> */}
+      <CustomAlert
+        displayMode={alertObj.mode}
+        displayMsg={alertObj.message}
+        visibility={modalVisibilty}
+        dismissAlert={setmodalVisibilty}
+      />
       <View style={styles.balanceWrapper}>
         <View style={styles.balanceInfo}>
           <Text style={[styles.balanceInfoText, FONTS.secondaryFam]}>
@@ -85,6 +96,7 @@ export default function Wallet({navigation}: any) {
           rightElement={
             <View style={styles.proceedButtonWrapper}>
               <PrimaryButton
+                disable={text ? false : true}
                 text="ADD MONEY"
                 onPress={() => {
                   console.log('clicked');

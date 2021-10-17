@@ -22,10 +22,10 @@ export default function ProfileTop({navigation}: any) {
       </View>
       <View style={styles.userDetailsWrapper}>
         <View style={styles.userName}>
-          <Text style={styles.userNamestring}>Check{user.name}</Text>
+          <Text style={styles.userNamestring}>{user.name}</Text>
         </View>
         <View style={styles.userPhone}>
-          <Text style={styles.phoneNumberstring}>8993{user.phone}</Text>
+          <Text style={styles.phoneNumberstring}>{user.phone}</Text>
         </View>
       </View>
     </View>

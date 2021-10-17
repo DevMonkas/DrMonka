@@ -76,6 +76,7 @@ export const AstroCall = ({navigation}: any) => {
 
     console.log(item);
     navigation.navigate('ChatList', {item});
+    //send prompt to the respective doctor
   };
   const scrollY = React.useRef(new Animated.Value(0)).current;
   const [refreshing, setRefreshing] = React.useState(false);
@@ -142,6 +143,7 @@ export const AstroCall = ({navigation}: any) => {
           });
           return (
             <TouchableOpacity
+              key={index}
               onPress={(event: any) => {
                 event.stopPropagation();
                 navigation.navigate('AstrologerProfile', {doctorInfo: item});

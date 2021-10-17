@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
+import {AuthContext} from '../../../shared/AuthProvider';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
 export default function WalletCard({}: any) {
+  const [user, setUser] = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <View style={styles.walletDetailWrapper}>
         <View style={styles.walletMoneyWrapper}>
-          <Text style={styles.walletMoney}> {'\u20B9'}0</Text>
+          <Text style={styles.walletMoney}>
+            {' '}
+            {'\u20B9'}
+            {user.balance}
+          </Text>
         </View>
         <View style={styles.descriptionWrapper}>
-          <Text style={styles.description}>Top Astro Wallet Balance</Text>
+          <Text style={styles.description}>Qivi Wallet Balance</Text>
         </View>
       </View>
       <View style={styles.addMoneyButtonWrapper}>
