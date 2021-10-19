@@ -22,6 +22,7 @@ import {COLORS, FONTS, SIZES} from '../../../constants/theme';
 import {startConsultation} from '../../../services/Chat.service';
 import {getAllDoctors} from '../../../services/Doctor.service';
 import {AuthContext} from '../../../shared/AuthProvider';
+import {SocketContext} from '../../../shared/SocketProvider';
 import {Doctor} from '../../../types/ExternalModel.model';
 
 import SecondaryButton from '../../atoms/SecondaryButton/SecondaryButton';
@@ -49,6 +50,7 @@ const searchFilterFunction = (text: string) => {};
 export const AstroCall = ({navigation}: any) => {
   const [DATA, setDATA] = useState<Doctor[]>([]);
   const [user, setUser] = React.useContext(AuthContext);
+  const soc = React.useContext(SocketContext);
   const fetchDoctorList = () => {
     getAllDoctors()
       .then(doctors => {
@@ -234,13 +236,13 @@ export const AstroCall = ({navigation}: any) => {
                       5/min
                     </Text>
                   </View> */}
-                  <View
-                    onTouchEnd={() => {
-                      startConsultation('8939336693', '8939336694');
+                  <SecondaryButton
+                    text="START CONSULTATION"
+                    onPress={() => {
+                      startConsultation(soc, '8939336693', item.phone, true);
                     }}
-                    style={{marginTop: 5}}>
-                    <SecondaryButton text="START CONSULTATION" />
-                  </View>
+                  />
+                  {/* </View> */}
                 </View>
               </Animated.View>
             </TouchableOpacity>

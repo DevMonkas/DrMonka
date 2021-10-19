@@ -1,6 +1,12 @@
 import React from 'react';
 import {ReactChild} from 'react';
-import {StyleSheet, ViewStyle, Pressable, Text} from 'react-native';
+import {
+  StyleSheet,
+  ViewStyle,
+  Pressable,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {COLORS, FONTS} from '../../../constants/theme';
 export interface PrimaryButtonProps {
   text?: string;
@@ -22,14 +28,13 @@ export default function SecondaryButton({
   onPress = () => {},
 }: PrimaryButtonProps) {
   return (
-    <Pressable
+    <TouchableOpacity
       style={[customCls, styles.secondaryButton]}
       onPress={onPress}
-      android_ripple={{color: 'green', borderless: true}}
       disabled={disable}>
       {text && <Text style={[styles.text, FONTS.secondaryFam]}>{text}</Text>}
       {children}
-    </Pressable>
+    </TouchableOpacity>
   );
 }
 

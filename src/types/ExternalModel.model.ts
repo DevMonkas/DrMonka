@@ -20,10 +20,21 @@ export interface User {
 }
 export interface Conversations {
   _id?: string;
-  userId?: string;
-  doctorId?: string;
+  userPhone?: string;
+  doctorPhone?: string;
   status?: boolean;
   __v?: number;
   name?: string;
   image?: string;
+}
+export interface Message {
+  _id?: string;
+  text?: string;
+  createdAt?: Date;
+  system?: boolean;
+  user: {
+    _id: number;
+    name: string;
+    avatar: string;
+  };
 }

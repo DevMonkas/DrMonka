@@ -19,6 +19,11 @@ import {AuthProvider} from './src/shared/AuthProvider';
 import VideoCall from './src/pages/VideoCall/VideoCall';
 import Chat from './src/pages/Chat/Chat';
 import ChatList from './src/pages/Chat/ChatList';
+import {
+  socket,
+  SocketContext,
+  SocketProvider,
+} from './src/shared/SocketProvider';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -45,15 +50,17 @@ export default function App() {
   const onPressLearnMore = () => {};
   return (
     <SafeAreaProvider>
-      <LoadingProvider>
-        <AuthProvider>
-          <StatusBar hidden={false} animated />
-          <NavigationContainer>
-            <ScreenNavigation viewedOnboarding={viewedOnboarding} />
-            <LoadingDialog />
-          </NavigationContainer>
-        </AuthProvider>
-      </LoadingProvider>
+      <SocketProvider>
+        <LoadingProvider>
+          <AuthProvider>
+            <StatusBar hidden={false} animated />
+            <NavigationContainer>
+              <ScreenNavigation viewedOnboarding={viewedOnboarding} />
+              <LoadingDialog />
+            </NavigationContainer>
+          </AuthProvider>
+        </LoadingProvider>
+      </SocketProvider>
 
       {/* <SignUp></SignUp> */}
     </SafeAreaProvider>
