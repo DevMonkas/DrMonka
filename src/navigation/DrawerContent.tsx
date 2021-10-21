@@ -3,17 +3,27 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {StyleSheet} from 'react-native';
 import {checkAuth} from '../services/User.service';
 import {COLORS} from '../constants/theme';
+import {AuthContext} from '../shared/AuthProvider';
+import {getIdTokenRefreshed} from '../utils/Utility';
 export function DrawerContent(props: any) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [activeDrawer, setActiveDrawer] = useState('Home');
-
+  const [user, setUser] = useContext(AuthContext);
+  useEffect(() => {
+    getIdTokenRefreshed().then(token => {
+      checkAuth(token!).then(res => {
+        console.log('Details', res.data);
+        setUser({...res?.data});
+      });
+    });
+  }, []);
   auth().onAuthStateChanged(async user => {
     const refreshedToken = await user?.getIdToken();
     if (user) {

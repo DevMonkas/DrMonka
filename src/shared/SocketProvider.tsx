@@ -16,9 +16,7 @@ let sock: Socket = io('');
 export const SocketContext =
   createContext<Socket<DefaultEventsMap, DefaultEventsMap>>(sock);
 export const SocketProvider = (props: any) => {
-  const [soc, setSoc] = useState<Socket<DefaultEventsMap, DefaultEventsMap>>(
-    io(''),
-  );
+  const [soc, setSoc] = useState<Socket>(io(''));
   useEffect(() => {
     socket().then(data => {
       setSoc(data);

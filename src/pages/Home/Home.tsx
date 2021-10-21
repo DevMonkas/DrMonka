@@ -17,11 +17,16 @@ import CategoryTab from '../../components/atoms/CategoryTab/CategoryTab';
 import CategoryTabList from '../../components/Molecules/CategoryTabList/CategoryTabList';
 import FeatureCard from '../../components/Molecules/FeatureCard/FeatureCard';
 import {COLORS, SIZES} from '../../constants/theme';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {getIdTokenRefreshed} from '../../utils/Utility';
+import {checkAuth} from '../../services/User.service';
 const callingImg = require('../../../assets/calling.png');
 const chattingImg = require('../../../assets/chat.png');
 const videoImg = require('../../../assets/video-calling.png');
 const shoppingImg = require('../../../assets/shopping-cart.png');
+import auth from '@react-native-firebase/auth';
 export default function Home({navigation}: any) {
+  React.useEffect(() => {}, []);
   return (
     <>
       {/* <Center
