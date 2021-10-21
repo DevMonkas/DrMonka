@@ -10,6 +10,7 @@ import OTPScreen from '../pages/Authentication/OTPScreen';
 import Login from '../pages/Authentication/Login';
 import AstroProfile from '../pages/AstroProfile/AstroProfile';
 import CallingScreen from '../pages/CallingScreen/CallingScreen';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../constants/theme';
 import SignUp from '../pages/Authentication/SignUp';
@@ -19,6 +20,8 @@ import {
 } from '../services/HttpInterceptor';
 import {LoadingContext} from '../shared/LoadingProvider';
 import Notifications from '../pages/Notifications/Notifications';
+import Chat from '../pages/Chat/Chat';
+import ChatList from '../pages/Chat/ChatList';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
@@ -42,7 +45,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
       name="arrow-back"
       size={26}
       onPress={() => navigation.goBack()}
-      color={color}
+      color={COLORS.primary[500]}
     />
   );
   return (
@@ -99,9 +102,10 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
         options={({navigation}) => ({
           headerShown: true,
           headerStyle: styles.secondaryHeader,
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerTitleStyle: styles.secondaryHeaderTitle,
           headerLeft: () => backButton(navigation, 'white'),
-          title: 'Add Money',
+          title: 'My Wallet',
         })}
         component={Wallet}
       />
@@ -111,10 +115,36 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerShown: true,
           headerStyle: styles.secondaryHeader,
           headerTitleStyle: styles.secondaryHeaderTitle,
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerLeft: () => backButton(navigation, 'white'),
           title: 'Notifications',
         })}
         component={Notifications}
+      />
+
+      <Stack.Screen
+        name="Chat"
+        options={({navigation}) => ({
+          headerShown: true,
+          headerStyle: styles.secondaryHeader,
+          headerTitleStyle: styles.secondaryHeaderTitle,
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
+          headerLeft: () => backButton(navigation, 'white'),
+          title: 'Chat',
+        })}
+        component={Chat}
+      />
+      <Stack.Screen
+        name="ChatList"
+        options={({navigation}) => ({
+          headerShown: true,
+          headerStyle: styles.secondaryHeader,
+          headerTitleStyle: styles.secondaryHeaderTitle,
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
+          headerLeft: () => backButton(navigation, 'white'),
+          title: 'Recent Chats',
+        })}
+        component={ChatList}
       />
       <Stack.Screen
         name="AstrologerProfile"
@@ -122,7 +152,8 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerShown: true,
           headerStyle: styles.headerStyle,
           headerTitleStyle: styles.secondaryHeaderTitle,
-          headerBackImage: () => backButton(navigation, COLORS.primary[300]),
+          headerBackgroundContainerStyle: {backgroundColor: 'white'},
+          headerBackImage: () => backButton(navigation, COLORS.primary[400]),
           headerRight: () => headerRight(navigation),
           headerLeft: () => backButton(navigation, COLORS.primary[400]),
           title: '',
@@ -144,10 +175,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary[100],
   },
   secondaryHeader: {
-    backgroundColor: '#FF740F',
+    backgroundColor: COLORS.primary[100],
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   secondaryHeaderTitle: {
-    color: 'white',
+    color: COLORS.primary[500],
   },
   leftHeader: {
     paddingLeft: '8%',

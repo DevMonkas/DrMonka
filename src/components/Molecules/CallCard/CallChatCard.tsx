@@ -40,7 +40,9 @@ const Call_chat_card = (props: {
         />
         <View style={{padding: 2}}>
           {[1, 2, 3, 4, 5].map((item, index) => {
-            return <FontAwesome name="blog" size={24} color="white" />;
+            return (
+              <FontAwesome name="blog" size={24} color="white" key={index} />
+            );
           })}
         </View>
       </View>

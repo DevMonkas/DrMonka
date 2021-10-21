@@ -10,15 +10,20 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Badge from '../../components/atoms/Badge/Badge';
 import TabView from '../../components/Molecules/TabView/TabView';
+import {Doctor} from '../../types/ExternalModel.model';
 const {width: screenWidth} = Dimensions.get('window');
-export default function AstroProfile() {
+
+export default function AstroProfile({navigation, route}: any) {
+  const doctorInfo: Doctor = route.params.doctorInfo;
+  console.log(doctorInfo.languages_known);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
       <View style={styles.profileImageWrapper}>
         <Image
           source={{
-            uri: 'https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png',
+            uri: doctorInfo.image,
           }}
           style={{
             width: screenWidth / 2 - 15,
@@ -43,15 +48,17 @@ export default function AstroProfile() {
           <Text style={styles.consultCount}>consults</Text>
         </View>
         <View style={styles.astroNameWrapper}>
-          <Text style={styles.astroName}>Shankar G. Hegde</Text>
+          <Text style={styles.astroName}>{doctorInfo.name}</Text>
         </View>
 
         <View style={styles.languagesWrapper}>
-          <Text style={styles.languages}>English,Hindi</Text>
+          <Text style={styles.languages}>
+            {doctorInfo.languages_known?.join(',')}
+          </Text>
         </View>
         <View style={styles.specializationWrapper}>
           <Text style={styles.specialization}>
-            Lal Kitab, Geomology,Face Reading, Astrology,Tarot
+            {doctorInfo.expertise?.join(',')}
           </Text>
         </View>
         <View style={styles.badgeWrapper}>

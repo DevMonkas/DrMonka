@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,22 +14,22 @@ import GenericOptionCard from '../../components/atoms/GenericOptionCard/GenericO
 import RazorpayCheckout from 'react-native-razorpay';
 import {createPaymentOrder, fetchWallet} from '../../services/Wallet.service';
 import {useState, useEffect} from 'react';
-import {COLORS} from '../../constants/theme';
+import {COLORS, FONTS} from '../../constants/theme';
+import TransactionHistory from './TransactionHistory';
+import CustomAlert from '../../components/atoms/CustomAlert/CustomAlert';
+import {AuthContext} from '../../shared/AuthProvider';
 export default function Wallet({navigation}: any) {
   const [text, setText] = useState<number>(0);
   const [money, setMoney] = useState<number>(0);
+  const [modalVisibilty, setmodalVisibilty] = useState(false);
+  const [alertObj, setalertObj] = useState({mode: '', message: ''});
+  const [user, setuser] = useContext(AuthContext);
   useEffect(() => {
     //setMoney(500);
-    fetchWallet()
-      .then(walletMoney => {
-        console.log('WALLET MONEY ', walletMoney);
-        setMoney(walletMoney.data.money);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    setMoney(user.balance);
   }, []);
   async function _onPressButton(amount: number) {
+    if (!amount || amount < 0) return;
     const BODY: any = await createPaymentOrder(amount);
     console.log('BODY ', BODY);
     var options = {
@@ -50,19 +50,35 @@ export default function Wallet({navigation}: any) {
     RazorpayCheckout.open(options)
       .then((data: any) => {
         // handle success
-        Alert.alert(`Success: ${data.razorpay_payment_id}`);
+        // Alert.alert(`Success: ${data.razorpay_payment_id}`);
+        setuser({...user, balance: money + amount});
+        setMoney(money + amount);
+        setmodalVisibilty(true);
+        setalertObj({mode: 'success', message: 'Amount added successfully'});
       })
       .catch((error: any) => {
         // handle failure
-        Alert.alert(`Error: ${error.code} | ${error.description}`);
+        console.log('CATCH BLOCK');
+        // Alert.alert(`Error: ${error.code} | ${error.description}`);
+        setmodalVisibilty(true);
+        setalertObj({mode: 'failed', message: 'Transaction Failed'});
       });
   }
+
   return (
     <View style={styles.container}>
       {/* <CustomHeader heading="Add Money" /> */}
+      <CustomAlert
+        displayMode={alertObj.mode}
+        displayMsg={alertObj.message}
+        visibility={modalVisibilty}
+        dismissAlert={setmodalVisibilty}
+      />
       <View style={styles.balanceWrapper}>
         <View style={styles.balanceInfo}>
-          <Text style={styles.balanceInfoText}>Your Top Astro Balance</Text>
+          <Text style={[styles.balanceInfoText, FONTS.secondaryFam]}>
+            Your QiviHealth Balance
+          </Text>
         </View>
         <View style={styles.balance}>
           <Text style={styles.balanceValue}>
@@ -80,7 +96,8 @@ export default function Wallet({navigation}: any) {
           rightElement={
             <View style={styles.proceedButtonWrapper}>
               <PrimaryButton
-                text="Proceed"
+                disable={text ? false : true}
+                text="ADD MONEY"
                 onPress={() => {
                   console.log('clicked');
                   _onPressButton(text);
@@ -90,22 +107,12 @@ export default function Wallet({navigation}: any) {
           }
         />
       </View>
-
-      <View style={styles.optionListWrapper}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          persistentScrollbar={false}>
-          {[1, 2, 3, 4, 5].map(() => (
-            <TouchableOpacity onPress={() => _onPressButton(500)}>
-              <GenericOptionCard
-                showIcon={false}
-                customCls={styles.OptionCard}
-                content="Pay ₹500, Get ₹ 100"
-              />
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+      <View style={{marginVertical: 10, width: '95%'}}>
+        <Text style={{fontSize: 20, textAlign: 'left'}}>
+          Transaction History
+        </Text>
       </View>
+      <TransactionHistory />
     </View>
   );
 }
@@ -113,7 +120,7 @@ export default function Wallet({navigation}: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF8F2',
+    backgroundColor: 'white',
     alignItems: 'center',
   },
   LeftWrapper: {
@@ -135,7 +142,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   balanceWrapper: {
-    paddingTop: 10,
+    paddingTop: 15,
     paddingHorizontal: 20,
     flex: 0.05,
     width: '100%',
@@ -146,17 +153,28 @@ const styles = StyleSheet.create({
   balanceInfoText: {
     color: '#000',
     fontWeight: 'bold',
+    fontSize: 18,
   },
-  balance: {},
+  balance: {
+    position: 'relative',
+    right: 10,
+  },
   RightArrowWrapper: {},
   balanceValue: {
     color: '#000',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   inputWrapper: {
-    width: '90%',
+    backgroundColor: 'white',
+    alignContent: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    paddingTop: 20,
+    width: '98%',
     position: 'relative',
-    marginBottom: 20,
+    marginBottom: 10,
+    borderRadius: 20,
   },
   customInput: {
     paddingHorizontal: 0,
@@ -165,13 +183,13 @@ const styles = StyleSheet.create({
   proceedButtonWrapper: {
     position: 'absolute',
     top: '50%',
-    right: 6,
+    right: 3,
     transform: [{translateY: -20}],
   },
-  optionListWrapper: {
-    flex: 1,
-    width: '90%',
-  },
+  // optionListWrapper: {
+  //   flex: 1,
+  //   width: '90%',
+  // },
   OptionCard: {
     marginBottom: 20,
     borderRadius: 10,

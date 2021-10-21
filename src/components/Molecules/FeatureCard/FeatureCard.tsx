@@ -1,5 +1,6 @@
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View, Image} from 'react-native';
+import {COLORS} from '../../../constants/theme';
 
 export interface PrimaryButtonProps {
   content: string;
@@ -28,8 +29,8 @@ const styles = StyleSheet.create({
   container: {
     width: screenWidth / 2 - 10,
     height: 200,
-    backgroundColor: '#FFF8F2',
-    borderRadius: 5,
+    backgroundColor: COLORS.primary[100],
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 5,
@@ -50,7 +51,8 @@ const styles = StyleSheet.create({
   },
 
   footerText: {
-    color: 'black',
+    color: COLORS.primary[500],
+    fontWeight: 'bold',
     fontSize: 12,
   },
 });
