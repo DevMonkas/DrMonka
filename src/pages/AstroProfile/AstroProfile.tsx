@@ -10,6 +10,7 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Badge from '../../components/atoms/Badge/Badge';
 import TabView from '../../components/Molecules/TabView/TabView';
+import {COLORS} from '../../constants/theme';
 import {Doctor} from '../../types/ExternalModel.model';
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'yellow',
   },
   header: {
-    backgroundColor: '#FF7707',
+    backgroundColor: COLORS.primary[100],
     paddingVertical: 50,
     flex: 0.3,
     width: screenWidth + 100,
@@ -107,15 +108,13 @@ const styles = StyleSheet.create({
   profileImageWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: screenWidth / 2 - 10,
-    height: screenWidth / 2 - 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#E2EBFF',
     borderRadius: 300,
     position: 'relative',
     top: -screenWidth / 4,
     elevation: 10,
-    borderWidth: 0.5,
-    borderColor: '#616161',
+    borderWidth: 10,
+    borderColor: '#E2EBFF',
   },
   infoContainer: {
     alignItems: 'center',

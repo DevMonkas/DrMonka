@@ -11,7 +11,7 @@ export default function WalletCard({}: any) {
           <Text style={styles.walletMoney}>
             {' '}
             {'\u20B9'}
-            {user.balance}
+            {user.money}
           </Text>
         </View>
         <View style={styles.descriptionWrapper}>
