@@ -26,7 +26,7 @@ export default function Wallet({navigation}: any) {
   const [user, setuser] = useContext(AuthContext);
   useEffect(() => {
     //setMoney(500);
-    setMoney(user.balance);
+    setMoney(user.money!);
   }, []);
   async function _onPressButton(amount: number) {
     if (!amount || amount < 0) return;
@@ -51,7 +51,7 @@ export default function Wallet({navigation}: any) {
       .then((data: any) => {
         // handle success
         // Alert.alert(`Success: ${data.razorpay_payment_id}`);
-        setuser({...user, balance: money + amount});
+        setuser({...user, money: money + amount});
         setMoney(money + amount);
         setmodalVisibilty(true);
         setalertObj({mode: 'success', message: 'Amount added successfully'});

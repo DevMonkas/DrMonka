@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Dimensions,
   ScrollView,
@@ -11,13 +11,19 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Badge from '../../components/atoms/Badge/Badge';
 import TabView from '../../components/Molecules/TabView/TabView';
 import {COLORS, FONTS} from '../../constants/theme';
+import {getDoctorInfo} from '../../services/Doctor.service';
 import {Doctor} from '../../types/ExternalModel.model';
 const {width: screenWidth} = Dimensions.get('window');
 
 export default function doctorProfile({navigation, route}: any) {
   const doctorInfo: Doctor = route.params.doctorInfo;
   console.log(doctorInfo.languages_known);
-
+  useEffect(() => {
+    console.log(doctorInfo);
+    getDoctorInfo(doctorInfo.phone).then(data => {
+      console.log(data.data);
+    });
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.header}>

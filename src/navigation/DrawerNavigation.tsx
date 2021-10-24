@@ -24,7 +24,6 @@ export default function DrawerNavigation() {
   };
   const [user, setUser] = useContext(AuthContext);
 
-  console.log(user);
   return (
     <Drawer.Navigator
       initialRouteName="DrawerScreen"
