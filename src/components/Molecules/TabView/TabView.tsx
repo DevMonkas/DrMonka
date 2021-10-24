@@ -3,15 +3,22 @@ import {View, useWindowDimensions, Text} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {COLORS} from '../../../constants/theme';
 
-const FirstRoute = () => <View style={{flex: 1, backgroundColor: '#fff'}} />;
+const FirstRoute = (foo: any) => (
+  <View style={{flex: 1, backgroundColor: '#fff'}}></View>
+);
 
 const SecondRoute = () => <View style={{flex: 1, backgroundColor: '#fff'}} />;
 
-const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-});
-
+const renderScene = ({route}: any) => {
+  switch (route.key) {
+    case 'first':
+      return <FirstRoute foo={'abcd'} />;
+    case 'second':
+      return <SecondRoute />;
+    default:
+      return null;
+  }
+};
 export default function TabViewExample() {
   const layout = useWindowDimensions();
 
