@@ -29,7 +29,7 @@ export function DrawerContent(props: any) {
     if (user) {
       setLoggedIn(true);
     }
-    console.log('token', refreshedToken);
+    // console.log('token', refreshedToken);
   });
 
   const logout = async () => {

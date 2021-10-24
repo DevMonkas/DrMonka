@@ -13,7 +13,6 @@ export default function WalletBadge({onTouch = () => {}}: WalletBadgeProps) {
   useEffect(() => {
     fetchWallet()
       .then(walletMoney => {
-        console.log('WALLET MONEY ', walletMoney);
         setUser({...user, money: walletMoney.data.money});
       })
       .catch(err => {

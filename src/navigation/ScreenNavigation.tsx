@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import DrawerNavigation from './DrawerNavigation';
@@ -22,9 +22,54 @@ import {LoadingContext} from '../shared/LoadingProvider';
 import Notifications from '../pages/Notifications/Notifications';
 import Chat from '../pages/Chat/Chat';
 import ChatList from '../pages/Chat/ChatList';
+import {SocketContext} from '../shared/SocketProvider';
+import {IMessage} from 'react-native-gifted-chat';
+import {getAllConversations, startConsultation} from '../services/Chat.service';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
+  const soc = useContext(SocketContext);
+  console.log('SKAREEN NAVIGATIN');
+
+  useEffect(() => {
+    getAllConversations()
+      .then(data => {
+        const myData = data.data;
+
+        myData.forEach(element => {
+          // console.log('--->', element);
+          console.log('YOYOYOYO', element.userPhone!, element.doctorPhone);
+          startConsultation(
+            soc,
+            element.userPhone!,
+            element.doctorPhone!,
+            true,
+          );
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    soc.on('message', data => {
+      console.log('HONEY SINGHH in screenNav!!');
+      let message: IMessage = {
+        _id: Math.round(Math.random() * 1000000),
+        createdAt: data.created_at,
+        system: data.system,
+        text: data.message,
+        user: {
+          _id: 2,
+          name: 'route?.params.userName',
+          avatar: 'route?.params.img',
+        },
+      };
+      // setMessages((previousMessages: any) =>
+      //   GiftedChat.append(previousMessages, [message]),
+      // );
+    });
+  }, []);
+
   const navigate = (navigation: any, location: string) => {
     navigation.navigate(location);
   };

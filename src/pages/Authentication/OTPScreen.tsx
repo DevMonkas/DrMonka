@@ -39,7 +39,7 @@ export default function OTPScreen({navigation, route}: any) {
         route.params?.verificationId;
       const credential = await confirmation.confirm(otp);
       let token = await credential?.user.getIdToken();
-      console.log(token);
+      // console.log(token);
       const res = await checkAuth(token!);
       // const res = {
       //   data: {
@@ -51,8 +51,8 @@ export default function OTPScreen({navigation, route}: any) {
       //     gender: '',
       //   },
       // };
-      console.log('xoxox', res.data);
-      console.log('---->', res.data.userExists);
+      // console.log('xoxox', res.data);
+      // console.log('---->', res.data.userExists);
       if (res.data.userExists == false) {
         setLoading(false);
         navigation.navigate('SignUp');

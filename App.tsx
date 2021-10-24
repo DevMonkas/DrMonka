@@ -24,6 +24,7 @@ import {
   SocketContext,
   SocketProvider,
 } from './src/shared/SocketProvider';
+import {IMessage} from 'react-native-gifted-chat';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
