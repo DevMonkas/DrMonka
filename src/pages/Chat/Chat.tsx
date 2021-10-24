@@ -15,62 +15,13 @@ const Chat = ({navigation, route}: any) => {
   const [user, setUser] = useContext(AuthContext);
   const [messageObj, setMessageObj] = useContext(MessageContext);
   const soc = useContext(SocketContext);
+  console.log('SINGER', messageObj);
   useEffect(() => {
-    // setMessageObj({
-    //   selectedphone: route?.params.doctorPhone,
-    //   message: messageObj.message,
-    // });
-
-    // soc.on('message', data => {
-    //   console.log('YOYOYO');
-    //   let message: IMessage = {
-    //     _id: Math.random(),
-    //     createdAt: data.created_at,
-    //     system: data.system,
-    //     text: data.message,
-    //     user: {
-    //       _id: 2,
-    //       name: route?.params.userName,
-    //       avatar: route?.params.img,
-    //     },
-    //   };
-    //   setMessages((previousMessages: any) =>
-    //     GiftedChat.append(previousMessages, [message]),
-    //   );
-    // });
-    const otherUser = {
-      _id: 2,
-      name: route?.params.userName,
-      avatar: route?.params.img,
-    };
-    // console.log('docParams->', route?.params);
-    const currentUser = {
-      _id: 1,
-      name: 'React Native',
-      avatar: 'https://placeimg.com/140/140/any',
-    };
-
-    // setMessages([
-    //   {
-    //     _id: 1,
-    //     text: 'Hello developer',
-    //     createdAt: new Date(),
-    //     system: true,
-    //   },
-    //   {
-    //     _id: 2,
-    //     text: 'Hello World',
-    //     createdAt: new Date(),
-    //     user: otherUser,
-    //   },
-    //   {
-    //     _id: 3,
-    //     text: 'Hello World',
-    //     createdAt: new Date(),
-    //     user: currentUser,
-    //   },
-    // ]);
-  }, []);
+    console.log('HONEY SINGAAAAA', messageObj);
+    setMessages((previousMessages: any) =>
+      GiftedChat.append(previousMessages, messageObj.message),
+    );
+  }, [messageObj.message]);
 
   const onSend = useCallback((message = []) => {
     console.log('chal ja bhai');

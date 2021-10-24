@@ -25,12 +25,12 @@ import ChatList from '../pages/Chat/ChatList';
 import {SocketContext} from '../shared/SocketProvider';
 import {IMessage} from 'react-native-gifted-chat';
 import {getAllConversations, startConsultation} from '../services/Chat.service';
+import {MessageContext} from '../shared/MessageProvider';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
   const soc = useContext(SocketContext);
-  console.log('SKAREEN NAVIGATIN');
-
+  const [messageObj, setMessageObj] = useContext(MessageContext);
   useEffect(() => {
     getAllConversations()
       .then(data => {
@@ -52,7 +52,6 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
       });
 
     soc.on('message', data => {
-      console.log('HONEY SINGHH in screenNav!!');
       let message: IMessage = {
         _id: Math.round(Math.random() * 1000000),
         createdAt: data.created_at,
@@ -64,6 +63,9 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           avatar: 'route?.params.img',
         },
       };
+
+      setMessageObj([...messageObj.message, message]);
+      console.log('added message');
       // setMessages((previousMessages: any) =>
       //   GiftedChat.append(previousMessages, [message]),
       // );
