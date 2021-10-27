@@ -53,7 +53,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
 
     soc.on('message', data => {
       let message: IMessage = {
-        _id: Math.round(Math.random() * 1000000),
+        _id: data.from + '_' + Math.round(Math.random() * 1000000),
         createdAt: data.created_at,
         system: data.system,
         text: data.message,
@@ -64,8 +64,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
         },
       };
 
-      setMessageObj([...messageObj.message, message]);
-      console.log('added message');
+      setMessageObj((prevArray: any) => [message]);
       // setMessages((previousMessages: any) =>
       //   GiftedChat.append(previousMessages, [message]),
       // );

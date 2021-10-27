@@ -27,17 +27,24 @@ const TrendingCard = ({
           <Entypo name="dot-single" size={15} color="lightgreen" />
           <Text style={{fontSize: 10}}>Online</Text>
         </View>
-        <Image
+        <View
           style={{
-            height: '100%',
-            width: '100%',
-            borderTopRightRadius: 15,
-            borderTopLeftRadius: 15,
-          }}
-          source={{
-            uri: imgUrl,
-          }}
-        />
+            borderRadius: 200,
+            backgroundColor: 'red',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Image
+            style={{
+              height: 100,
+              width: 100,
+              borderRadius: 300,
+            }}
+            source={{
+              uri: imgUrl,
+            }}
+          />
+        </View>
       </View>
       <View style={styles.astroDetailWrapper}>
         <View style={styles.starWrapper}>
@@ -56,18 +63,16 @@ const TrendingCard = ({
         <View style={styles.categoryWrapper}>
           <Text style={styles.categoryText}>Marriage Health</Text>
         </View>
-        <View style={styles.priceWrapper}>
-          <Text style={styles.priceText}>
-            {'\u20B9'}
-            {price}
-          </Text>
-        </View>
         <View style={styles.bottomButtonsWrapper}>
           <PrimaryButton
             fullButton={false}
             width="100%"
             customCls={styles.chatButton}>
-            <Ionicons name="chatbox-ellipses-outline" size={18} color="white" />
+            <Ionicons
+              name="chatbox-ellipses-outline"
+              size={18}
+              color={COLORS.primary[500]}
+            />
           </PrimaryButton>
           <PrimaryButton
             fullButton={false}
@@ -83,17 +88,28 @@ const TrendingCard = ({
 
 const styles = StyleSheet.create({
   trendingCardWrapper: {
-    backgroundColor: COLORS.primary[100],
+    backgroundColor: 'white',
     borderRadius: 15,
     width: screenWidth / 2 - 8,
     height: 350,
     marginRight: 4,
     marginTop: 8,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   imgContainer: {
     width: screenWidth / 2 - 8,
     height: '45%',
-    backgroundColor: 'green',
+    backgroundColor: COLORS.primary[100],
+    alignItems: 'center',
+    justifyContent: 'center',
     position: 'relative',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -165,7 +181,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
-    backgroundColor: '#FF8D3A',
+    backgroundColor: COLORS.primary[100],
   },
   callButton: {
     borderRadius: 0,

@@ -25,6 +25,7 @@ import {
   SocketProvider,
 } from './src/shared/SocketProvider';
 import {IMessage} from 'react-native-gifted-chat';
+import {MessageProvider} from './src/shared/MessageProvider';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -51,17 +52,19 @@ export default function App() {
   const onPressLearnMore = () => {};
   return (
     <SafeAreaProvider>
-      <SocketProvider>
-        <LoadingProvider>
-          <AuthProvider>
-            <StatusBar hidden={false} animated />
-            <NavigationContainer>
-              <ScreenNavigation viewedOnboarding={viewedOnboarding} />
-              <LoadingDialog />
-            </NavigationContainer>
-          </AuthProvider>
-        </LoadingProvider>
-      </SocketProvider>
+      <MessageProvider>
+        <SocketProvider>
+          <LoadingProvider>
+            <AuthProvider>
+              <StatusBar hidden={false} animated />
+              <NavigationContainer>
+                <ScreenNavigation viewedOnboarding={viewedOnboarding} />
+                <LoadingDialog />
+              </NavigationContainer>
+            </AuthProvider>
+          </LoadingProvider>
+        </SocketProvider>
+      </MessageProvider>
 
       {/* <SignUp></SignUp> */}
     </SafeAreaProvider>

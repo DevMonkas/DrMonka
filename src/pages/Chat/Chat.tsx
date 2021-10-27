@@ -1,4 +1,10 @@
-import React, {useState, useCallback, useEffect, useContext} from 'react';
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useContext,
+  useRef,
+} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {Bubble, GiftedChat, IMessage, Send} from 'react-native-gifted-chat';
 import ChatHead from './ChatHead';
@@ -12,16 +18,25 @@ import {AuthContext} from '../../shared/AuthProvider';
 import {MessageContext} from '../../shared/MessageProvider';
 const Chat = ({navigation, route}: any) => {
   const [messages, setMessages] = useState<any>([]);
-  const [user, setUser] = useContext(AuthContext);
+  const [userContext, setUser] = useContext(AuthContext);
   const [messageObj, setMessageObj] = useContext(MessageContext);
+  const initialRender = useRef(true);
   const soc = useContext(SocketContext);
-  console.log('SINGER', messageObj);
   useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+      return;
+    }
     console.log('HONEY SINGAAAAA', messageObj);
-    setMessages((previousMessages: any) =>
-      GiftedChat.append(previousMessages, messageObj.message),
-    );
-  }, [messageObj.message]);
+    if (
+      messageObj[0] &&
+      messageObj[0]._id.split('_')[0] === route?.params.doctorPhone
+    ) {
+      setMessages((previousMessages: any) =>
+        GiftedChat.append(previousMessages, messageObj),
+      );
+    }
+  }, [messageObj]);
 
   const onSend = useCallback((message = []) => {
     console.log('chal ja bhai');
@@ -55,7 +70,12 @@ const Chat = ({navigation, route}: any) => {
       <TouchableOpacity
         onPress={() => {
           if (text && onSend) {
-            sendMessage(soc, user.phone, route?.params.doctorPhone, text);
+            sendMessage(
+              soc,
+              userContext.phone!,
+              route?.params.doctorPhone,
+              text,
+            );
             onSend(
               {text: text.trim(), user: user, _id: messages.length + 1},
               true,

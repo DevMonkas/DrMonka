@@ -3,24 +3,25 @@ export const carouselDummy = [
     title: 'ALL',
     subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
     illustration:
-      'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX47458864.jpg',
+      'https://i.pinimg.com/originals/b9/27/1b/b9271b8356c0e07fac2126e25dfe4343.jpg',
   },
   {
     title: 'HEALTH',
     subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://jothishi.com/wp-content/uploads/2019/07/nadi-2.jpg',
+    illustration:
+      'https://www.veganprimarycare.com/wp-content/uploads/2021/04/Book-Appointment-Featured-Image-1200-x-628-px.png',
   },
 
   {
     title: 'CAREER',
     subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://www.astroreikidehradun.com/images/new/palmistry.jpg',
+    illustration:
+      'https://www.practostatic.com/consumer-home/desktop/images/1597423628/doctor-online.png',
   },
   {
     title: 'LEGAL',
     subtitle: 'Lorem ipsum dolor sit amet',
-    illustration:
-      'https://cdn.pixabay.com/photo/2018/05/17/15/24/armillar-ball-3408811_1280.jpg',
+    illustration: 'https://digiqure.com/digiqure/images/herobanner2.jpg',
   },
 ];
 

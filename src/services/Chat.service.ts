@@ -22,16 +22,16 @@ export const startConsultation = async (
     roomId: `${userPhone}_${doctorPhone}`,
     phone: userPhone,
   });
-  // if (newConsulation) {
-  sendMessage(
-    soc,
-    userPhone,
-    doctorPhone,
-    `Consulatation started at ${new Date()}`,
-    true,
-  );
-  console.log(`joined room ${userPhone}_${doctorPhone}`);
-  // }
+  if (newConsulation) {
+    sendMessage(
+      soc,
+      userPhone,
+      doctorPhone,
+      `Consulatation started at ${new Date()}`,
+      true,
+    );
+    console.log(`joined room ${userPhone}_${doctorPhone}`);
+  }
 };
 export const sendMessage = async (
   soc: Socket,
@@ -40,6 +40,7 @@ export const sendMessage = async (
   message: string,
   system: boolean = false,
 ) => {
+  console.log('message gaya=>', userPhone, doctorPhone);
   soc.emit('message', {
     roomId: `${userPhone}_${doctorPhone}`,
     payload: {
