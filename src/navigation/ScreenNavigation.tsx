@@ -29,10 +29,12 @@ import {MessageContext} from '../shared/MessageProvider';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import VideoCall from '../pages/VideoCall/VideoCall';
+import {AuthContext} from '../shared/AuthProvider';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
   const soc = useContext(SocketContext);
+  const [user, setUser] = useContext(AuthContext);
   const [messageObj, setMessageObj] = useContext(MessageContext);
   useEffect(() => {
     getAllConversations()
@@ -207,6 +209,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerLeft: () => backButton(navigation, 'white'),
           headerRight: () => callingButtons(navigation, 'white'),
+          headerTitle: '' + user.selectedPhone,
           title: 'Chat',
         })}
         component={Chat}

@@ -91,6 +91,7 @@ const MessagesScreen = ({navigation, route}: any) => {
         renderItem={({item}) => (
           <Card
             onPress={() => {
+              setUser({...user, selectedPhone: item.doctorPhone});
               startConsultation(soc, user.phone!, item.doctorPhone!);
               navigation.navigate('Chat', {
                 userName: item.name,

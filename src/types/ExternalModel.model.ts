@@ -17,6 +17,7 @@ export interface User {
   phone?: string;
   dob?: string;
   money?: number;
+  selectedPhone?: number;
 }
 export interface Conversations {
   _id?: string;

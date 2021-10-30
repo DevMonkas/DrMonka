@@ -29,6 +29,8 @@ import {COLORS} from '../../constants/theme';
 const dimensions = Dimensions.get('window');
 
 class VideoCall extends React.Component {
+  static contextType = SocketContext;
+
   constructor(props) {
     super(props);
 
@@ -45,11 +47,11 @@ class VideoCall extends React.Component {
   }
 
   componentDidMount = () => {
-    this.socket = io.connect(
-      'https://22a0-2405-201-19-30c5-b092-e4de-a678-fe11.ngrok.io',
-    );
-    // this.socket = React.useContext(SocketContext);
-
+    // this.socket = io.connect(
+    //   'https://22a0-2405-201-19-30c5-b092-e4de-a678-fe11.ngrok.io',
+    // );
+    this.socket = this.context;
+    console.log('XOXOXOOXOX', this.socket);
     this.socket.on('connection-success', success => {
       console.log(success);
     });
