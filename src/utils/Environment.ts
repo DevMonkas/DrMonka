@@ -2,7 +2,7 @@ var _Environments = {
   production: {BASE_URL: '', API_KEY: ''},
   staging: {BASE_URL: '', API_KEY: ''},
   development: {
-    BASE_URL: 'http://localhost:8000', //"https://topastro-backend.herokuapp.com",
+    BASE_URL: 'https://qivihealth-backend.herokuapp.com', //"https://topastro-backend.herokuapp.com",
     API_KEY: '',
   },
 };
