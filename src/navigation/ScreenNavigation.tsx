@@ -26,6 +26,9 @@ import {SocketContext} from '../shared/SocketProvider';
 import {IMessage} from 'react-native-gifted-chat';
 import {getAllConversations, startConsultation} from '../services/Chat.service';
 import {MessageContext} from '../shared/MessageProvider';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import VideoCall from '../pages/VideoCall/VideoCall';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
@@ -94,6 +97,25 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
       color={COLORS.primary[500]}
     />
   );
+
+  const callingButtons = (navigation: any, color: string) => (
+    <View style={{paddingRight: '15%', flexDirection: 'row'}}>
+      <Feather
+        name="phone-call"
+        style={{marginRight: '20%'}}
+        size={26}
+        onPress={() => navigate(navigation, 'CallingScreen')}
+        color={COLORS.primary[500]}
+      />
+
+      <AntDesign
+        name="videocamera"
+        size={26}
+        onPress={() => navigate(navigation, 'VideoCallingScreen')}
+        color={COLORS.primary[500]}
+      />
+    </View>
+  );
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -144,6 +166,14 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
         component={CallingScreen}
       />
       <Stack.Screen
+        name="VideoCallingScreen"
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+        component={VideoCall}
+      />
+      <Stack.Screen
         name="Wallet"
         options={({navigation}) => ({
           headerShown: true,
@@ -176,6 +206,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerTitleStyle: styles.secondaryHeaderTitle,
           headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerLeft: () => backButton(navigation, 'white'),
+          headerRight: () => callingButtons(navigation, 'white'),
           title: 'Chat',
         })}
         component={Chat}
