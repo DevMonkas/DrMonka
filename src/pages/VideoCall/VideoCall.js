@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-
+import {SocketContext} from '../../shared/SocketProvider';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   RTCPeerConnection,
   RTCIceCandidate,
@@ -22,6 +24,7 @@ import {
 } from 'react-native-webrtc';
 
 import io from 'socket.io-client';
+import {COLORS} from '../../constants/theme';
 
 const dimensions = Dimensions.get('window');
 
@@ -32,6 +35,8 @@ class VideoCall extends React.Component {
     this.state = {
       localStream: null,
       remoteStream: null,
+      mic: true,
+      video: true,
     };
 
     this.sdp;
@@ -43,6 +48,7 @@ class VideoCall extends React.Component {
     this.socket = io.connect(
       'https://22a0-2405-201-19-30c5-b092-e4de-a678-fe11.ngrok.io',
     );
+    // this.socket = React.useContext(SocketContext);
 
     this.socket.on('connection-success', success => {
       console.log(success);
@@ -184,7 +190,19 @@ class VideoCall extends React.Component {
 
   render() {
     const {localStream, remoteStream} = this.state;
-
+    const toggleMic = () => {
+      this.setState({mic: !this.state.mic});
+    };
+    const toggleVideo = () => {
+      this.setState({video: !this.state.video});
+    };
+    const toggleCamera = () => {
+      localStream._tracks[1]._switchCamera();
+    };
+    const endCall = () => {
+      console.log('CODE FOR END CALL');
+      //AFTER ENDING CALL NAVIGATE BACK TO CHAT
+    };
     const remoteVideo = remoteStream ? (
       <RTCView
         key={2}
@@ -194,17 +212,31 @@ class VideoCall extends React.Component {
         streamURL={remoteStream && remoteStream.toURL()}
       />
     ) : (
-      <View style={{padding: 15}}>
-        <Text style={{fontSize: 22, textAlign: 'center', color: 'white'}}>
-          Waiting for Peer connection ...
+      <View
+        style={{
+          height: dimensions.height,
+          width: dimensions.width,
+          backgroundColor: 'black',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Text
+          style={{
+            fontSize: 22,
+            textAlign: 'center',
+            color: 'white',
+            justifyContent: 'center',
+            backgroundColor: 'black',
+          }}>
+          Connecting...
         </Text>
       </View>
     );
 
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <StatusBar backgroundColor="blue" barStyle={'dark-content'} />
-        <View style={{...styles.buttonsContainer}}>
+      <SafeAreaView style={{flex: 1, backgroundColor: COLORS.primary[100]}}>
+        <StatusBar backgroundColor="green" barStyle={'dark-content'} />
+        {/* <View style={{...styles.buttonsContainer}}>
           <View style={{flex: 1}}>
             <TouchableOpacity onPress={this.createOffer}>
               <View style={styles.button}>
@@ -219,17 +251,15 @@ class VideoCall extends React.Component {
               </View>
             </TouchableOpacity>
           </View>
-        </View>
+        </View> */}
         <View style={{...styles.videosContainer}}>
           <View
             style={{
               position: 'absolute',
               zIndex: 1,
-              bottom: 10,
-              right: 10,
-              width: 100,
-              height: 200,
-              backgroundColor: 'black', //width: '100%', height: '100%'
+              top: 20,
+              right: 3,
+              backgroundColor: 'orange', //width: '100%', height: '100%'
             }}>
             <View style={{flex: 1}}>
               <TouchableOpacity
@@ -259,12 +289,62 @@ class VideoCall extends React.Component {
             </View>
           </ScrollView>
         </View>
+        <View style={styles.bottomButtonsContainer}>
+          <TouchableOpacity onPress={toggleMic}>
+            <View style={styles.circularButtonWrapper}>
+              {this.state.mic ? (
+                <Feather name="mic" size={26} color="white" />
+              ) : (
+                <Feather name="mic-off" size={26} color="white" />
+              )}
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={toggleVideo}>
+            <View style={styles.circularButtonWrapper}>
+              {this.state.video ? (
+                <Feather name="video" size={26} color="white" />
+              ) : (
+                <Feather name="video-off" size={26} color="white" />
+              )}
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={toggleCamera}>
+            <View style={styles.circularButtonWrapper}>
+              <MaterialCommunityIcons
+                name="camera-switch-outline"
+                size={26}
+                color="white"
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={[styles.circularButtonWrapper, styles.endCallWrapper]}>
+              <Feather name="phone-call" size={26} color="white" />
+            </View>
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  endCallWrapper: {
+    backgroundColor: 'red',
+  },
+  bottomButtonsContainer: {
+    position: 'absolute',
+    bottom: '8%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+  },
+  circularButtonWrapper: {
+    borderRadius: 50,
+    backgroundColor: COLORS.primary[400],
+    padding: 17,
+  },
   buttonsContainer: {
     flexDirection: 'row',
   },
@@ -285,19 +365,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   rtcView: {
-    width: 100, //dimensions.width,
-    height: 200, //dimensions.height / 2,
-    backgroundColor: 'black',
+    width: 120, //dimensions.width,
+    height: 180, //dimensions.height / 2,
+    backgroundColor: 'purple',
+    zIndex: 100,
+    position: 'absolute',
+    right: 5,
   },
   scrollView: {
     flex: 1,
     // flexDirection: 'row',
-    backgroundColor: 'teal',
+    // backgroundColor: 'teal',
     padding: 15,
   },
   rtcViewRemote: {
-    width: dimensions.width - 30,
-    height: 200, //dimensions.height / 2,
+    width: dimensions.width,
+    height: dimensions.height, //dimensions.height / 2,
     backgroundColor: 'black',
   },
 });
