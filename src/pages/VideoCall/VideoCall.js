@@ -25,6 +25,7 @@ import {
 
 import io from 'socket.io-client';
 import {COLORS} from '../../constants/theme';
+import {AuthContext} from '../../shared/AuthProvider';
 
 const dimensions = Dimensions.get('window');
 
@@ -51,7 +52,7 @@ class VideoCall extends React.Component {
     //   'https://22a0-2405-201-19-30c5-b092-e4de-a678-fe11.ngrok.io',
     // );
     this.socket = this.context;
-    console.log('XOXOXOOXOX', this.socket);
+    // console.log('XOXOXOOXOX', this.socket);
     this.socket.on('connection-success', success => {
       console.log(success);
     });
@@ -151,7 +152,7 @@ class VideoCall extends React.Component {
   };
   sendToPeer = (messageType, payload) => {
     this.socket.emit(messageType, {
-      socketID: this.socket.id,
+      roomId: '8428370008_8428370008',
       payload,
     });
   };
@@ -236,96 +237,109 @@ class VideoCall extends React.Component {
     );
 
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: COLORS.primary[100]}}>
-        <StatusBar backgroundColor="green" barStyle={'dark-content'} />
-        {/* <View style={{...styles.buttonsContainer}}>
-          <View style={{flex: 1}}>
-            <TouchableOpacity onPress={this.createOffer}>
-              <View style={styles.button}>
-                <Text style={{...styles.textContent}}>Call</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={{flex: 1}}>
-            <TouchableOpacity onPress={this.createAnswer}>
-              <View style={styles.button}>
-                <Text style={{...styles.textContent}}>Answer</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View> */}
-        <View style={{...styles.videosContainer}}>
-          <View
-            style={{
-              position: 'absolute',
-              zIndex: 1,
-              top: 20,
-              right: 3,
-              backgroundColor: 'orange', //width: '100%', height: '100%'
-            }}>
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                onPress={() => localStream._tracks[1]._switchCamera()}>
-                <View>
-                  <RTCView
-                    key={1}
-                    zOrder={0}
-                    objectFit="cover"
-                    style={{...styles.rtcView}}
-                    streamURL={localStream && localStream.toURL()}
-                  />
+      <AuthContext.Consumer>
+        {authcontext => {
+          const [user, setUser] = authcontext;
+          console.log('HOHOHOHhoihdeiohjoi', user);
+          return (
+            <SafeAreaView
+              style={{flex: 1, backgroundColor: COLORS.primary[100]}}>
+              <StatusBar backgroundColor="green" barStyle={'dark-content'} />
+              <View style={{...styles.buttonsContainer}}>
+                <View style={{flex: 1}}>
+                  <TouchableOpacity onPress={this.createOffer}>
+                    <View style={styles.button}>
+                      <Text style={{...styles.textContent}}>Call</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <ScrollView style={{...styles.scrollView}}>
-            <View
-              style={{
-                flex: 1,
-                width: '100%',
-                backgroundColor: 'black',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              {remoteVideo}
-            </View>
-          </ScrollView>
-        </View>
-        <View style={styles.bottomButtonsContainer}>
-          <TouchableOpacity onPress={toggleMic}>
-            <View style={styles.circularButtonWrapper}>
-              {this.state.mic ? (
-                <Feather name="mic" size={26} color="white" />
-              ) : (
-                <Feather name="mic-off" size={26} color="white" />
-              )}
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={toggleVideo}>
-            <View style={styles.circularButtonWrapper}>
-              {this.state.video ? (
-                <Feather name="video" size={26} color="white" />
-              ) : (
-                <Feather name="video-off" size={26} color="white" />
-              )}
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={toggleCamera}>
-            <View style={styles.circularButtonWrapper}>
-              <MaterialCommunityIcons
-                name="camera-switch-outline"
-                size={26}
-                color="white"
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View style={[styles.circularButtonWrapper, styles.endCallWrapper]}>
-              <Feather name="phone-call" size={26} color="white" />
-            </View>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+                <View style={{flex: 1}}>
+                  <TouchableOpacity onPress={this.createAnswer}>
+                    <View style={styles.button}>
+                      <Text style={{...styles.textContent}}>Answer</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={{...styles.videosContainer}}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    zIndex: 1,
+                    top: 20,
+                    right: 3,
+                    backgroundColor: 'orange', //width: '100%', height: '100%'
+                  }}>
+                  <View style={{flex: 1}}>
+                    <TouchableOpacity
+                      onPress={() => localStream._tracks[1]._switchCamera()}>
+                      <View>
+                        <RTCView
+                          key={1}
+                          zOrder={0}
+                          objectFit="cover"
+                          style={{...styles.rtcView}}
+                          streamURL={localStream && localStream.toURL()}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <ScrollView style={{...styles.scrollView}}>
+                  <View
+                    style={{
+                      flex: 1,
+                      width: '100%',
+                      backgroundColor: 'black',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    {remoteVideo}
+                  </View>
+                </ScrollView>
+              </View>
+              <View style={styles.bottomButtonsContainer}>
+                <TouchableOpacity onPress={toggleMic}>
+                  <View style={styles.circularButtonWrapper}>
+                    {this.state.mic ? (
+                      <Feather name="mic" size={26} color="white" />
+                    ) : (
+                      <Feather name="mic-off" size={26} color="white" />
+                    )}
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={toggleVideo}>
+                  <View style={styles.circularButtonWrapper}>
+                    {this.state.video ? (
+                      <Feather name="video" size={26} color="white" />
+                    ) : (
+                      <Feather name="video-off" size={26} color="white" />
+                    )}
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={toggleCamera}>
+                  <View style={styles.circularButtonWrapper}>
+                    <MaterialCommunityIcons
+                      name="camera-switch-outline"
+                      size={26}
+                      color="white"
+                    />
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <View
+                    style={[
+                      styles.circularButtonWrapper,
+                      styles.endCallWrapper,
+                    ]}>
+                    <Feather name="phone-call" size={26} color="white" />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </SafeAreaView>
+          );
+        }}
+      </AuthContext.Consumer>
     );
   }
 }
