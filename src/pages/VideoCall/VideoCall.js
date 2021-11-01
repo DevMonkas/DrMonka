@@ -48,9 +48,6 @@ class VideoCall extends React.Component {
   }
 
   componentDidMount = () => {
-    // this.socket = io.connect(
-    //   'https://22a0-2405-201-19-30c5-b092-e4de-a678-fe11.ngrok.io',
-    // );
     this.socket = this.context;
     // console.log('XOXOXOOXOX', this.socket);
     this.socket.on('connection-success', success => {
@@ -65,8 +62,6 @@ class VideoCall extends React.Component {
     });
 
     this.socket.on('candidate', candidate => {
-      // console.log('From Peer... ', JSON.stringify(candidate))
-      // this.candidates = [...this.candidates, candidate]
       this.pc.addIceCandidate(new RTCIceCandidate(candidate));
     });
 
@@ -87,10 +82,7 @@ class VideoCall extends React.Component {
     this.pc = new RTCPeerConnection(pc_config);
 
     this.pc.onicecandidate = e => {
-      // send the candidates to the remote peer
-      // see addCandidate below to be triggered on the remote peer
       if (e.candidate) {
-        // console.log(JSON.stringify(e.candidate))
         this.sendToPeer('candidate', e.candidate);
       }
     };
@@ -206,7 +198,7 @@ class VideoCall extends React.Component {
       console.log('CODE FOR END CALL');
       //AFTER ENDING CALL NAVIGATE BACK TO CHAT
     };
-    const remoteVideo = remoteStream ? (
+    const remoteVideo = true ? (
       <RTCView
         key={2}
         mirror={true}
