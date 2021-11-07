@@ -29,7 +29,7 @@ import {AuthContext} from '../../shared/AuthProvider';
 
 const dimensions = Dimensions.get('window');
 
-class VideoCall extends React.Component {
+class VideoCall2 extends React.Component {
   static contextType = SocketContext;
 
   constructor(props) {
@@ -49,6 +49,7 @@ class VideoCall extends React.Component {
 
   componentDidMount = () => {
     this.socket = this.context;
+    console.log(this.socket);
     // console.log('XOXOXOOXOX', this.socket);
     this.socket.on('connection-success', success => {
       console.log(success);
@@ -76,6 +77,34 @@ class VideoCall extends React.Component {
           username: 'YzYNCouZM1mhqhmseWk6',
           credential: 'YzYNCouZM1mhqhmseWk6',
         },
+        {
+          url: 'turn:numb.viagenie.ca',
+          credential: 'muazkh',
+          username: 'webrtc@live.com',
+        },
+        {
+          url: 'turn:192.158.29.39:3478?transport=udp',
+          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+          username: '28224511:1379330808',
+        },
+        {
+          url: 'turn:192.158.29.39:3478?transport=tcp',
+          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+          username: '28224511:1379330808',
+        },
+        {
+          url: 'turn:turn.bistri.com:80',
+          credential: 'homeo',
+          username: 'homeo',
+        },
+        {
+          url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+          credential: 'webrtc',
+          username: 'webrtc',
+        },
+        // {
+        //   urls : 'stun:stun.l.google.com:19302'
+        // }
       ],
     };
 
@@ -142,6 +171,17 @@ class VideoCall extends React.Component {
       mediaDevices.getUserMedia(constraints).then(success).catch(failure);
     });
   };
+  componentWillUnmount = () => {
+    this.pc.getLocalStreams().forEach(stream => {
+      stream.getTracks().forEach(track => {
+        track.stop();
+      });
+    });
+  };
+  endCall = () => {
+    this.pc.close();
+    this.props.navigation.goBack();
+  };
   sendToPeer = (messageType, payload) => {
     this.socket.emit(messageType, {
       roomId: '8428370008_8428370008',
@@ -169,18 +209,6 @@ class VideoCall extends React.Component {
 
         this.sendToPeer('offerOrAnswer', sdp);
       });
-  };
-
-  setRemoteDescription = () => {
-    const desc = JSON.parse(this.sdp);
-    this.pc.setRemoteDescription(new RTCSessionDescription(desc));
-  };
-
-  addCandidate = () => {
-    this.candidates.forEach(candidate => {
-      console.log(JSON.stringify(candidate));
-      this.pc.addIceCandidate(new RTCIceCandidate(candidate));
-    });
   };
 
   render() {
@@ -318,7 +346,7 @@ class VideoCall extends React.Component {
                     />
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.endCall}>
                   <View
                     style={[
                       styles.circularButtonWrapper,
@@ -393,4 +421,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default VideoCall;
+export default VideoCall2;
