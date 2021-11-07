@@ -239,7 +239,7 @@ export const AstroCall = ({navigation}: any) => {
                   <SecondaryButton
                     text="START CONSULTATION"
                     onPress={() => {
-                      startConsultation(soc, '8939336693', item.phone, true);
+                      startConsultation(soc, user.phone!, item.phone, true);
                     }}
                   />
                   {/* </View> */}

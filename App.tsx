@@ -16,7 +16,6 @@ import {LoadingDialog} from './src/components/Molecules/LoadingDialog/LoadingDia
 import {LoadingProvider} from './src/shared/LoadingProvider';
 import {LoadingContext} from './src/shared/LoadingProvider';
 import {AuthProvider} from './src/shared/AuthProvider';
-import VideoCall from './src/pages/VideoCall/VideoCall';
 import Chat from './src/pages/Chat/Chat';
 import ChatList from './src/pages/Chat/ChatList';
 import {
@@ -24,6 +23,8 @@ import {
   SocketContext,
   SocketProvider,
 } from './src/shared/SocketProvider';
+import {IMessage} from 'react-native-gifted-chat';
+import {MessageProvider} from './src/shared/MessageProvider';
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -50,17 +51,19 @@ export default function App() {
   const onPressLearnMore = () => {};
   return (
     <SafeAreaProvider>
-      <SocketProvider>
-        <LoadingProvider>
-          <AuthProvider>
-            <StatusBar hidden={false} animated />
-            <NavigationContainer>
-              <ScreenNavigation viewedOnboarding={viewedOnboarding} />
-              <LoadingDialog />
-            </NavigationContainer>
-          </AuthProvider>
-        </LoadingProvider>
-      </SocketProvider>
+      <MessageProvider>
+        <SocketProvider>
+          <LoadingProvider>
+            <AuthProvider>
+              <StatusBar hidden={false} animated />
+              <NavigationContainer>
+                <ScreenNavigation viewedOnboarding={viewedOnboarding} />
+                <LoadingDialog />
+              </NavigationContainer>
+            </AuthProvider>
+          </LoadingProvider>
+        </SocketProvider>
+      </MessageProvider>
 
       {/* <SignUp></SignUp> */}
     </SafeAreaProvider>

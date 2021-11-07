@@ -11,7 +11,8 @@ export const AuthContext = createContext<[User, any]>([
     name: '',
     dob: '',
     gender: '',
-    balance: -1,
+    money: -1,
+    selectedPhone: 0,
   },
   () => {},
 ]);
@@ -23,7 +24,8 @@ export const AuthProvider = (props: any) => {
     name: '',
     dob: '',
     gender: '',
-    balance: -1,
+    money: -1,
+    selectedPhone: 0,
   });
   return (
     <AuthContext.Provider value={[user, setUser]}>

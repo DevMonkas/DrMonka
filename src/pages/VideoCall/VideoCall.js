@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-
+import {SocketContext} from '../../shared/SocketProvider';
+import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   RTCPeerConnection,
   RTCIceCandidate,
@@ -22,16 +24,22 @@ import {
 } from 'react-native-webrtc';
 
 import io from 'socket.io-client';
+import {COLORS} from '../../constants/theme';
+import {AuthContext} from '../../shared/AuthProvider';
 
 const dimensions = Dimensions.get('window');
 
-class VideoCall extends React.Component {
+class VideoCall2 extends React.Component {
+  static contextType = SocketContext;
+
   constructor(props) {
     super(props);
 
     this.state = {
       localStream: null,
       remoteStream: null,
+      mic: true,
+      video: true,
     };
 
     this.sdp;
@@ -40,10 +48,9 @@ class VideoCall extends React.Component {
   }
 
   componentDidMount = () => {
-    this.socket = io.connect(
-      'https://22a0-2405-201-19-30c5-b092-e4de-a678-fe11.ngrok.io',
-    );
-
+    this.socket = this.context;
+    console.log(this.socket);
+    // console.log('XOXOXOOXOX', this.socket);
     this.socket.on('connection-success', success => {
       console.log(success);
     });
@@ -56,8 +63,6 @@ class VideoCall extends React.Component {
     });
 
     this.socket.on('candidate', candidate => {
-      // console.log('From Peer... ', JSON.stringify(candidate))
-      // this.candidates = [...this.candidates, candidate]
       this.pc.addIceCandidate(new RTCIceCandidate(candidate));
     });
 
@@ -72,16 +77,41 @@ class VideoCall extends React.Component {
           username: 'YzYNCouZM1mhqhmseWk6',
           credential: 'YzYNCouZM1mhqhmseWk6',
         },
+        {
+          url: 'turn:numb.viagenie.ca',
+          credential: 'muazkh',
+          username: 'webrtc@live.com',
+        },
+        {
+          url: 'turn:192.158.29.39:3478?transport=udp',
+          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+          username: '28224511:1379330808',
+        },
+        {
+          url: 'turn:192.158.29.39:3478?transport=tcp',
+          credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+          username: '28224511:1379330808',
+        },
+        {
+          url: 'turn:turn.bistri.com:80',
+          credential: 'homeo',
+          username: 'homeo',
+        },
+        {
+          url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+          credential: 'webrtc',
+          username: 'webrtc',
+        },
+        // {
+        //   urls : 'stun:stun.l.google.com:19302'
+        // }
       ],
     };
 
     this.pc = new RTCPeerConnection(pc_config);
 
     this.pc.onicecandidate = e => {
-      // send the candidates to the remote peer
-      // see addCandidate below to be triggered on the remote peer
       if (e.candidate) {
-        // console.log(JSON.stringify(e.candidate))
         this.sendToPeer('candidate', e.candidate);
       }
     };
@@ -141,9 +171,20 @@ class VideoCall extends React.Component {
       mediaDevices.getUserMedia(constraints).then(success).catch(failure);
     });
   };
+  componentWillUnmount = () => {
+    this.pc.getLocalStreams().forEach(stream => {
+      stream.getTracks().forEach(track => {
+        track.stop();
+      });
+    });
+  };
+  endCall = () => {
+    this.pc.close();
+    this.props.navigation.goBack();
+  };
   sendToPeer = (messageType, payload) => {
     this.socket.emit(messageType, {
-      socketID: this.socket.id,
+      roomId: '8428370008_8428370008',
       payload,
     });
   };
@@ -170,22 +211,22 @@ class VideoCall extends React.Component {
       });
   };
 
-  setRemoteDescription = () => {
-    const desc = JSON.parse(this.sdp);
-    this.pc.setRemoteDescription(new RTCSessionDescription(desc));
-  };
-
-  addCandidate = () => {
-    this.candidates.forEach(candidate => {
-      console.log(JSON.stringify(candidate));
-      this.pc.addIceCandidate(new RTCIceCandidate(candidate));
-    });
-  };
-
   render() {
     const {localStream, remoteStream} = this.state;
-
-    const remoteVideo = remoteStream ? (
+    const toggleMic = () => {
+      this.setState({mic: !this.state.mic});
+    };
+    const toggleVideo = () => {
+      this.setState({video: !this.state.video});
+    };
+    const toggleCamera = () => {
+      localStream._tracks[1]._switchCamera();
+    };
+    const endCall = () => {
+      console.log('CODE FOR END CALL');
+      //AFTER ENDING CALL NAVIGATE BACK TO CHAT
+    };
+    const remoteVideo = true ? (
       <RTCView
         key={2}
         mirror={true}
@@ -194,77 +235,152 @@ class VideoCall extends React.Component {
         streamURL={remoteStream && remoteStream.toURL()}
       />
     ) : (
-      <View style={{padding: 15}}>
-        <Text style={{fontSize: 22, textAlign: 'center', color: 'white'}}>
-          Waiting for Peer connection ...
+      <View
+        style={{
+          height: dimensions.height,
+          width: dimensions.width,
+          backgroundColor: 'black',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Text
+          style={{
+            fontSize: 22,
+            textAlign: 'center',
+            color: 'white',
+            justifyContent: 'center',
+            backgroundColor: 'black',
+          }}>
+          Connecting...
         </Text>
       </View>
     );
 
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <StatusBar backgroundColor="blue" barStyle={'dark-content'} />
-        <View style={{...styles.buttonsContainer}}>
-          <View style={{flex: 1}}>
-            <TouchableOpacity onPress={this.createOffer}>
-              <View style={styles.button}>
-                <Text style={{...styles.textContent}}>Call</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={{flex: 1}}>
-            <TouchableOpacity onPress={this.createAnswer}>
-              <View style={styles.button}>
-                <Text style={{...styles.textContent}}>Answer</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={{...styles.videosContainer}}>
-          <View
-            style={{
-              position: 'absolute',
-              zIndex: 1,
-              bottom: 10,
-              right: 10,
-              width: 100,
-              height: 200,
-              backgroundColor: 'black', //width: '100%', height: '100%'
-            }}>
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                onPress={() => localStream._tracks[1]._switchCamera()}>
-                <View>
-                  <RTCView
-                    key={1}
-                    zOrder={0}
-                    objectFit="cover"
-                    style={{...styles.rtcView}}
-                    streamURL={localStream && localStream.toURL()}
-                  />
+      <AuthContext.Consumer>
+        {authcontext => {
+          const [user, setUser] = authcontext;
+          console.log('HOHOHOHhoihdeiohjoi', user);
+          return (
+            <SafeAreaView
+              style={{flex: 1, backgroundColor: COLORS.primary[100]}}>
+              <StatusBar backgroundColor="green" barStyle={'dark-content'} />
+              <View style={{...styles.buttonsContainer}}>
+                <View style={{flex: 1}}>
+                  <TouchableOpacity onPress={this.createOffer}>
+                    <View style={styles.button}>
+                      <Text style={{...styles.textContent}}>Call</Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <ScrollView style={{...styles.scrollView}}>
-            <View
-              style={{
-                flex: 1,
-                width: '100%',
-                backgroundColor: 'black',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              {remoteVideo}
-            </View>
-          </ScrollView>
-        </View>
-      </SafeAreaView>
+                <View style={{flex: 1}}>
+                  <TouchableOpacity onPress={this.createAnswer}>
+                    <View style={styles.button}>
+                      <Text style={{...styles.textContent}}>Answer</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={{...styles.videosContainer}}>
+                <View
+                  style={{
+                    position: 'absolute',
+                    zIndex: 1,
+                    top: 20,
+                    right: 3,
+                    backgroundColor: 'orange', //width: '100%', height: '100%'
+                  }}>
+                  <View style={{flex: 1}}>
+                    <TouchableOpacity
+                      onPress={() => localStream._tracks[1]._switchCamera()}>
+                      <View>
+                        <RTCView
+                          key={1}
+                          zOrder={0}
+                          objectFit="cover"
+                          style={{...styles.rtcView}}
+                          streamURL={localStream && localStream.toURL()}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <ScrollView style={{...styles.scrollView}}>
+                  <View
+                    style={{
+                      flex: 1,
+                      width: '100%',
+                      backgroundColor: 'black',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    {remoteVideo}
+                  </View>
+                </ScrollView>
+              </View>
+              <View style={styles.bottomButtonsContainer}>
+                <TouchableOpacity onPress={toggleMic}>
+                  <View style={styles.circularButtonWrapper}>
+                    {this.state.mic ? (
+                      <Feather name="mic" size={26} color="white" />
+                    ) : (
+                      <Feather name="mic-off" size={26} color="white" />
+                    )}
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={toggleVideo}>
+                  <View style={styles.circularButtonWrapper}>
+                    {this.state.video ? (
+                      <Feather name="video" size={26} color="white" />
+                    ) : (
+                      <Feather name="video-off" size={26} color="white" />
+                    )}
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={toggleCamera}>
+                  <View style={styles.circularButtonWrapper}>
+                    <MaterialCommunityIcons
+                      name="camera-switch-outline"
+                      size={26}
+                      color="white"
+                    />
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.endCall}>
+                  <View
+                    style={[
+                      styles.circularButtonWrapper,
+                      styles.endCallWrapper,
+                    ]}>
+                    <Feather name="phone-call" size={26} color="white" />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </SafeAreaView>
+          );
+        }}
+      </AuthContext.Consumer>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  endCallWrapper: {
+    backgroundColor: 'red',
+  },
+  bottomButtonsContainer: {
+    position: 'absolute',
+    bottom: '8%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+  },
+  circularButtonWrapper: {
+    borderRadius: 50,
+    backgroundColor: COLORS.primary[400],
+    padding: 17,
+  },
   buttonsContainer: {
     flexDirection: 'row',
   },
@@ -285,21 +401,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   rtcView: {
-    width: 100, //dimensions.width,
-    height: 200, //dimensions.height / 2,
-    backgroundColor: 'black',
+    width: 120, //dimensions.width,
+    height: 180, //dimensions.height / 2,
+    backgroundColor: 'purple',
+    zIndex: 100,
+    position: 'absolute',
+    right: 5,
   },
   scrollView: {
     flex: 1,
     // flexDirection: 'row',
-    backgroundColor: 'teal',
+    // backgroundColor: 'teal',
     padding: 15,
   },
   rtcViewRemote: {
-    width: dimensions.width - 30,
-    height: 200, //dimensions.height / 2,
+    width: dimensions.width,
+    height: dimensions.height, //dimensions.height / 2,
     backgroundColor: 'black',
   },
 });
 
-export default VideoCall;
+export default VideoCall2;

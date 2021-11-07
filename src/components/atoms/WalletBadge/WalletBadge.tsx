@@ -13,8 +13,7 @@ export default function WalletBadge({onTouch = () => {}}: WalletBadgeProps) {
   useEffect(() => {
     fetchWallet()
       .then(walletMoney => {
-        console.log('WALLET MONEY ', walletMoney);
-        setUser({...user, balance: walletMoney.data.money});
+        setUser({...user, money: walletMoney.data.money});
       })
       .catch(err => {
         console.log('ERROR BLOCK');
@@ -29,7 +28,7 @@ export default function WalletBadge({onTouch = () => {}}: WalletBadgeProps) {
         borderColor: COLORS.primary[500],
       }}
       onPress={onTouch}
-      title={`₹${user.balance}`}
+      title={`₹${user.money}`}
       titleStyle={styles.titleChip}
       buttonStyle={styles.walletChip}
       icon={{

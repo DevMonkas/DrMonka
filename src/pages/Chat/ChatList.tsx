@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, Button, StyleSheet, FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   getAllConversations,
   startConsultation,
 } from '../../services/Chat.service';
+import {AuthContext} from '../../shared/AuthProvider';
 import {SocketContext} from '../../shared/SocketProvider';
 import {Conversations} from '../../types/ExternalModel.model';
 import {
@@ -60,6 +61,7 @@ const Messages = [
 ];
 
 const MessagesScreen = ({navigation, route}: any) => {
+  const [user, setUser] = useContext(AuthContext);
   const [conversations, setConversations] = useState<Conversations[]>([]);
   const soc = React.useContext(SocketContext);
   useEffect(() => {
@@ -89,7 +91,8 @@ const MessagesScreen = ({navigation, route}: any) => {
         renderItem={({item}) => (
           <Card
             onPress={() => {
-              startConsultation(soc, '8939336693', item.doctorPhone!);
+              setUser({...user, selectedPhone: item.doctorPhone});
+              startConsultation(soc, user.phone!, item.doctorPhone!);
               navigation.navigate('Chat', {
                 userName: item.name,
                 img: item.image,

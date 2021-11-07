@@ -2,6 +2,7 @@ import axios, {AxiosResponse} from 'axios';
 import firebase from 'firebase';
 import {useContext} from 'react';
 import {Socket} from 'socket.io-client';
+import {AuthContext} from '../shared/AuthProvider';
 
 import {Conversations, Message} from '../types/ExternalModel.model';
 import {Environment} from '../utils/Environment';
@@ -19,9 +20,9 @@ export const startConsultation = async (
 ) => {
   soc.emit('joinServer', {
     roomId: `${userPhone}_${doctorPhone}`,
-    phone: '8939336693',
+    phone: userPhone,
   });
-  if (newConsulation)
+  if (newConsulation) {
     sendMessage(
       soc,
       userPhone,
@@ -29,6 +30,8 @@ export const startConsultation = async (
       `Consulatation started at ${new Date()}`,
       true,
     );
+    console.log(`joined room ${userPhone}_${doctorPhone}`);
+  }
 };
 export const sendMessage = async (
   soc: Socket,
@@ -37,6 +40,7 @@ export const sendMessage = async (
   message: string,
   system: boolean = false,
 ) => {
+  console.log('message gaya=>', userPhone, doctorPhone);
   soc.emit('message', {
     roomId: `${userPhone}_${doctorPhone}`,
     payload: {
@@ -52,7 +56,9 @@ export const sendMessage = async (
 
 export const listenMessage = async (soc: Socket) => {
   let message: Message;
+  console.log('YOUTSIDE');
   soc.on('message', data => {
+    console.log('YAYAYA');
     (message._id = '1'), (message.createdAt = data.created_at);
     message.system = data.system;
     message.text = data.message;

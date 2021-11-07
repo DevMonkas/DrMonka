@@ -6,7 +6,19 @@ import {
   View,
   ScrollView,
   Dimensions,
+  Text,
+  Image,
 } from 'react-native';
+import {
+  Bone,
+  Diabetes,
+  Ear,
+  Eye,
+  Fever,
+  Lungs,
+  Pimples,
+  Pregnancy,
+} from '../../../../assets';
 import CategoryTab from '../../atoms/CategoryTab/CategoryTab';
 export interface PrimaryButtonProps {
   text?: string;
@@ -22,7 +34,7 @@ export default function CategoryTabList() {
   return (
     <View
       style={{
-        height: 80,
+        height: 100,
         alignItems: 'center',
         marginVertical: 5,
         width: screenWidth,
@@ -34,9 +46,30 @@ export default function CategoryTabList() {
         persistentScrollbar={false}
         style={styles.scrollview}>
         <View style={{flexDirection: 'row'}}>
-          {data.map((item: any, index: any) => (
-            <CategoryTab key={index} text={item}></CategoryTab>
-          ))}
+          <CategoryTab key={0} text={'Fever'}>
+            <Image style={styles.img} source={Fever} />
+          </CategoryTab>
+          <CategoryTab key={1} text={'Pimples & Acne'}>
+            <Image style={styles.img} source={Pimples} />
+          </CategoryTab>
+          <CategoryTab key={2} text={'Bone & Joint Issue'}>
+            <Image style={styles.img} source={Bone} />
+          </CategoryTab>
+          <CategoryTab key={3} text={'Breathing Issues'}>
+            <Image style={styles.img} source={Lungs} />
+          </CategoryTab>
+          <CategoryTab key={3} text={'Pregnancy'}>
+            <Image style={styles.img} source={Pregnancy} />
+          </CategoryTab>
+          <CategoryTab key={3} text={'Ear Pain'}>
+            <Image style={styles.img} source={Ear} />
+          </CategoryTab>
+          <CategoryTab key={3} text={'Diabetes'}>
+            <Image style={styles.img} source={Diabetes} />
+          </CategoryTab>
+          <CategoryTab key={3} text={'Dry Eyes'}>
+            <Image style={styles.img} source={Eye} />
+          </CategoryTab>
         </View>
       </ScrollView>
     </View>
@@ -49,5 +82,9 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
     height: 0,
+  },
+  img: {
+    width: '70%',
+    height: '70%',
   },
 });

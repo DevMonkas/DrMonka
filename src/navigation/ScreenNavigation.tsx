@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import DrawerNavigation from './DrawerNavigation';
@@ -22,9 +22,60 @@ import {LoadingContext} from '../shared/LoadingProvider';
 import Notifications from '../pages/Notifications/Notifications';
 import Chat from '../pages/Chat/Chat';
 import ChatList from '../pages/Chat/ChatList';
+import {SocketContext} from '../shared/SocketProvider';
+import {IMessage} from 'react-native-gifted-chat';
+import {getAllConversations, startConsultation} from '../services/Chat.service';
+import {MessageContext} from '../shared/MessageProvider';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
+import VideoCall from '../pages/VideoCall/VideoCall';
+import {AuthContext} from '../shared/AuthProvider';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
+  const soc = useContext(SocketContext);
+  const [user, setUser] = useContext(AuthContext);
+  const [messageObj, setMessageObj] = useContext(MessageContext);
+  useEffect(() => {
+    getAllConversations()
+      .then(data => {
+        const myData = data.data;
+
+        myData.forEach(element => {
+          // console.log('--->', element);
+          console.log('YOYOYOYO', element.userPhone!, element.doctorPhone);
+          startConsultation(
+            soc,
+            element.userPhone!,
+            element.doctorPhone!,
+            true,
+          );
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    soc.on('message', data => {
+      let message: IMessage = {
+        _id: data.from + '_' + Math.round(Math.random() * 1000000),
+        createdAt: data.created_at,
+        system: data.system,
+        text: data.message,
+        user: {
+          _id: 2,
+          name: 'route?.params.userName',
+          avatar: 'route?.params.img',
+        },
+      };
+
+      setMessageObj((prevArray: any) => [message]);
+      // setMessages((previousMessages: any) =>
+      //   GiftedChat.append(previousMessages, [message]),
+      // );
+    });
+  }, []);
+
   const navigate = (navigation: any, location: string) => {
     navigation.navigate(location);
   };
@@ -47,6 +98,25 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
       onPress={() => navigation.goBack()}
       color={COLORS.primary[500]}
     />
+  );
+
+  const callingButtons = (navigation: any, color: string) => (
+    <View style={{paddingRight: '15%', flexDirection: 'row'}}>
+      <Feather
+        name="phone-call"
+        style={{marginRight: '20%'}}
+        size={26}
+        onPress={() => navigate(navigation, 'CallingScreen')}
+        color={COLORS.primary[500]}
+      />
+
+      <AntDesign
+        name="videocamera"
+        size={26}
+        onPress={() => navigate(navigation, 'VideoCallingScreen')}
+        color={COLORS.primary[500]}
+      />
+    </View>
   );
   return (
     <Stack.Navigator>
@@ -98,6 +168,14 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
         component={CallingScreen}
       />
       <Stack.Screen
+        name="VideoCallingScreen"
+        options={{
+          headerShown: false,
+          title: '',
+        }}
+        component={VideoCall}
+      />
+      <Stack.Screen
         name="Wallet"
         options={({navigation}) => ({
           headerShown: true,
@@ -130,6 +208,8 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
           headerTitleStyle: styles.secondaryHeaderTitle,
           headerBackgroundContainerStyle: {backgroundColor: 'white'},
           headerLeft: () => backButton(navigation, 'white'),
+          headerRight: () => callingButtons(navigation, 'white'),
+          headerTitle: '' + user.selectedPhone,
           title: 'Chat',
         })}
         component={Chat}

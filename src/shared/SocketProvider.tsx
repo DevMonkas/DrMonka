@@ -1,4 +1,5 @@
 import React, {createContext, useEffect, useState} from 'react';
+import {IMessage} from 'react-native-gifted-chat';
 import socketio, {io, Socket} from 'socket.io-client';
 import {DefaultEventsMap} from 'socket.io-client/build/typed-events';
 import {Environment} from '../utils/Environment';
@@ -12,15 +13,35 @@ export const socket = async () => {
     },
   });
 };
-let sock: Socket = io('');
+let sock: Socket = io(Environment.BASE_URL);
 export const SocketContext =
   createContext<Socket<DefaultEventsMap, DefaultEventsMap>>(sock);
 export const SocketProvider = (props: any) => {
-  const [soc, setSoc] = useState<Socket>(io(''));
+  const [soc, setSoc] = useState<Socket>(io(Environment.BASE_URL));
   useEffect(() => {
     socket().then(data => {
       setSoc(data);
     });
+  }, []);
+
+  useEffect(() => {
+    // soc.on('message', data => {
+    //   console.log('HONEY SINGHH in provider!!');
+    //   let message: IMessage = {
+    //     _id: Math.round(Math.random() * 1000000),
+    //     createdAt: data.created_at,
+    //     system: data.system,
+    //     text: data.message,
+    //     user: {
+    //       _id: 2,
+    //       name: 'route?.params.userName',
+    //       avatar: 'route?.params.img',
+    //     },
+    //   };
+    //   // setMessages((previousMessages: any) =>
+    //   //   GiftedChat.append(previousMessages, [message]),
+    //   // );
+    // });
   }, []);
 
   return (

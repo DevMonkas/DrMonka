@@ -37,60 +37,67 @@ export default function Home({navigation}: any) {
         w="100%"
         mx="auto"
       > */}
-      <ScrollView
-        style={{paddingTop: 0.13 * SIZES.height, backgroundColor: 'white'}}>
-        <CategoryTabList />
-        <CustomCarousel data={carouselDummy} loop={true} autoplay={true} />
+      <View
+        style={{
+          paddingTop: 0.13 * SIZES.height,
+          backgroundColor: 'white',
+        }}>
+        <ScrollView bounces={true} showsVerticalScrollIndicator={false}>
+          <CategoryTabList />
+          <CustomCarousel data={carouselDummy} loop={true} autoplay={true} />
 
-        {/* <CustomCarousel data={carouselDummy} loop={true} autoplay={true} /> */}
-        <View style={{alignItems: 'center', justifyContent: 'center'}}>
-          <View style={styles.featureCardWrapper}>
-            <FeatureCard
-              content="FIND DOCTORS NEAR YOU"
-              imgUrl={chattingImg}></FeatureCard>
-            <FeatureCard
-              content="INSTANT VIDEO CONSULTATION"
-              imgUrl={callingImg}></FeatureCard>
-            <FeatureCard
-              content="ORDER MEDICINES"
-              imgUrl={videoImg}></FeatureCard>
-            <FeatureCard content="LAB TESTS" imgUrl={shoppingImg}></FeatureCard>
+          {/* <CustomCarousel data={carouselDummy} loop={true} autoplay={true} /> */}
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <View style={styles.featureCardWrapper}>
+              <FeatureCard
+                content="Find Doctors near you"
+                imgUrl={chattingImg}></FeatureCard>
+              <FeatureCard
+                content="Instant Video Consultation"
+                imgUrl={callingImg}></FeatureCard>
+              <FeatureCard
+                content="Order Medicines"
+                imgUrl={videoImg}></FeatureCard>
+              <FeatureCard
+                content="Lab Tests"
+                imgUrl={shoppingImg}></FeatureCard>
+            </View>
           </View>
-        </View>
-        {/* <View style={{flexDirection: 'row'}}>
-          <Text style={styles.heading}>Trending Astrologers</Text>
-        </View> */}
-        {/* <View>
-          <View style={styles.trendingCardWrapper}>
-            <TrendingCard
-              name="Shankar Hedge"
-              languages="English,Hindi"
-              price="100"
-              experience="2"
-              imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
-            <TrendingCard
-              name="Shankar Hedge"
-              languages="English,Hindi"
-              price="101"
-              experience="4"
-              imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
-            <TrendingCard
-              name="Shankar Hedge"
-              languages="English,Hindi"
-              price="101"
-              experience="4"
-              imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
-            <TrendingCard
-              name="Shankar Hedge"
-              languages="English,Hindi"
-              price="101"
-              experience="4"
-              imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.heading}>Popular Doctors</Text>
           </View>
-        </View> */}
+          <View>
+            <View style={styles.trendingCardWrapper}>
+              <TrendingCard
+                name="Shankar Hedge"
+                languages="English,Hindi"
+                price="100"
+                experience="2"
+                imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+              <TrendingCard
+                name="Shankar Hedge"
+                languages="English,Hindi"
+                price="101"
+                experience="4"
+                imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+              <TrendingCard
+                name="Shankar Hedge"
+                languages="English,Hindi"
+                price="101"
+                experience="4"
+                imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+              <TrendingCard
+                name="Shankar Hedge"
+                languages="English,Hindi"
+                price="101"
+                experience="4"
+                imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+            </View>
+          </View>
 
-        {/* </Center> */}
-      </ScrollView>
+          {/* </Center> */}
+        </ScrollView>
+      </View>
     </>
   );
 }
@@ -108,8 +115,10 @@ const styles = StyleSheet.create({
   featureCardWrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingLeft: 8,
+    paddingLeft: 0,
     marginTop: 12,
+    justifyContent: 'center',
+    alignItems: 'stretch',
   },
   heading: {
     marginTop: '3%',
