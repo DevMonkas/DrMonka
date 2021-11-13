@@ -45,7 +45,8 @@ export default function VideoCall(props: any) {
   const [remoteStream, setRemoteStream] = React.useState<MediaStream | null>(
     null,
   );
-  const [peerConnection, setPeerconnection] = React.useState<any>(null);
+  // const [peerConnection, setPeerconnection] = React.useState<any>(null);
+  const peerConnection = new RTCPeerConnection(pc_config);
   const [mic, setMic] = React.useState(true);
   const [video, setVideo] = React.useState(true);
   const soc = React.useContext(SocketContext);
@@ -76,14 +77,18 @@ export default function VideoCall(props: any) {
               // call.answer(newStream);
               // setActiveCall(call);
               console.log('Accepted');
+              // sdp = JSON.stringify(sdp);
+
+              // // set sdp as remote description
+              // peerConnection.setRemoteDescription(
+              //   new RTCSessionDescription(sdp),
+              // );
               // navigate('Call');
             },
           },
         ],
         {cancelable: false},
       );
-      sdp = JSON.stringify(sdp);
-
       // set sdp as remote description
       peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
     });
@@ -91,9 +96,6 @@ export default function VideoCall(props: any) {
     soc.on('candidate', candidate => {
       peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
     });
-
-    setPeerconnection(new RTCPeerConnection(pc_config));
-
     peerConnection.onicecandidate = (e: any) => {
       if (e.candidate) {
         sendToPeer('candidate', e.candidate);
@@ -196,7 +198,9 @@ export default function VideoCall(props: any) {
   const createOffer = () => {
     peerConnection
       .createOffer({
+        //@ts-ignore
         offerToReceiveAudio: 1,
+        //@ts-ignore
         offerToReceiveVideo: 1,
       })
       .then((sdp: any) => {
@@ -208,7 +212,11 @@ export default function VideoCall(props: any) {
   const createAnswer = () => {
     console.log('Answer');
     peerConnection
-      .createAnswer({offerToReceiveVideo: 1, offerToReceiveAudio: 1})
+      .createAnswer({
+        //@ts-ignore
+        offerToReceiveVideo: 1,
+        offerToReceiveAudio: 1,
+      })
       .then((sdp: any) => {
         peerConnection.setLocalDescription(sdp);
 
