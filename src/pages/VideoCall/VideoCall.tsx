@@ -36,6 +36,34 @@ const pc_config = {
       username: 'YzYNCouZM1mhqhmseWk6',
       credential: 'YzYNCouZM1mhqhmseWk6',
     },
+    {
+      url: 'turn:numb.viagenie.ca',
+      credential: 'muazkh',
+      username: 'webrtc@live.com',
+    },
+    {
+      url: 'turn:192.158.29.39:3478?transport=udp',
+      credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+      username: '28224511:1379330808',
+    },
+    {
+      url: 'turn:192.158.29.39:3478?transport=tcp',
+      credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+      username: '28224511:1379330808',
+    },
+    {
+      url: 'turn:turn.bistri.com:80',
+      credential: 'homeo',
+      username: 'homeo',
+    },
+    {
+      url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+      credential: 'webrtc',
+      username: 'webrtc',
+    },
+    // {
+    //   urls : 'stun:stun.l.google.com:19302'
+    // }
   ],
 };
 export default function VideoCall(props: any) {
@@ -45,8 +73,11 @@ export default function VideoCall(props: any) {
   const [remoteStream, setRemoteStream] = React.useState<MediaStream | null>(
     null,
   );
-  // const [peerConnection, setPeerconnection] = React.useState<any>(null);
-  const peerConnection = new RTCPeerConnection(pc_config);
+  const [peerConnection, setPeerconnection] = React.useState<any>(
+    //@ts-ignore
+    new RTCPeerConnection(pc_config),
+  );
+  // const peerConnection = new RTCPeerConnection(pc_config);
   const [mic, setMic] = React.useState(true);
   const [video, setVideo] = React.useState(true);
   const soc = React.useContext(SocketContext);
@@ -89,14 +120,18 @@ export default function VideoCall(props: any) {
         ],
         {cancelable: false},
       );
+      try {
+        peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
+      } catch (err) {
+        console.log(err);
+      }
       // set sdp as remote description
-      peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
     });
 
     soc.on('candidate', candidate => {
       peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
     });
-    peerConnection.onicecandidate = (e: any) => {
+    peerConnection!.onicecandidate = (e: any) => {
       if (e.candidate) {
         sendToPeer('candidate', e.candidate);
       }
@@ -106,7 +141,9 @@ export default function VideoCall(props: any) {
     peerConnection.oniceconnectionstatechange = (e: any) => {
       console.log(e);
     };
-
+    peerConnection.onnegotiationneeded = () => {
+      if (peerConnection.signalingState != 'stable') return;
+    };
     peerConnection.onaddstream = (e: any) => {
       // this.remoteVideoref.current.srcObject = e.streams[0]
       setRemoteStream(e.stream);
@@ -198,10 +235,8 @@ export default function VideoCall(props: any) {
   const createOffer = () => {
     peerConnection
       .createOffer({
-        //@ts-ignore
-        offerToReceiveAudio: 1,
-        //@ts-ignore
-        offerToReceiveVideo: 1,
+        offerToReceiveAudio: true,
+        offerToReceiveVideo: true,
       })
       .then((sdp: any) => {
         peerConnection.setLocalDescription(sdp);
@@ -211,17 +246,11 @@ export default function VideoCall(props: any) {
 
   const createAnswer = () => {
     console.log('Answer');
-    peerConnection
-      .createAnswer({
-        //@ts-ignore
-        offerToReceiveVideo: 1,
-        offerToReceiveAudio: 1,
-      })
-      .then((sdp: any) => {
-        peerConnection.setLocalDescription(sdp);
+    peerConnection.createAnswer().then((sdp: any) => {
+      peerConnection.setLocalDescription(sdp);
 
-        sendToPeer('offerOrAnswer', sdp);
-      });
+      sendToPeer('offerOrAnswer', sdp);
+    });
   };
 
   const remoteVideo = true ? (

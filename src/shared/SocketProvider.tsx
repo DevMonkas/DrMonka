@@ -18,11 +18,6 @@ export const SocketContext =
   createContext<Socket<DefaultEventsMap, DefaultEventsMap>>(sock);
 export const SocketProvider = (props: any) => {
   const [soc, setSoc] = useState<Socket>(io(Environment.BASE_URL));
-  useEffect(() => {
-    socket().then(data => {
-      setSoc(data);
-    });
-  }, []);
 
   useEffect(() => {
     // soc.on('message', data => {
