@@ -80,13 +80,14 @@ export default function VideoCall(props: any) {
   // const peerConnection = new RTCPeerConnection(pc_config);
   const [mic, setMic] = React.useState(true);
   const [video, setVideo] = React.useState(true);
+  const [onCall, setOnCall] = React.useState(false);
   const soc = React.useContext(SocketContext);
   const initilizePeerConnection = () => {
-    soc.on('connection-success', success => {
-      console.log(success);
-    });
+    soc.on('connection-success', success => {});
 
     soc.on('offerOrAnswer', sdp => {
+      if (onCall) return;
+      setOnCall(true);
       Alert.alert(
         'New Call',
         'You have a new call from ' + 'arnab',
@@ -97,16 +98,25 @@ export default function VideoCall(props: any) {
               // io.emit('reject-call', user?.username);
               // setRemoteUser(null);
               // setActiveCall(null);
+              setOnCall(false);
               console.log('Rejected');
             },
             style: 'cancel',
           },
           {
             text: 'Accept',
-            onPress: () => {
+            onPress: async () => {
               // io.emit('accept-call', user?.username);
               // call.answer(newStream);
               // setActiveCall(call);
+              try {
+                await peerConnection.setRemoteDescription(
+                  new RTCSessionDescription(sdp),
+                );
+                createAnswer();
+              } catch (err) {
+                console.log(err);
+              }
               console.log('Accepted');
               // sdp = JSON.stringify(sdp);
 
@@ -120,14 +130,25 @@ export default function VideoCall(props: any) {
         ],
         {cancelable: false},
       );
+
+      // set sdp as remote description
+    });
+    soc.on('answered', sdp => {
       try {
         peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
       } catch (err) {
         console.log(err);
       }
-      // set sdp as remote description
     });
-
+    soc.on('videoToggle', data => {
+      //Remote Video Off
+    });
+    soc.on('audioToggle', data => {
+      //Audio Toggled
+    });
+    soc.on('callEnded', data => {
+      props.navigation.goBack();
+    });
     soc.on('candidate', candidate => {
       peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
     });
@@ -138,9 +159,7 @@ export default function VideoCall(props: any) {
     };
 
     // triggered when there is a change in connection state
-    peerConnection.oniceconnectionstatechange = (e: any) => {
-      console.log(e);
-    };
+    peerConnection.oniceconnectionstatechange = (e: any) => {};
     peerConnection.onnegotiationneeded = () => {
       if (peerConnection.signalingState != 'stable') return;
     };
@@ -150,7 +169,6 @@ export default function VideoCall(props: any) {
     };
 
     const success = (stream: any) => {
-      console.log(stream.toURL());
       setLocalStream(stream);
       peerConnection.addStream(stream);
     };
@@ -161,7 +179,6 @@ export default function VideoCall(props: any) {
 
     let isFront = true;
     mediaDevices.enumerateDevices().then(sourceInfos => {
-      console.log(sourceInfos);
       let videoSourceId;
       for (let i = 0; i < sourceInfos.length; i++) {
         const sourceInfo = sourceInfos[i];
@@ -223,13 +240,20 @@ export default function VideoCall(props: any) {
   };
   const endCall = () => {
     console.log('CODE FOR END CALL');
-    peerConnection.getLocalStreams().forEach((stream: any) => {
-      stream.getTracks().forEach((track: any) => {
-        track.stop();
+    try {
+      peerConnection.getLocalStreams().forEach((stream: any) => {
+        stream.getTracks().forEach((track: any) => {
+          track.stop();
+        });
       });
-    });
+    } catch (err) {
+      console.error(err);
+    }
+    sendToPeer('callEnded', 'End');
     peerConnection.close();
-    props.navigation.goBack();
+    try {
+      props.navigation.goBack();
+    } catch (err) {}
     //AFTER ENDING CALL NAVIGATE BACK TO CHAT
   };
   const createOffer = () => {
@@ -249,7 +273,7 @@ export default function VideoCall(props: any) {
     peerConnection.createAnswer().then((sdp: any) => {
       peerConnection.setLocalDescription(sdp);
 
-      sendToPeer('offerOrAnswer', sdp);
+      sendToPeer('answered', sdp);
     });
   };
 
