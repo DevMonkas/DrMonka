@@ -30,13 +30,16 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import VideoCall from '../pages/VideoCall/VideoCall';
 import {AuthContext} from '../shared/AuthProvider';
+import {VideoCallContext} from '../shared/VideoCallProvider';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
   const soc = useContext(SocketContext);
   const [user, setUser] = useContext(AuthContext);
   const [messageObj, setMessageObj] = useContext(MessageContext);
+  const {initialize} = useContext(VideoCallContext);
   useEffect(() => {
+    initialize();
     getAllConversations()
       .then(data => {
         const myData = data.data;

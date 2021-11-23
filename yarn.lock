@@ -7357,6 +7357,11 @@
   dependencies:
     "prop-types" "^15.7.x"
 
+"react-native-peerjs@^1.0.4":
+  "integrity" "sha512-Z3pPtV6B0tiW8TiRXBtyUwWBAi+sYz2/bMaae07zkBogEnF2PzwFlK9+eZZbJHSVeRohtDE9RnED5Q6QI07TFg=="
+  "resolved" "https://registry.npmjs.org/react-native-peerjs/-/react-native-peerjs-1.0.4.tgz"
+  "version" "1.0.4"
+
 "react-native-ratings@8.0.4":
   "integrity" "sha512-Xczu5lskIIRD6BEdz9A0jDRpEck/SFxRqiglkXi0u67yAtI1/pcJC76P4MukCbT8K4BPVl+42w83YqXBoBRl7A=="
   "resolved" "https://registry.npmjs.org/react-native-ratings/-/react-native-ratings-8.0.4.tgz"
