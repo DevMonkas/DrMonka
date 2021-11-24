@@ -24,10 +24,14 @@ export default function DrawerNavigation({navigation}: any) {
     navigation.navigate(location);
   };
   const [user, setUser] = useContext(AuthContext);
-  const {onCall} = useContext(VideoCallContext);
+  const {onCall, setOnCall, callEnded} = useContext(VideoCallContext);
   useEffect(() => {
     if (onCall) navigation.navigate('VideoCallingScreen');
-  }, [onCall]);
+    if (onCall && callEnded) {
+      setOnCall(false);
+      navigation.goBack();
+    }
+  }, [onCall, callEnded]);
   return (
     <Drawer.Navigator
       initialRouteName="DrawerScreen"
