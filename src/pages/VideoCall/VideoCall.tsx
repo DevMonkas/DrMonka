@@ -79,6 +79,7 @@ export default function VideoCall(props: any) {
     peerConnection,
     endCall,
     setOnCall,
+    setCallEnded,
   } = useContext(VideoCallContext);
 
   // const peerConnection = new RTCPeerConnection(pc_config);
@@ -88,6 +89,7 @@ export default function VideoCall(props: any) {
 
   React.useEffect(() => {
     setOnCall(true);
+    setCallEnded(false);
   }, []);
   React.useEffect(() => {
     // initilizePeerConnection();

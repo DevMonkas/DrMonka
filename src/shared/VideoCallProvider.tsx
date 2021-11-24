@@ -66,12 +66,15 @@ export const VideoCallContext = createContext<any>({
   createOffer: () => {},
   createAnswer: () => {},
   onCall: false,
+  callEnded: false,
   setOnCall: () => {},
+  setCallEnded: () => {},
 });
 
 export const VideoCallProvider = (props: any) => {
   const soc = React.useContext(SocketContext);
   const [onCall, setOnCall] = useState<boolean>(false);
+  const [callEnded, setCallEnded] = useState<boolean>(false);
   const [localStream, setLocalStream] = React.useState<MediaStream | null>(
     null,
   );
@@ -190,7 +193,7 @@ export const VideoCallProvider = (props: any) => {
       //Audio Toggled
     });
     soc.on('callEnded', data => {
-      setOnCall(false);
+      setCallEnded(true);
     });
     soc.on('candidate', candidate => {
       peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
@@ -284,7 +287,7 @@ export const VideoCallProvider = (props: any) => {
     sendToPeer('callEnded', 'End');
     // peerConnection.close();
     try {
-      setOnCall(false);
+      setCallEnded(true);
     } catch (err) {}
     //AFTER ENDING CALL NAVIGATE BACK TO CHAT
   };
@@ -340,6 +343,8 @@ export const VideoCallProvider = (props: any) => {
         createAnswer,
         onCall,
         setOnCall,
+        callEnded,
+        setCallEnded,
       }}>
       {props.children}
     </VideoCallContext.Provider>
