@@ -30,13 +30,16 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import VideoCall from '../pages/VideoCall/VideoCall';
 import {AuthContext} from '../shared/AuthProvider';
+import {VideoCallContext} from '../shared/VideoCallProvider';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
   const soc = useContext(SocketContext);
   const [user, setUser] = useContext(AuthContext);
   const [messageObj, setMessageObj] = useContext(MessageContext);
+  const {initialize} = useContext(VideoCallContext);
   useEffect(() => {
+    initialize();
     getAllConversations()
       .then(data => {
         const myData = data.data;
@@ -57,8 +60,9 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
       });
 
     soc.on('message', data => {
+      console.log('message=>>>', data);
       let message: IMessage = {
-        _id: data.from + '_' + Math.round(Math.random() * 1000000),
+        _id: data.doctorPhone + '_' + Math.round(Math.random() * 1000000),
         createdAt: data.created_at,
         system: data.system,
         text: data.message,

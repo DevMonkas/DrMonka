@@ -63,9 +63,9 @@ export function DrawerContent(props: any) {
           activeBackgroundColor={COLORS.primary[200]}
           activeTintColor="black"
           inactiveTintColor="black"
-          focused={activeDrawer == 'Call An Astrologer'}
-          label="Call An Astrologer"
-          onPress={() => navigate('Call An Astrologer')}
+          focused={activeDrawer == 'Consult with Doctor'}
+          label="Consult with Doctor"
+          onPress={() => navigate('Consult with Doctor')}
         />
         <DrawerItem
           icon={() => (

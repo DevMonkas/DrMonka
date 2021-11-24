@@ -15,15 +15,23 @@ import Chat from '../pages/Chat/Chat';
 import ChatList from '../pages/Chat/ChatList';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {fetchWallet} from '../services/Wallet.service';
+import {VideoCallContext} from '../shared/VideoCallProvider';
 
 const Drawer = createDrawerNavigator();
 
-export default function DrawerNavigation() {
+export default function DrawerNavigation({navigation}: any) {
   const navigate = (navigation: any, location: string) => {
     navigation.navigate(location);
   };
   const [user, setUser] = useContext(AuthContext);
-
+  const {onCall, setOnCall, callEnded} = useContext(VideoCallContext);
+  useEffect(() => {
+    if (onCall) navigation.navigate('VideoCallingScreen');
+    if (onCall && callEnded) {
+      setOnCall(false);
+      navigation.goBack();
+    }
+  }, [onCall, callEnded]);
   return (
     <Drawer.Navigator
       initialRouteName="DrawerScreen"
@@ -122,7 +130,7 @@ export default function DrawerNavigation() {
       })}
       drawerContent={props => <DrawerContent {...props} />}>
       <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Call An Astrologer" component={AstroCall} />
+      <Drawer.Screen name="Consult with Doctor" component={AstroCall} />
     </Drawer.Navigator>
   );
 }

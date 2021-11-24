@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -24,6 +24,7 @@ import {
   registerGlobals,
 } from 'react-native-webrtc';
 import {COLORS, SIZES} from '../../constants/theme';
+import {VideoCallContext} from '../../shared/VideoCallProvider';
 
 const pc_config = {
   iceServers: [
@@ -36,125 +37,67 @@ const pc_config = {
       username: 'YzYNCouZM1mhqhmseWk6',
       credential: 'YzYNCouZM1mhqhmseWk6',
     },
+    {
+      url: 'turn:numb.viagenie.ca',
+      credential: 'muazkh',
+      username: 'webrtc@live.com',
+    },
+    {
+      url: 'turn:192.158.29.39:3478?transport=udp',
+      credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+      username: '28224511:1379330808',
+    },
+    {
+      url: 'turn:192.158.29.39:3478?transport=tcp',
+      credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+      username: '28224511:1379330808',
+    },
+    {
+      url: 'turn:turn.bistri.com:80',
+      credential: 'homeo',
+      username: 'homeo',
+    },
+    {
+      url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+      credential: 'webrtc',
+      username: 'webrtc',
+    },
+    // {
+    //   urls : 'stun:stun.l.google.com:19302'
+    // }
   ],
 };
 export default function VideoCall(props: any) {
-  const [localStream, setLocalStream] = React.useState<MediaStream | null>(
-    null,
-  );
-  const [remoteStream, setRemoteStream] = React.useState<MediaStream | null>(
-    null,
-  );
-  // const [peerConnection, setPeerconnection] = React.useState<any>(null);
-  const peerConnection = new RTCPeerConnection(pc_config);
+  // const [localStream, setLocalStream] = React.useState<MediaStream | null>(
+  //   null,
+  // );
+  const {
+    onCall,
+    localStream,
+    remoteStream,
+    createOffer,
+    peerConnection,
+    endCall,
+    setOnCall,
+    setCallEnded,
+  } = useContext(VideoCallContext);
+
+  // const peerConnection = new RTCPeerConnection(pc_config);
   const [mic, setMic] = React.useState(true);
   const [video, setVideo] = React.useState(true);
   const soc = React.useContext(SocketContext);
-  const initilizePeerConnection = () => {
-    soc.on('connection-success', success => {
-      console.log(success);
-    });
 
-    soc.on('offerOrAnswer', sdp => {
-      Alert.alert(
-        'New Call',
-        'You have a new call from ' + 'arnab',
-        [
-          {
-            text: 'Reject',
-            onPress: () => {
-              // io.emit('reject-call', user?.username);
-              // setRemoteUser(null);
-              // setActiveCall(null);
-              console.log('Rejected');
-            },
-            style: 'cancel',
-          },
-          {
-            text: 'Accept',
-            onPress: () => {
-              // io.emit('accept-call', user?.username);
-              // call.answer(newStream);
-              // setActiveCall(call);
-              console.log('Accepted');
-              // sdp = JSON.stringify(sdp);
-
-              // // set sdp as remote description
-              // peerConnection.setRemoteDescription(
-              //   new RTCSessionDescription(sdp),
-              // );
-              // navigate('Call');
-            },
-          },
-        ],
-        {cancelable: false},
-      );
-      // set sdp as remote description
-      peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
-    });
-
-    soc.on('candidate', candidate => {
-      peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
-    });
-    peerConnection.onicecandidate = (e: any) => {
-      if (e.candidate) {
-        sendToPeer('candidate', e.candidate);
-      }
-    };
-
-    // triggered when there is a change in connection state
-    peerConnection.oniceconnectionstatechange = (e: any) => {
-      console.log(e);
-    };
-
-    peerConnection.onaddstream = (e: any) => {
-      // this.remoteVideoref.current.srcObject = e.streams[0]
-      setRemoteStream(e.stream);
-    };
-
-    const success = (stream: any) => {
-      console.log(stream.toURL());
-      setLocalStream(stream);
-      peerConnection.addStream(stream);
-    };
-
-    const failure = (e: any) => {
-      console.log('getUserMedia Error: ', e);
-    };
-
-    let isFront = true;
-    mediaDevices.enumerateDevices().then(sourceInfos => {
-      console.log(sourceInfos);
-      let videoSourceId;
-      for (let i = 0; i < sourceInfos.length; i++) {
-        const sourceInfo = sourceInfos[i];
-        if (
-          sourceInfo.kind == 'videoinput' &&
-          sourceInfo.facing == (isFront ? 'front' : 'environment')
-        ) {
-          videoSourceId = sourceInfo.deviceId;
-        }
-      }
-
-      const constraints = {
-        audio: true,
-        video: {
-          mandatory: {
-            minWidth: 1280,
-            minHeight: 720,
-            minFrameRate: 30,
-          },
-          facingMode: isFront ? 'user' : 'environment',
-          optional: videoSourceId ? [{sourceId: videoSourceId}] : [],
-        },
-      };
-      // @ts-ignore
-      mediaDevices.getUserMedia(constraints).then(success).catch(failure);
-    });
-  };
   React.useEffect(() => {
-    initilizePeerConnection();
+    setOnCall(true);
+    setCallEnded(false);
   }, []);
+  React.useEffect(() => {
+    // initilizePeerConnection();
+
+    if (!onCall) {
+      props.navigation.goBack();
+    }
+  }, [onCall]);
 
   const sendToPeer = (messageType: string, payload: any) => {
     soc.emit(messageType, {
@@ -164,6 +107,7 @@ export default function VideoCall(props: any) {
   };
   const toggleMic = () => {
     if (localStream)
+      // @ts-ignore
       localStream.getAudioTracks().forEach(track => {
         track.enabled = !track.enabled;
         setMic(!mic);
@@ -184,44 +128,18 @@ export default function VideoCall(props: any) {
       localStream.getVideoTracks().forEach(track => track._switchCamera());
     }
   };
-  const endCall = () => {
-    console.log('CODE FOR END CALL');
-    peerConnection.getLocalStreams().forEach((stream: any) => {
-      stream.getTracks().forEach((track: any) => {
-        track.stop();
-      });
-    });
-    peerConnection.close();
-    props.navigation.goBack();
-    //AFTER ENDING CALL NAVIGATE BACK TO CHAT
-  };
-  const createOffer = () => {
-    peerConnection
-      .createOffer({
-        //@ts-ignore
-        offerToReceiveAudio: 1,
-        //@ts-ignore
-        offerToReceiveVideo: 1,
-      })
-      .then((sdp: any) => {
-        peerConnection.setLocalDescription(sdp);
-        sendToPeer('offerOrAnswer', sdp);
-      });
+
+  const call = () => {
+    createOffer();
   };
 
   const createAnswer = () => {
     console.log('Answer');
-    peerConnection
-      .createAnswer({
-        //@ts-ignore
-        offerToReceiveVideo: 1,
-        offerToReceiveAudio: 1,
-      })
-      .then((sdp: any) => {
-        peerConnection.setLocalDescription(sdp);
+    peerConnection.createAnswer().then((sdp: any) => {
+      peerConnection.setLocalDescription(sdp);
 
-        sendToPeer('offerOrAnswer', sdp);
-      });
+      sendToPeer('answered', sdp);
+    });
   };
 
   const remoteVideo = true ? (
@@ -260,7 +178,7 @@ export default function VideoCall(props: any) {
       <StatusBar backgroundColor="green" barStyle={'dark-content'} />
       <View style={{...styles.buttonsContainer}}>
         <View style={{flex: 1}}>
-          <TouchableOpacity onPress={createOffer}>
+          <TouchableOpacity onPress={call}>
             <View style={styles.button}>
               <Text style={{...styles.textContent}}>Call</Text>
             </View>
@@ -294,6 +212,7 @@ export default function VideoCall(props: any) {
                   key={1}
                   zOrder={0}
                   objectFit="cover"
+                  mirror={true}
                   style={{...styles.rtcView}}
                   // @ts-ignore
                   streamURL={localStream && localStream.toURL()}
