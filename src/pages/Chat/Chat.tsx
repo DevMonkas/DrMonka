@@ -39,7 +39,7 @@ const Chat = ({navigation, route}: any) => {
   }, [messageObj]);
 
   const onSend = useCallback((message = []) => {
-    console.log('chal ja bhai');
+    console.log('chal ja bhai', message);
     setMessages((previousMessages: any) =>
       GiftedChat.append(previousMessages, message),
     );

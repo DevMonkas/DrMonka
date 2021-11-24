@@ -60,6 +60,7 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
       });
 
     soc.on('message', data => {
+      console.log('MESSAGE RECEIVED');
       let message: IMessage = {
         _id: data.from + '_' + Math.round(Math.random() * 1000000),
         createdAt: data.created_at,
