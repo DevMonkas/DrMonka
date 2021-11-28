@@ -321,6 +321,8 @@ PODS:
     - React
   - react-native-safe-area-context (3.3.2):
     - React-Core
+  - react-native-splash-screen (3.2.0):
+    - React
   - react-native-viewpager (5.0.12):
     - React-Core
   - react-native-webrtc (1.92.2):
@@ -484,6 +486,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-razorpay (from `../node_modules/react-native-razorpay`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-viewpager (from `../node_modules/react-native-pager-view`)
   - react-native-webrtc (from `../node_modules/react-native-webrtc`)
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -575,6 +578,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-razorpay"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-viewpager:
     :path: "../node_modules/react-native-pager-view"
   react-native-webrtc:
@@ -669,6 +674,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 500a59626037be5b3b3d89c5151bc3baa9abf1a9
   react-native-razorpay: 6796178680164b4716b9cbdacdda5da98781fb0a
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-viewpager: 98a850d1c7ac6263122d82618a77062a5f427073
   react-native-webrtc: 41526e4060dac373c18676f866962d4180ee47b9
   react-native-webview: 193d233c29eacce1f42ca2637dab7ba79c25a6de
@@ -696,6 +702,6 @@ SPEC CHECKSUMS:
   Yoga: a7de31c64fe738607e7a3803e3f591a4b1df7393
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 850f49f200f5a9220f4c0cfd9b832494a317faf3
+PODFILE CHECKSUM: fe734b1a5a8aa99ad8619e5da7c3f255e75e307c
 
 COCOAPODS: 1.10.2

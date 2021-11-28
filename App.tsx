@@ -26,9 +26,14 @@ import {
 import {IMessage} from 'react-native-gifted-chat';
 import {MessageProvider} from './src/shared/MessageProvider';
 import {VideoCallProvider} from './src/shared/VideoCallProvider';
+import SplashScreen from 'react-native-splash-screen';
+
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   const [viewedOnboarding, setViewedOnboarding] = useState(false);
   const [loading, setLoading] = useState(false);
   const checkOnBoarding = async () => {
