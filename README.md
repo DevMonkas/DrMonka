@@ -82,6 +82,27 @@ Dr.Monka is a mobile app which promotes teleconsulting . The app includes featur
 </tr>
 </table>
 
+## Technologies Used
+
+- ### Firebase
+
+  - #### For phone authentication and authorization.
+
+- ### RazorPay
+
+  - #### Integrated payment gateway via RazorPay API which accepts all major credit/debit cards .
+
+- ### ReactNative WebRTC
+
+  - #### For implementing Video/Voice calls.
+
+- ### SocketIO
+
+  - #### For implementing the chat functionality.
+
+- ### MongoDB
+  - #### For storing all the users and doctor profile .
+
 ## Getting Started
 
 ### Prerequisites
@@ -92,7 +113,32 @@ Dr.Monka is a mobile app which promotes teleconsulting . The app includes featur
 
 - Set up the required environment Variables
 
-- Configure the backend repo similarly . please refer to [Dr.Monka backend Repo](https://github.com/DevMonkas/MedApp-Backend).
+- Install all the required dependencies using
+
+  ```sh
+  npm install
+  ```
+
+- Inorder to access all the features of this app like Phone Authentication, Payments, VideoCall you need to configure the backend repo similarly . please refer to [Dr.Monka backend Repo](https://github.com/DevMonkas/MedApp-Backend).
+
+### Running the App
+
+#### IOS
+
+- Run the following command to run the app on your IOS simulator.
+
+  ```sh
+  npx react-native run-ios
+  ```
+
+- For Macbook M1 related issues Refer to this [link](https://github.com/aiba/react-native-m1) .
+
+#### Android
+
+- Run the following command to run the app on your Android Phone / Simulator.
+  ```sh
+  npx react-native run-android
+  ```
 
 ## Roadmap
 
@@ -120,8 +166,6 @@ Please try to create bug reports that are:
 - _Specific._ Include as much detail as possible: which version, what environment, etc.
 - _Unique._ Do not duplicate existing opened issues.
 - _Scoped to a Single Bug._ One bug per report.
-
-Please adhere to this project's [code of conduct](docs/CODE_OF_CONDUCT.md).
 
 You can use [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) to check for common markdown style inconsistency.
 
