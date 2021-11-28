@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://github.com/DevMonkas/DrMonka">
-    <img src="{{cookiecutter.repo_slug}}/docs/images/logo.svg" alt="Logo" width="125" height="125">
+    <img src="readme_images/DrMonka.png" alt="Logo" width="300" height="300">
   </a>
 </h1>
 
@@ -81,6 +81,21 @@ Dr.Monka is a mobile app which promotes teleconsulting . The app includes featur
 </td>
 </tr>
 </table>
+
+## Screenshots
+
+<p align="center">
+<img src='readme_images/SC1.png' width='150px'>
+
+<img src='readme_images/SC2.png' width='150px'>
+
+<img src='readme_images/SC3.png' width='150px'>
+
+<img src='readme_images/SC4.png' width='150px'>
+
+<img src='readme_images/SC5.png' width='150px'>
+<img src='readme_images/SC6.png' width='150px'>
+</p>
 
 ## Getting Started
 
