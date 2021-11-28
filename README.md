@@ -6,7 +6,7 @@
 </h1>
 
 <div align="center">
-  Your personalized Teleconsultation Buddy 
+  Health Consultation Project App
   <br />
   <br />
   <a href="https://github.com/dec0dOS/amazing-github-template/issues/new?assignees=&labels=bug&template=01_BUG_REPORT.md&title=bug%3A+">Report a Bug</a>
