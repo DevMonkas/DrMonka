@@ -1,5 +1,7 @@
 import {Alert, Linking} from 'react-native';
 import auth from '@react-native-firebase/auth';
+import {Socket} from 'socket.io-client';
+import {DefaultEventsMap} from 'socket.io-client/build/typed-events';
 export const openBrowserUrl = async (url: string) => {
   const supported = await Linking.canOpenURL(url);
 

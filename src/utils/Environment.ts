@@ -1,15 +1,16 @@
 var _Environments = {
-  production: { BASE_URL: "", API_KEY: "" },
-  staging: { BASE_URL: "", API_KEY: "" },
+  production: {BASE_URL: '', API_KEY: ''},
+  staging: {BASE_URL: '', API_KEY: ''},
   development: {
-    BASE_URL: "https://topastro-backend.herokuapp.com",//"https://topastro-backend.herokuapp.com",
-    API_KEY: "",
+    BASE_URL: 'https://qivihealth-backend.herokuapp.com', //"https://topastro-backend.herokuapp.com",
+    // BASE_URL: 'https://0b33-2405-201-8000-d122-b9ed-5834-7a8d-eb8.ngrok.io',
+    API_KEY: '',
   },
 };
 
 function getEnvironment() {
-  return _Environments["development"];
+  return _Environments['development'];
 }
 
 var Environment = getEnvironment();
-export { Environment };
+export {Environment};

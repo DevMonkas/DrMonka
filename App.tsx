@@ -16,9 +16,24 @@ import {LoadingDialog} from './src/components/Molecules/LoadingDialog/LoadingDia
 import {LoadingProvider} from './src/shared/LoadingProvider';
 import {LoadingContext} from './src/shared/LoadingProvider';
 import {AuthProvider} from './src/shared/AuthProvider';
+import Chat from './src/pages/Chat/Chat';
+import ChatList from './src/pages/Chat/ChatList';
+import {
+  socket,
+  SocketContext,
+  SocketProvider,
+} from './src/shared/SocketProvider';
+import {IMessage} from 'react-native-gifted-chat';
+import {MessageProvider} from './src/shared/MessageProvider';
+import {VideoCallProvider} from './src/shared/VideoCallProvider';
+import SplashScreen from 'react-native-splash-screen';
+
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   const [viewedOnboarding, setViewedOnboarding] = useState(false);
   const [loading, setLoading] = useState(false);
   const checkOnBoarding = async () => {
@@ -42,15 +57,21 @@ export default function App() {
   const onPressLearnMore = () => {};
   return (
     <SafeAreaProvider>
-      <LoadingProvider>
-        <AuthProvider>
-          <StatusBar hidden={false} animated />
-          <NavigationContainer>
-            <ScreenNavigation viewedOnboarding={viewedOnboarding} />
-            <LoadingDialog />
-          </NavigationContainer>
-        </AuthProvider>
-      </LoadingProvider>
+      <SocketProvider>
+        <MessageProvider>
+          <VideoCallProvider>
+            <LoadingProvider>
+              <AuthProvider>
+                <StatusBar hidden={false} animated />
+                <NavigationContainer>
+                  <ScreenNavigation viewedOnboarding={viewedOnboarding} />
+                  <LoadingDialog />
+                </NavigationContainer>
+              </AuthProvider>
+            </LoadingProvider>
+          </VideoCallProvider>
+        </MessageProvider>
+      </SocketProvider>
 
       {/* <SignUp></SignUp> */}
     </SafeAreaProvider>

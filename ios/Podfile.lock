@@ -10,21 +10,21 @@ PODS:
     - React-Core (= 0.64.1)
     - React-jsi (= 0.64.1)
     - ReactCommon/turbomodule/core (= 0.64.1)
-  - Firebase/Auth (8.6.0):
+  - Firebase/Auth (8.8.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 8.6.0)
-  - Firebase/CoreOnly (8.6.0):
-    - FirebaseCore (= 8.6.0)
-  - FirebaseAuth (8.6.0):
+    - FirebaseAuth (~> 8.8.0)
+  - Firebase/CoreOnly (8.8.0):
+    - FirebaseCore (= 8.8.0)
+  - FirebaseAuth (8.8.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
     - GoogleUtilities/Environment (~> 7.4)
     - GTMSessionFetcher/Core (~> 1.5)
-  - FirebaseCore (8.6.0):
+  - FirebaseCore (8.8.0):
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
-  - FirebaseCoreDiagnostics (8.7.0):
+  - FirebaseCoreDiagnostics (8.8.0):
     - GoogleDataTransport (~> 9.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
@@ -90,24 +90,24 @@ PODS:
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - glog (0.3.5)
-  - GoogleDataTransport (9.1.0):
+  - GoogleDataTransport (9.1.2):
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/AppDelegateSwizzler (7.5.2):
+  - GoogleUtilities/AppDelegateSwizzler (7.6.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.5.2):
+  - GoogleUtilities/Environment (7.6.0):
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.5.2):
+  - GoogleUtilities/Logger (7.6.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/Network (7.5.2):
+  - GoogleUtilities/Network (7.6.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.5.2)"
-  - GoogleUtilities/Reachability (7.5.2):
+  - "GoogleUtilities/NSData+zlib (7.6.0)"
+  - GoogleUtilities/Reachability (7.6.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.7.0)
   - libevent (2.1.12)
@@ -316,12 +316,16 @@ PODS:
     - React-jsi (= 0.64.1)
     - React-perflogger (= 0.64.1)
   - React-jsinspector (0.64.1)
-  - react-native-razorpay (2.2.7):
+  - react-native-razorpay (2.2.8):
     - razorpay-pod
     - React
   - react-native-safe-area-context (3.3.2):
     - React-Core
+  - react-native-splash-screen (3.2.0):
+    - React
   - react-native-viewpager (5.0.12):
+    - React-Core
+  - react-native-webrtc (1.92.2):
     - React-Core
   - react-native-webview (11.6.2):
     - React-Core
@@ -393,11 +397,11 @@ PODS:
     - React-Core
   - RNCClipboard (1.8.4):
     - React-Core
-  - RNFBApp (12.7.5):
-    - Firebase/CoreOnly (= 8.6.0)
+  - RNFBApp (12.9.0):
+    - Firebase/CoreOnly (= 8.8.0)
     - React-Core
   - RNFBAuth (12.7.5):
-    - Firebase/Auth (= 8.6.0)
+    - Firebase/Auth (= 8.8.0)
     - React-Core
     - RNFBApp
   - RNGestureHandler (1.10.3):
@@ -482,7 +486,9 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-razorpay (from `../node_modules/react-native-razorpay`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-viewpager (from `../node_modules/react-native-pager-view`)
+  - react-native-webrtc (from `../node_modules/react-native-webrtc`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -572,8 +578,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-razorpay"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-viewpager:
     :path: "../node_modules/react-native-pager-view"
+  react-native-webrtc:
+    :path: "../node_modules/react-native-webrtc"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-perflogger:
@@ -626,11 +636,11 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: 7b423f9e248eae65987838148c36eec1dbfe0b53
-  FBReactNativeSpec: 41d1dd45f450e8c402a2d664f9ab3111ddf8bbdb
-  Firebase: 21ac9f28b09a8bdfc005f34c984fca84e7e8786d
-  FirebaseAuth: 223adeeb2262b417532e89bf06a960e3a0a1e9e4
-  FirebaseCore: 620b677f70f5470a8e59cb77f3ddc666f6f09785
-  FirebaseCoreDiagnostics: b63732f581a1c6a453ec7241f9ab60b3a5bd3450
+  FBReactNativeSpec: 3400f8ea672dbfcaa9d337bb6eec131010c9a118
+  Firebase: 629510f1a9ddb235f3a7c5c8ceb23ba887f0f814
+  FirebaseAuth: bcf0adeff88bda5dcb3beeabe5760f1226ab7b2f
+  FirebaseCore: 98b29e3828f0a53651c363937a7f7d92a19f1ba2
+  FirebaseCoreDiagnostics: fe77f42da6329d6d83d21fd9d621a6b704413bfc
   Flipper: bf2cb2c4a64ec4fdd53feffd2e526794ed29c1a8
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 57ffbe81ef95306cc9e69c4aa3aeeeeb58a6a28c
@@ -641,8 +651,8 @@ SPEC CHECKSUMS:
   Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
   FlipperKit: fb8358107dcb8021a207e5c90facef30ee23b917
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
-  GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
-  GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
+  GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
+  GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
@@ -662,10 +672,12 @@ SPEC CHECKSUMS:
   React-jsi: 5de8204706bd872b78ea646aee5d2561ca1214b6
   React-jsiexecutor: 124e8f99992490d0d13e0649d950d3e1aae06fe9
   React-jsinspector: 500a59626037be5b3b3d89c5151bc3baa9abf1a9
-  react-native-razorpay: 9d2aec1b71b6ec2d212cf1d9d9e16927e4b0ad8a
-  react-native-safe-area-context: 5cf05f49df9d17261e40e518481f2e334c6cd4b5
-  react-native-viewpager: 51b445512ca937fa43e7e2715041dbfe90b4c8c0
-  react-native-webview: 1f56115845c98f0a59dfbbac685797c014a821be
+  react-native-razorpay: 6796178680164b4716b9cbdacdda5da98781fb0a
+  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  react-native-viewpager: 98a850d1c7ac6263122d82618a77062a5f427073
+  react-native-webrtc: 41526e4060dac373c18676f866962d4180ee47b9
+  react-native-webview: 193d233c29eacce1f42ca2637dab7ba79c25a6de
   React-perflogger: aad6d4b4a267936b3667260d1f649b6f6069a675
   React-RCTActionSheet: fc376be462c9c8d6ad82c0905442fd77f82a9d2a
   React-RCTAnimation: ba0a1c3a2738be224a08092fa7f1b444ab77d309
@@ -678,10 +690,10 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4b99a7f5c6c0abbc5256410cc5425fb8531986e1
   React-runtimeexecutor: ff951a0c241bfaefc4940a3f1f1a229e7cb32fa6
   ReactCommon: bedc99ed4dae329c4fcf128d0c31b9115e5365ca
-  RNCAsyncStorage: 7f72b8273be1f92076b16f68b333160d562eebad
-  RNCClipboard: 5df122bc31f95f2b37de9bbadc1dbef5a79cb1b0
-  RNFBApp: 46a6918f6b1bbb0b332fafb07ef1362bd96ca857
-  RNFBAuth: a63fc58edf68af3e36eea2f02cadc733226b4c61
+  RNCAsyncStorage: 7102fe8985f889579a3ae148d957bbb3f308122b
+  RNCClipboard: ddd4d291537f1667209c9c405aaa4307297e252e
+  RNFBApp: d11e8ae04b9b6230f3a28b70761f2edd185deaa8
+  RNFBAuth: 74e82b9e655ec952af993122e7b2827fd0fc1078
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: 9c13c86454bfd54dab7505c1a054470bfecd2563
   RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
@@ -690,6 +702,6 @@ SPEC CHECKSUMS:
   Yoga: a7de31c64fe738607e7a3803e3f591a4b1df7393
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 850f49f200f5a9220f4c0cfd9b832494a317faf3
+PODFILE CHECKSUM: fe734b1a5a8aa99ad8619e5da7c3f255e75e307c
 
 COCOAPODS: 1.10.2

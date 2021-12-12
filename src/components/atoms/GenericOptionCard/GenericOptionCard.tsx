@@ -1,7 +1,7 @@
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {StyleSheet, Text, View} from 'react-native';
-import appTheme from '../../../constants/theme';
+import appTheme, {COLORS} from '../../../constants/theme';
 export default function GenericOptionCard({
   customCls,
   content = 'My Past Consultants',
@@ -12,7 +12,7 @@ export default function GenericOptionCard({
       <View style={styles.LeftWrapper}>
         {
           <View style={styles.iconWrapper}>
-            <AntDesign name="wallet" size={24} color="#FF740F" />
+            <AntDesign name="wallet" size={24} color={COLORS.primary[500]} />
           </View>
         }
         <View style={styles.contentWrapper}>
@@ -22,7 +22,7 @@ export default function GenericOptionCard({
         </View>
       </View>
       <View style={styles.RightArrowWrapper}>
-        <AntDesign name="right" size={18} color="black" />
+        <AntDesign name="right" size={18} color={COLORS.primary[500]} />
       </View>
     </View>
   );
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   iconWrapper: {
-    backgroundColor: 'rgba(255, 112, 7, 0.1)',
+    backgroundColor: COLORS.primary[100],
     borderRadius: 6,
     padding: 4,
     marginRight: 22,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   content: {
-    color: '#303030',
+    color: COLORS.primary[500],
     fontSize: 14,
     fontWeight: '500',
   },

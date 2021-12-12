@@ -9,6 +9,7 @@ import {
 
 import Svg, {G, Circle} from 'react-native-svg';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {COLORS} from '../../../constants/theme';
 export default function OnboardingButton({percentage, scrollTo}: any) {
   const size = 128;
   const strokeWidth = 2;
@@ -62,7 +63,7 @@ export default function OnboardingButton({percentage, scrollTo}: any) {
         <Circle
           ref={progressRef}
           fill="white"
-          stroke="#FF7007"
+          stroke={COLORS.primary[400]}
           cx={center}
           cy={center}
           r={radius}
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'absolute',
-    backgroundColor: '#FF7007',
+    backgroundColor: COLORS.primary[400],
     borderRadius: 100,
     padding: 20,
   },

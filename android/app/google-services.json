@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "763706122404",
+    "project_id": "qivihealth-81ae9",
+    "storage_bucket": "qivihealth-81ae9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763706122404:android:8cf447b064efecfe094631",
+        "android_client_info": {
+          "package_name": "com.MedApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763706122404-vedk2b8v5l2f4d4hgo7fq18194vjni9p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.MedApp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "763706122404-i5jqaj4457c5ct4r411bfqpart0v95se.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYC_avsrRIn68pPdQ4BPr5UPOYN59YNDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763706122404-i5jqaj4457c5ct4r411bfqpart0v95se.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

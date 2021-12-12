@@ -16,11 +16,17 @@ import TrendingCard from '../../components/Molecules/TrendingCard/TrendingCard';
 import CategoryTab from '../../components/atoms/CategoryTab/CategoryTab';
 import CategoryTabList from '../../components/Molecules/CategoryTabList/CategoryTabList';
 import FeatureCard from '../../components/Molecules/FeatureCard/FeatureCard';
+import {COLORS, SIZES} from '../../constants/theme';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {getIdTokenRefreshed} from '../../utils/Utility';
+import {checkAuth} from '../../services/User.service';
 const callingImg = require('../../../assets/calling.png');
 const chattingImg = require('../../../assets/chat.png');
 const videoImg = require('../../../assets/video-calling.png');
 const shoppingImg = require('../../../assets/shopping-cart.png');
+import auth from '@react-native-firebase/auth';
 export default function Home({navigation}: any) {
+  React.useEffect(() => {}, []);
   return (
     <>
       {/* <Center
@@ -31,59 +37,67 @@ export default function Home({navigation}: any) {
         w="100%"
         mx="auto"
       > */}
-      <ScrollView>
-        <CategoryTabList />
-        <CustomCarousel data={carouselDummy} loop={true} autoplay={true} />
+      <View
+        style={{
+          paddingTop: 0.13 * SIZES.height,
+          backgroundColor: 'white',
+        }}>
+        <ScrollView bounces={true} showsVerticalScrollIndicator={false}>
+          <CategoryTabList />
+          <CustomCarousel data={carouselDummy} loop={true} autoplay={true} />
 
-        {/* <CustomCarousel data={carouselDummy} loop={true} autoplay={true} /> */}
-        <View style={{alignItems: 'center', justifyContent: 'center'}}>
-          <View style={styles.featureCardWrapper}>
-            <FeatureCard
-              content="CHAT WITH ASTROLOGERS"
-              imgUrl={chattingImg}></FeatureCard>
-            <FeatureCard
-              content="CALL WITH ASTROLOGERS"
-              imgUrl={callingImg}></FeatureCard>
-            <FeatureCard content="VIDEO CALL" imgUrl={videoImg}></FeatureCard>
-            <FeatureCard
-              content="TOP ASTROMALL"
-              imgUrl={shoppingImg}></FeatureCard>
+          {/* <CustomCarousel data={carouselDummy} loop={true} autoplay={true} /> */}
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <View style={styles.featureCardWrapper}>
+              <FeatureCard
+                content="Find Doctors near you"
+                imgUrl={chattingImg}></FeatureCard>
+              <FeatureCard
+                content="Instant Video Consultation"
+                imgUrl={callingImg}></FeatureCard>
+              <FeatureCard
+                content="Order Medicines"
+                imgUrl={videoImg}></FeatureCard>
+              <FeatureCard
+                content="Lab Tests"
+                imgUrl={shoppingImg}></FeatureCard>
+            </View>
           </View>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={styles.heading}>Trending Astrologers</Text>
-        </View>
-        <View>
-          <View style={styles.trendingCardWrapper}>
-            <TrendingCard
-              name="Shankar Hedge"
-              languages="English,Hindi"
-              price="100"
-              experience="2"
-              imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
-            <TrendingCard
-              name="Shankar Hedge"
-              languages="English,Hindi"
-              price="101"
-              experience="4"
-              imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
-            <TrendingCard
-              name="Shankar Hedge"
-              languages="English,Hindi"
-              price="101"
-              experience="4"
-              imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
-            <TrendingCard
-              name="Shankar Hedge"
-              languages="English,Hindi"
-              price="101"
-              experience="4"
-              imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.heading}>Popular Doctors</Text>
           </View>
-        </View>
+          <View>
+            <View style={styles.trendingCardWrapper}>
+              <TrendingCard
+                name="Shankar Hedge"
+                languages="English,Hindi"
+                price="100"
+                experience="2"
+                imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+              <TrendingCard
+                name="Shankar Hedge"
+                languages="English,Hindi"
+                price="101"
+                experience="4"
+                imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+              <TrendingCard
+                name="Shankar Hedge"
+                languages="English,Hindi"
+                price="101"
+                experience="4"
+                imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+              <TrendingCard
+                name="Shankar Hedge"
+                languages="English,Hindi"
+                price="101"
+                experience="4"
+                imgUrl="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"></TrendingCard>
+            </View>
+          </View>
 
-        {/* </Center> */}
-      </ScrollView>
+          {/* </Center> */}
+        </ScrollView>
+      </View>
     </>
   );
 }
@@ -101,8 +115,10 @@ const styles = StyleSheet.create({
   featureCardWrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingLeft: 8,
+    paddingLeft: 0,
     marginTop: 12,
+    justifyContent: 'center',
+    alignItems: 'stretch',
   },
   heading: {
     marginTop: '3%',

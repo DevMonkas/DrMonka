@@ -5,6 +5,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {COLORS, FONTS, SIZES} from '../../../constants/theme';
 export interface PrimaryButtonProps {
   text?: string;
   width?: string;
@@ -18,11 +19,13 @@ export default function CategoryTab({
   text,
   customCls,
   onPress = () => {},
+  children,
 }: PrimaryButtonProps) {
   return (
     <View style={styles.container}>
       <View style={[styles.imgContainer, {borderRadius: 100}]}>
-        {text === 'MATCHMAKING' && (
+        {children}
+        {/* {text === 'MATCHMAKING' && (
           <FontAwesome name="heartbeat" size={24} color="white" />
         )}
         {text === 'BLOG' && (
@@ -33,11 +36,15 @@ export default function CategoryTab({
         )}
         {text === 'HOROSCOPE' && (
           <MaterialCommunityIcons name="zodiac-virgo" size={24} color="white" />
-        )}
+        )} */}
       </View>
       <View>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={styles.footerText}>{text}</Text>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={[styles.footerText, FONTS.secondaryFam]}>{text}</Text>
         </View>
       </View>
     </View>
@@ -47,7 +54,6 @@ export default function CategoryTab({
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
-    marginBottom: 0,
     alignItems: 'center',
   },
   imgContainer: {
@@ -57,13 +63,16 @@ const styles = StyleSheet.create({
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FF7707',
+    backgroundColor: COLORS.primary[100],
   },
   imageWrapper: {
     borderRadius: 100,
   },
   footerText: {
-    color: 'black',
+    maxWidth: SIZES.width / 5,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    color: COLORS.primary[500],
     fontSize: 12,
   },
 });

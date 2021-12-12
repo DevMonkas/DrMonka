@@ -6,7 +6,7 @@ export default function CustomHeader({heading}: any) {
   return (
     <View style={styles.container}>
       <View style={styles.backButtonWrapper}>
-        <AntDesign name="arrowleft" size={35} color="#fff" />
+        <AntDesign name="arrowrleft" size={35} color="#fff" />
       </View>
       <View style={styles.contentWrapper}>
         <Text style={styles.textContent}>{heading}</Text>

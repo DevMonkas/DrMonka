@@ -5,19 +5,20 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {StyleSheet, View, Text} from 'react-native';
 import {useContext} from 'react';
 import {AuthContext} from '../../../shared/AuthProvider';
+import {COLORS} from '../../../constants/theme';
 
 export default function ProfileTop({navigation}: any) {
   const [user, setUser] = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <View style={styles.userIcon}>
-        <FontAwesome name="user" size={62} color="#FF903F" />
+        <FontAwesome name="user" size={62} color={COLORS.primary[500]} />
       </View>
 
       <View
         style={styles.editButtonWrapper}
         onTouchEnd={() => navigation.navigate('SignUp')}>
-        <Text style={{color: '#fff'}}>Edit</Text>
+        <Text style={{color: COLORS.primary[500]}}>Edit</Text>
       </View>
       <View style={styles.userDetailsWrapper}>
         <View style={styles.userName}>
@@ -35,16 +36,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.4,
     flexDirection: 'row',
-    backgroundColor: '#FF740F',
+    backgroundColor: COLORS.primary[100],
     alignItems: 'center',
     paddingLeft: 25,
     position: 'relative',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   editButtonWrapper: {
     paddingHorizontal: 18,
     paddingVertical: 3,
     borderWidth: 1,
-    borderColor: '#fff',
+    borderColor: COLORS.primary[500],
     borderRadius: 20,
     position: 'absolute',
     top: 30,
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
   userNamestring: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#fff',
+    color: COLORS.primary[500],
   },
 
   userName: {
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
   userPhone: {},
   phoneNumberstring: {
     fontWeight: '800',
-    color: '#fff',
+    color: COLORS.primary[500],
   },
   userIcon: {
     backgroundColor: '#fff',
