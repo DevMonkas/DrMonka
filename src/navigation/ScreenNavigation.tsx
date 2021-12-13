@@ -39,7 +39,9 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
   const [messageObj, setMessageObj] = useContext(MessageContext);
   const {initialize} = useContext(VideoCallContext);
   useEffect(() => {
-    initialize();
+    setTimeout(() => {
+      initialize();
+    }, 1000);
     getAllConversations()
       .then(data => {
         const myData = data.data;

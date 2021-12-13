@@ -3,8 +3,10 @@ var _Environments = {
   staging: {BASE_URL: '', API_KEY: ''},
   development: {
     BASE_URL: 'https://qivihealth-backend.herokuapp.com', //"https://topastro-backend.herokuapp.com",
-    // BASE_URL: 'https://0b33-2405-201-8000-d122-b9ed-5834-7a8d-eb8.ngrok.io',
+    // BASE_URL: 'https://aa90-2405-201-8000-d122-9dd3-c28a-85df-2ab1.ngrok.io',
     API_KEY: '',
+    VOX_APP_NAME: 'drmonka',
+    VOX_ACC_NAME: 'drmonka',
   },
 };
 

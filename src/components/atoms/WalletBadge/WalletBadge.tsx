@@ -11,14 +11,14 @@ export interface WalletBadgeProps {
 export default function WalletBadge({onTouch = () => {}}: WalletBadgeProps) {
   const [user, setUser] = useContext(AuthContext);
   useEffect(() => {
-    fetchWallet()
-      .then(walletMoney => {
-        setUser({...user, money: walletMoney.data.money});
-      })
-      .catch(err => {
-        console.log('ERROR BLOCK');
-        console.log(err);
-      });
+    // fetchWallet()
+    //   .then(walletMoney => {
+    //     setUser({...user, money: walletMoney.data.money});
+    //   })
+    //   .catch(err => {
+    //     console.log('ERROR BLOCK');
+    //     console.log(err);
+    //   });
   }, []);
   return (
     <Chip
