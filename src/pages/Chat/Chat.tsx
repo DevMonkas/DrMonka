@@ -11,7 +11,7 @@ import ChatHead from './ChatHead';
 import PrimaryButton from '../../components/atoms/PrimaryButton/PrimaryButton';
 import {COLORS} from '../../constants/theme';
 import Feather from 'react-native-vector-icons/Feather';
-import {sendMessage} from '../../services/Chat.service';
+import {fetchAllMessages, sendMessage} from '../../services/Chat.service';
 import {SocketContext} from '../../shared/SocketProvider';
 import {Doctor, Message} from '../../types/ExternalModel.model';
 import {AuthContext} from '../../shared/AuthProvider';
@@ -23,11 +23,53 @@ const Chat = ({navigation, route}: any) => {
   const initialRender = useRef(true);
   const soc = useContext(SocketContext);
   useEffect(() => {
+    fetchAllMessages()
+      .then((data: any) => {
+        //process data
+        let user1Obj = {
+          _id: 1,
+          name: 'RANDOM',
+          avatar: 'https://placeimg.com/140/140/any',
+        };
+
+        let user2Obj = {
+          _id: 2,
+          name: 'RANDOM_USER',
+          avatar: 'https://placeimg.com/140/140/any',
+        };
+
+        let dataObjArr = data.data;
+        let dataObjNew: any = [];
+        dataObjArr.reverse();
+        console.log(dataObjArr[0]);
+        for (let i = 0; i < dataObjArr.length; i++) {
+          let current = dataObjArr[i];
+          if (current.message.split(' ')[0] === 'Consulatation') continue;
+          current.text = current.message;
+          current.createdAt = new Date(current.created_at);
+
+          if (current.from == userContext.phone) {
+            current.user = user1Obj;
+          } else {
+            current.user = user2Obj;
+          }
+          dataObjNew.push(dataObjArr[i]);
+        }
+
+        setMessages((previousMessages: any) =>
+          GiftedChat.append(previousMessages, dataObjNew),
+        );
+      })
+      .catch(err => {
+        console.log('ERRORRR  ');
+        console.log(err);
+      });
+
     if (initialRender.current) {
       initialRender.current = false;
       return;
     }
-    console.log('HONEY SINGAAAAA', messageObj);
+    // console.log('HONEY SINGAAAAA', messageObj);
     if (
       messageObj[0] &&
       messageObj[0]._id.split('_')[0] === route?.params.doctorPhone
@@ -36,6 +78,8 @@ const Chat = ({navigation, route}: any) => {
         GiftedChat.append(previousMessages, messageObj),
       );
     }
+
+    // console.log('MESSAGE OBJJ', messageObj);
   }, [messageObj]);
 
   const onSend = useCallback((message = []) => {
@@ -43,7 +87,7 @@ const Chat = ({navigation, route}: any) => {
     setMessages((previousMessages: any) =>
       GiftedChat.append(previousMessages, message),
     );
-    console.log('MASSAGES', messages);
+    console.log('ADDED', message);
   }, []);
 
   const renderBubble = (props: any) => {

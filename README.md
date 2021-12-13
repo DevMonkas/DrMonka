@@ -6,7 +6,7 @@
 </h1>
 
 <div align="center">
-  Your personalized Teleconsultation Buddy 
+  Health Consultation Project App
   <br />
   <br />
   <a href="https://github.com/dec0dOS/amazing-github-template/issues/new?assignees=&labels=bug&template=01_BUG_REPORT.md&title=bug%3A+">Report a Bug</a>
@@ -83,6 +83,64 @@ Dr.Monka is a mobile app which promotes teleconsulting . The app includes featur
 </tr>
 </table>
 
+## Technologies Used
+
+- ### Firebase
+
+  - #### For phone authentication and authorization.
+
+- ### RazorPay
+
+  - #### Integrated payment gateway via RazorPay API which accepts all major credit/debit cards .
+
+- ### ReactNative WebRTC
+
+  - #### For implementing Video/Voice calls.
+
+- ### SocketIO
+
+  - #### For implementing the chat functionality.
+
+- ### MongoDB
+  - #### For storing all the users and doctor profile .
+
+## Getting Started
+
+### Prerequisites
+
+- Setup ReactNative CLI development Environment on your machine. Please refer to [ReactNative Docs](https://reactnative.dev/docs/environment-setup).
+
+- Clone this repo on your machine
+
+- Set up the required environment Variables
+
+- Install all the required dependencies using
+
+  ```sh
+  npm install
+  ```
+
+- Inorder to access all the features of this app like Phone Authentication, Payments, VideoCall you need to configure the backend repo similarly . please refer to [Dr.Monka backend Repo](https://github.com/DevMonkas/MedApp-Backend).
+
+### Running the App
+
+#### IOS
+
+- Run the following command to run the app on your IOS simulator.
+
+  ```sh
+  npx react-native run-ios
+  ```
+
+- For Macbook M1 related issues Refer to this [link](https://github.com/aiba/react-native-m1) .
+
+#### Android
+
+- Run the following command to run the app on your Android Phone / Simulator.
+  ```sh
+  npx react-native run-android
+  ```
+
 ## Screenshots
 
 <p align="center">
@@ -136,8 +194,6 @@ Please try to create bug reports that are:
 - _Specific._ Include as much detail as possible: which version, what environment, etc.
 - _Unique._ Do not duplicate existing opened issues.
 - _Scoped to a Single Bug._ One bug per report.
-
-Please adhere to this project's [code of conduct](docs/CODE_OF_CONDUCT.md).
 
 You can use [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) to check for common markdown style inconsistency.
 

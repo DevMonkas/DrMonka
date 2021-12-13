@@ -137,6 +137,7 @@ export const VideoCallProvider = (props: any) => {
 
     soc.on('offerOrAnswer', (data: any) => {
       setOnCall(true);
+      setCallEnded(false);
       let sdp = data.payload;
       console.log('offerOrAnswer', data.roomId);
       roomId = data.roomId;
