@@ -51,6 +51,7 @@ export default function VideoCall(props: any) {
   React.useEffect(() => {
     setOnCall(true);
     setCallEnded(false);
+    call();
   }, []);
   React.useEffect(() => {
     // initilizePeerConnection();
@@ -60,12 +61,6 @@ export default function VideoCall(props: any) {
     }
   }, [onCall]);
 
-  const sendToPeer = (messageType: string, payload: any) => {
-    soc.emit(messageType, {
-      roomId: '8428370008_8428370008',
-      payload,
-    });
-  };
   const toggleMic = () => {
     if (localStream)
       // @ts-ignore
@@ -93,15 +88,6 @@ export default function VideoCall(props: any) {
   const call = () => {
     startConsultation(soc, user.phone!, user.selectedPhone?.toString()!);
     createOffer(user.phone + '_' + user.selectedPhone);
-  };
-
-  const createAnswer = () => {
-    console.log('Answer');
-    peerConnection.createAnswer().then((sdp: any) => {
-      peerConnection.setLocalDescription(sdp);
-
-      sendToPeer('answered', sdp);
-    });
   };
 
   const remoteVideo = true ? (
@@ -138,7 +124,7 @@ export default function VideoCall(props: any) {
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.primary[100]}}>
       <StatusBar backgroundColor="green" barStyle={'dark-content'} />
-      <View style={{...styles.buttonsContainer}}>
+      {/* <View style={{...styles.buttonsContainer}}>
         <View style={{flex: 1}}>
           <TouchableOpacity onPress={call}>
             <View style={styles.button}>
@@ -153,7 +139,7 @@ export default function VideoCall(props: any) {
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
       <View style={{...styles.videosContainer}}>
         <View
           style={{
@@ -272,7 +258,7 @@ const styles = StyleSheet.create({
   rtcView: {
     width: 120, //dimensions.width,
     height: 180, //dimensions.height / 2,
-    backgroundColor: 'purple',
+    backgroundColor: 'gray',
     zIndex: 100,
     position: 'absolute',
     right: 5,

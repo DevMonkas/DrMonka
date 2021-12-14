@@ -1,20 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {COLORS} from '../../constants/theme';
 import PulseLoader from './PulseLoader';
-
-export default function CallingScreen() {
+import {getDoctorInfo} from '../../services/Doctor.service';
+export default function CallingScreen({route, navigation}: any) {
+  const {userName} = route.params;
+  const [doctorName, setDoctorName] = React.useState('');
+  useEffect(() => {
+    getDoctorInfo(userName).then(res => {
+      setDoctorName(res.data.name);
+    });
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Shankar G. Hegde</Text>
+        <Text style={styles.title}>{doctorName}</Text>
         <Text style={styles.subtitle}>
           Please wait while we connect your call...
         </Text>
       </View>
       <PulseLoader
         backgroundColor={COLORS.primary[400]}
-        avatar="https://shankarhegdeastrologer.com/wp-content/uploads/2019/07/Shankar-Hegde.png"
+        avatar={`https://ui-avatars.com/api/?name=${doctorName.replace(
+          / /g,
+          '+',
+        )}`}
       />
     </View>
   );

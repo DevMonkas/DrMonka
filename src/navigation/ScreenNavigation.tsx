@@ -32,6 +32,7 @@ import VideoCall from '../pages/VideoCall/VideoCall';
 import {AuthContext} from '../shared/AuthProvider';
 import {VideoCallContext} from '../shared/VideoCallProvider';
 import {GlobaluserObj, assignValue} from '../shared/Globals';
+import {useNavigation} from '@react-navigation/native';
 const Stack = createStackNavigator();
 
 export default function ScreenNavigation({viewedOnboarding}: any) {
@@ -40,7 +41,9 @@ export default function ScreenNavigation({viewedOnboarding}: any) {
   assignValue(user);
 
   const [messageObj, setMessageObj] = useContext(MessageContext);
-  const {initialize} = useContext(VideoCallContext);
+  const {initialize, callStatus} = useContext(VideoCallContext);
+  const navigation = useNavigation();
+
   useEffect(() => {
     setTimeout(() => {
       initialize();
