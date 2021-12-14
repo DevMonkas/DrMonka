@@ -72,7 +72,8 @@ const Chat = ({navigation, route}: any) => {
         console.log('ERRORRR  ');
         console.log(err);
       });
-
+  }, []);
+  useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
       return;
