@@ -21,27 +21,10 @@
 
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-ff69b4.svg?style=flat-square)](https://github.com/DevMonkas/DrMonka/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 [![made with hearth by arnabuchiha](https://img.shields.io/badge/made%20with%20%E2%99%A5%20by-arnabuchiha-ff1414.svg?style=flat-square)](https://github.com/arnabuchiha)
-
+[![made with hearth by flyingninja97](https://img.shields.io/badge/made%20with%20%E2%99%A5%20by-flyingninja97-ff1414.svg?style=flat-square)](https://github.com/flyingninja97)
 </div>
 
-<details open="open">
-<summary>Table of Contents</summary>
 
-- [About](#about)
-  - [Built With](#built-with)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Usage](#usage)
-    - [Cookiecutter template](#cookiecutter-template)
-    - [Manual setup](#manual-setup)
-    - [Variables reference](#variables-reference)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [Support](#support)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
-
-</details>
 
 ---
 
@@ -154,6 +137,12 @@ Dr.Monka is a mobile app which promotes teleconsulting . The app includes featur
 <img src='readme_images/SC6.png' width='150px'>
 </p>
 
+## Demo and repo links
+
+- [DrMonka Doctor App](https://github.com/DevMonkas/MedApp-Doctor)
+- [DrMonka Backend](https://github.com/DevMonkas/MedApp-Backend)
+- [Demo Video](https://www.youtube.com/watch?v=e77XG_lYW7Y)
+
 ## Getting Started
 
 ### Prerequisites
@@ -168,11 +157,11 @@ Dr.Monka is a mobile app which promotes teleconsulting . The app includes featur
 
 ## Roadmap
 
-See the [open issues](https://github.com/dec0dOS/amazing-github-template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/DevMonkas/DrMonka/issues) for a list of proposed features (and known issues).
 
-- [Top Feature Requests](https://github.com/dec0dOS/amazing-github-template/issues?q=label%3Aenhancement+is%3Aopen+sort%3Areactions-%2B1-desc) (Add your votes using the 👍 reaction)
-- [Top Bugs](https://github.com/dec0dOS/amazing-github-template/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Areactions-%2B1-desc) (Add your votes using the 👍 reaction)
-- [Newest Bugs](https://github.com/dec0dOS/amazing-github-template/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
+- [Top Feature Requests](https://github.com/DevMonkas/DrMonka/issues?q=label%3Aenhancement+is%3Aopen+sort%3Areactions-%2B1-desc) (Add your votes using the 👍 reaction)
+- [Top Bugs](https://github.com/DevMonkas/DrMonka/issues?q=is%3Aissue+is%3Aopen+label%3Abug+sort%3Areactions-%2B1-desc) (Add your votes using the 👍 reaction)
+- [Newest Bugs](https://github.com/DevMonkas/DrMonka/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
 
 ## Improvements for Future
 
@@ -193,14 +182,12 @@ Please try to create bug reports that are:
 - _Unique._ Do not duplicate existing opened issues.
 - _Scoped to a Single Bug._ One bug per report.
 
-You can use [markdownlint-cli](https://github.com/igorshubovych/markdownlint-cli) to check for common markdown style inconsistency.
-
 ## Support
 
 Reach out to the maintainer at one of the following places:
 
-- [GitHub discussions](https://github.com/dec0dOS/amazing-github-template/discussions)
-- The email which is located [in GitHub profile](https://github.com/dec0dOS)
+- [GitHub discussions](https://github.com/DevMonkas/DrMonka/discussions)
+- The email which is located [in GitHub profile](https://github.com/arnabuchiha)
 
 ## License
 
