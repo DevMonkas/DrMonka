@@ -3,6 +3,7 @@ import firebase from 'firebase';
 import {useContext} from 'react';
 import {Socket} from 'socket.io-client';
 import {AuthContext} from '../shared/AuthProvider';
+import {GlobaluserObj} from '../shared/Globals';
 
 import {Conversations, Message} from '../types/ExternalModel.model';
 import {Environment} from '../utils/Environment';
@@ -11,6 +12,17 @@ export const getAllConversations = () => {
   return axios.get<Conversations[]>(
     Environment.BASE_URL + '/chat/getAllConsultations',
   );
+};
+
+export const fetchAllMessages = () => {
+  let data = {
+    userPhone: GlobaluserObj.phone,
+    doctorPhone: GlobaluserObj.selectedPhone,
+  };
+
+  return axios.get<any[]>(Environment.BASE_URL + '/chat/getChatsWithDoctor', {
+    params: data,
+  });
 };
 export const startConsultation = async (
   soc: Socket,

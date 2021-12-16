@@ -5,17 +5,25 @@ import React, {
   useContext,
   useRef,
 } from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Bubble, GiftedChat, IMessage, Send} from 'react-native-gifted-chat';
 import ChatHead from './ChatHead';
 import PrimaryButton from '../../components/atoms/PrimaryButton/PrimaryButton';
 import {COLORS} from '../../constants/theme';
 import Feather from 'react-native-vector-icons/Feather';
-import {sendMessage} from '../../services/Chat.service';
+import {fetchAllMessages, sendMessage} from '../../services/Chat.service';
 import {SocketContext} from '../../shared/SocketProvider';
 import {Doctor, Message} from '../../types/ExternalModel.model';
 import {AuthContext} from '../../shared/AuthProvider';
 import {MessageContext} from '../../shared/MessageProvider';
+import {ScrollView} from 'react-native-gesture-handler';
 const Chat = ({navigation, route}: any) => {
   const [messages, setMessages] = useState<any>([]);
   const [userContext, setUser] = useContext(AuthContext);
@@ -23,11 +31,54 @@ const Chat = ({navigation, route}: any) => {
   const initialRender = useRef(true);
   const soc = useContext(SocketContext);
   useEffect(() => {
+    fetchAllMessages()
+      .then((data: any) => {
+        //process data
+        let user1Obj = {
+          _id: 1,
+          name: 'RANDOM',
+          avatar: 'https://placeimg.com/140/140/any',
+        };
+
+        let user2Obj = {
+          _id: 2,
+          name: 'RANDOM_USER',
+          avatar: 'https://placeimg.com/140/140/any',
+        };
+
+        let dataObjArr = data.data;
+        let dataObjNew: any = [];
+        dataObjArr.reverse();
+        console.log(dataObjArr[0]);
+        for (let i = 0; i < dataObjArr.length; i++) {
+          let current = dataObjArr[i];
+          if (current.message.split(' ')[0] === 'Consulatation') continue;
+          current.text = current.message;
+          current.createdAt = new Date(current.created_at);
+
+          if (current.from == userContext.phone) {
+            current.user = user1Obj;
+          } else {
+            current.user = user2Obj;
+          }
+          dataObjNew.push(dataObjArr[i]);
+        }
+
+        setMessages((previousMessages: any) =>
+          GiftedChat.append(previousMessages, dataObjNew),
+        );
+      })
+      .catch(err => {
+        console.log('ERRORRR  ');
+        console.log(err);
+      });
+  }, []);
+  useEffect(() => {
     if (initialRender.current) {
       initialRender.current = false;
       return;
     }
-    console.log('HONEY SINGAAAAA', messageObj);
+    // console.log('HONEY SINGAAAAA', messageObj);
     if (
       messageObj[0] &&
       messageObj[0]._id.split('_')[0] === route?.params.doctorPhone
@@ -36,6 +87,8 @@ const Chat = ({navigation, route}: any) => {
         GiftedChat.append(previousMessages, messageObj),
       );
     }
+
+    // console.log('MESSAGE OBJJ', messageObj);
   }, [messageObj]);
 
   const onSend = useCallback((message = []) => {
@@ -43,7 +96,7 @@ const Chat = ({navigation, route}: any) => {
     setMessages((previousMessages: any) =>
       GiftedChat.append(previousMessages, message),
     );
-    console.log('MASSAGES', messages);
+    console.log('ADDED', message);
   }, []);
 
   const renderBubble = (props: any) => {
@@ -95,20 +148,36 @@ const Chat = ({navigation, route}: any) => {
   return (
     <>
       {/* <ChatHead userName={route.params?.userName} img={route.params?.img} /> */}
-      <GiftedChat
-        messages={messages}
-        onSend={messages => onSend(messages)}
-        user={{
-          _id: 1,
-        }}
-        renderBubble={renderBubble}
-        alwaysShowSend
-        scrollToBottom
-        messagesContainerStyle={{backgroundColor: 'white'}}
-        renderSend={renderSend}
-      />
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container} //this value is depends upon your view/component height
+      >
+        <GiftedChat
+          messages={messages}
+          onSend={messages => onSend(messages)}
+          user={{
+            _id: 1,
+          }}
+          renderBubble={renderBubble}
+          alwaysShowSend
+          scrollToBottom
+          messagesContainerStyle={{backgroundColor: 'white'}}
+          renderSend={renderSend}
+        />
+      </KeyboardAvoidingView>
     </>
   );
 };
 
 export default Chat;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 2,
+    width: '100%',
+    backgroundColor: 'white',
+    marginHorizontal: 'auto',
+  },
+});

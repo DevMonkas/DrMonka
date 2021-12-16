@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, Button, StyleSheet, FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
+  fetchAllMessages,
   getAllConversations,
   startConsultation,
 } from '../../services/Chat.service';
@@ -77,6 +78,7 @@ const MessagesScreen = ({navigation, route}: any) => {
     }
     getAllConversations()
       .then(data => {
+        console.log('GET ALL CONVOS');
         setConversations(data.data);
       })
       .catch(err => {
